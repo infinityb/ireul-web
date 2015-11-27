@@ -42,6 +42,11 @@ group :development do
   gem 'web-console', '~> 2.0'
 end
 
+group :test do
+  # Required for Travis CI
+  gem 'rake'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
