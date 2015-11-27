@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 2.2
 before_script:
-  - "cp vendor/fake_secrets.yml vendor/secrets.yml"
+  - "cp config/fake_secrets.yml config/secrets.yml"
   - "bundle exec rake db:migrate RAILS_ENV=test"
 script: bundle exec rake test
 install: bundle install --jobs=3 --retry=3
