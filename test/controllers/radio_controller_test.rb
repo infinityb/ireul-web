@@ -6,4 +6,8 @@ class RadioControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should skip song" do
+    get :skip
+    assert_response :success
+  end
 end

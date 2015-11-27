@@ -22,5 +22,19 @@ module IreulWeb
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.x.ireul = Rails.application.config_for(:ireul)
+
+    def self.ireul_client
+      @ireul ||= IreulService.new do |i|
+        i.url      = config.x.ireul["url"]
+        i.port     = config.x.ireul["port"]
+        i.username = config.x.ireul["username"]
+        i.password = config.x.ireul["password"]
+        i.connect
+      end
+
+      @ireul
+    end
   end
 end

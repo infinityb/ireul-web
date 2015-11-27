@@ -1,0 +1,18 @@
+development:
+  environment: development
+  username: devuser
+  password: devpass
+  url: 127.0.0.1
+  port: 3001
+test:
+  environment: test
+  username: testuser
+  password: testpass
+  url: 127.0.0.1
+  port: 3001
+production:
+  environment: production
+  username: produser
+  password: prodpass
+  url: 127.0.0.1
+  port: 3001
