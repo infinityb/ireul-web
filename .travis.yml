@@ -1,1 +1,5 @@
 language: ruby
+rvm:
+  - 2.2
+script: bundle exec rake test
+install: bundle install --jobs=3 --retry=3
