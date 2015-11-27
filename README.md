@@ -1,5 +1,7 @@
 # ireul-web
 
+[![Build Status](https://travis-ci.org/gyng/ireul-web.svg)](https://travis-ci.org/gyng/ireul-web)
+
 A Rails client for [Ireul](https://github.com/infinityb/ireul/).
 
 ## Dev Setup
