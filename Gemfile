@@ -49,3 +49,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "nokogiri", ">= 1.6.7.rc"
 
 # gem "bcrypt"
+
+gem 'react-rails', '~> 1.5.0'
