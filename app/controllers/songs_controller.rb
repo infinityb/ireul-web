@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  before_action :set_song, only: [:show, :edit, :update, :destroy]
+  before_action :set_song, only: [:show, :edit, :update, :destroy, :enqueue]
 
   # GET /songs
   # GET /songs.json
@@ -24,9 +24,9 @@ class SongsController < ApplicationController
   # POST /songs
   # POST /songs.json
   def create
-    @song = Song.new(song_params)
-    artist = Artist.find_by(name: params["song"]["artist"])
-    @song.artist = artist
+    @song = Song.new(autofill_vorbis_comments(song_params()))
+    # artist = Artist.find_by(name: params["song"]["artist"])
+    # @song.artist = artist
 
     respond_to do |format|
       if @song.save
@@ -63,6 +63,22 @@ class SongsController < ApplicationController
     end
   end
 
+  # POST /songs/1/enqueue
+  def enqueue
+    @song.enqueue()
+    head :ok, content_type: 'text/html'
+  end
+
+  def self.comment_flatten(comments)
+    out = Hash::new()
+    comments.each do |k, v|
+      if not v.empty?
+        out[k] = v.first
+      end
+    end
+    out
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_song
@@ -71,6 +87,14 @@ class SongsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def song_params
-      params.require(:song).permit(:artist_id, :title)
+      params.require(:song).permit(:file)
+    end
+
+    def autofill_vorbis_comments(params)
+      Ogg::Vorbis::Info.open(params[:file].path) do |info|
+        params[:metadata] = SongsController::comment_flatten(info.comments)
+      end
+      params
     end
 end
+

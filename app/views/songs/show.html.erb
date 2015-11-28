@@ -2,12 +2,17 @@
 
 <p>
   <strong>Artist:</strong>
-  <%= @song.artist.name %>
+  <%= @song.artist %>
 </p>
 
 <p>
   <strong>Title:</strong>
   <%= @song.title %>
+</p>
+
+<p>
+  <strong>Size:</strong>
+  <%= @song.file_file_size %>
 </p>
 
 <%= link_to 'Edit', edit_song_path(@song) %> |

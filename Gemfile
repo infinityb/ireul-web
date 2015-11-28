@@ -56,6 +56,7 @@ gem "nokogiri", ">= 1.6.7.rc"
 # gem "bcrypt"
 
 gem 'react-rails', '~> 1.5.0'
+gem "paperclip", "~> 4.3"
 
 # Replace when gem is published
 # For some reason, when you are trying to use a gem from local source,
@@ -66,3 +67,4 @@ gem 'react-rails', '~> 1.5.0'
 # Install with bundle install --no-cache
 # http://stackoverflow.com/a/15690307
 gem 'ireul', '0.0.1'
+gem 'ogg', '0.0.5'
