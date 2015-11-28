@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SongsControllerTest < ActionController::TestCase
   setup do
-    @song = songs(:one)
+    @song = songs(:songs_001)
   end
 
   test "should get index" do
@@ -19,19 +19,10 @@ class SongsControllerTest < ActionController::TestCase
   test "should create song" do
     skip("obtain test ogg for this")
     assert_difference('Song.count') do
-      post :create, song: { artist: artists(:one).name, title: @song.title }
+      post :create, song: {  }
     end
 
     assert_redirected_to song_path(assigns(:song))
-  end
-
-  test "should not create song with unknown artist" do
-    skip("obtain test ogg for this")
-    assert_no_difference('Song.count') do
-      post :create, song: { artist: "not an artist", title: "this should fail" }
-    end
-
-    assert_template :new
   end
 
   test "should show song" do
@@ -56,5 +47,24 @@ class SongsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to songs_path
+  end
+
+  test "should search songs" do
+    post :search, query: @song.title
+    assert_equal assigns(:songs)[0].title, @song.title
+    assert_response :success
+  end
+
+  test "should search songs and give a json response" do
+    post :search, query: @song.title, format: 'json'
+    assert_response :success
+
+    expected = [{
+      "id" => @song.id,
+      "artist" => @song.artist,
+      "title" => @song.title
+    }].to_json
+
+    assert_equal expected, @response.body.strip
   end
 end

@@ -11,14 +11,18 @@ class SongSearch extends React.Component {
 
   search (query) {
     var req = new XMLHttpRequest();
-    req.onreadystatechange = function () {
-      if (req.readyState == 4) {
-        this.setState({ results: JSON.parse(req.responseText) });
-      }
-    }.bind(this);
-    req.open('post', "songs/search/" + query + ".json", true);
-    req.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
-    req.send();
+    query = query.trim();
+
+    if (query.length > 0) {
+      req.onreadystatechange = function () {
+        if (req.readyState == 4) {
+          this.setState({ results: JSON.parse(req.responseText) });
+        }
+      }.bind(this);
+      req.open('post', "songs/search/" + query + ".json", true);
+      req.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
+      req.send();
+    }
   }
 
   render () {
@@ -28,6 +32,7 @@ class SongSearch extends React.Component {
     } else {
       results = React.DOM.ul(null, this.state.results.map(function (result) {
         return React.DOM.li(null,
+          React.DOM.p(null, result.artist),
           React.DOM.p(null, result.title),
           React.createElement(RadioEnqueueButton, { httpMethod: 'post', radioMethod: '/radio/enqueue/' + result.id, label: 'Enqueue' })
         );

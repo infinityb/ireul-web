@@ -9,6 +9,7 @@ class SongsController < ApplicationController
   # GET /songs/1.json
   def show
     @song = Song.find(params[:id])
+    @metadata = @song.metadatum
   end
 
   # GET /songs/new
@@ -24,12 +25,39 @@ class SongsController < ApplicationController
   # POST /songs
   # POST /songs.json
   def create
-    @song = Song.new(autofill_vorbis_comments(song_params()))
-    # artist = Artist.find_by(name: params["song"]["artist"])
-    # @song.artist = artist
+    saved = false
+    @song = Song.new(song_params)
+
+    Song.transaction do
+      Metadatum.transaction do
+        metadatum = autofill_vorbis_comments(song_params)[:metadata]
+        @song.save # Need to assign @song an ID first
+
+        metadatum.each do |k, v|
+          field = MetadataField.find_by_name(k)
+          if field.blank?
+            logger.info "#{params[:path]}: Skipping field #{k} with value #{v} as no MetadataField of #{k} was found"
+            next
+          end
+
+          metadata = Metadatum.create(song: @song, metadata_field: field, value: v.force_encoding('UTF-8'))
+
+          # Manually assign FKs for special fields
+          # TODO: maybe kill these two FKs
+          case field.name
+          when "ARTIST"
+            @song.artist_metadata_id = metadata.id
+          when "TITLE"
+            @song.title_metadata_id = metadata.id
+          end
+        end
+
+        saved = @song.save
+      end
+    end
 
     respond_to do |format|
-      if @song.save
+      if saved
         format.html { redirect_to @song, notice: 'Song was successfully created.' }
         format.json { render :show, status: :created, location: @song }
       else
@@ -65,15 +93,18 @@ class SongsController < ApplicationController
   end
 
   def search
-    # TODO: move out into metadata table
-    # HACK: can break anytime
-    @query = params.require(:query).force_encoding('UTF-8')
-    head :ok if @query.nil?
-    @songs = Song.where("metadata LIKE ?", "%#{@query}%")
+    @query = params.permit(:query)[:query].strip
+
+    if !@query.blank?
+      song_ids = Metadatum.where("value LIKE ?", "%#{@query}%").pluck(:song_id)
+      @songs = Song.find(song_ids)
+    else
+      @songs = []
+    end
 
     respond_to do |format|
-      format.html { render :search }
-      format.json { render json: @songs }
+      format.html
+      format.json
     end
   end
 

@@ -5,3 +5,17 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+metadatum_fields = [
+  "ARTIST",
+  "TITLE",
+  "ALBUM",
+  "YEAR",
+  "COMMENT",
+  "GENRE",
+  "TRACKNUMBER"
+]
+
+metadatum_fields.each do |f|
+  MetadataField.create(name: f)
+end

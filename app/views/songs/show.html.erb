@@ -1,19 +1,24 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Artist:</strong>
-  <%= @song.artist %>
-</p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @song.title %>
-</p>
-
-<p>
   <strong>Size:</strong>
   <%= @song.file_file_size %>
 </p>
+
+<p><%= @song.metadatum.count %> metadata fields</p>
+<table>
+  <tr>
+    <td>Field</td>
+    <td>Value</td>
+  </tr>
+
+  <% @song.metadatum.each do |m| %>
+    <tr>
+      <td><%= m.metadata_field.name %></td>
+      <td><%= m.value %></td>
+    </tr>
+  <% end %>
+</table>
 
 <%= link_to 'Edit', edit_song_path(@song) %> |
 <%= link_to 'Back', songs_path %>
