@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
-  get 'radio/index'
-
   resources :songs
   resources :artists
 
-  post 'songs/:id/enqueue' => 'songs#enqueue', as: :enqueue_song
+  root 'radio#index'
+
+  post 'radio/enqueue/:id' => 'radio#enqueue'
+  get 'radio/index'
   get 'radio/skip' => 'radio#skip'
 
   # The priority is based upon order of creation: first created -> highest priority.

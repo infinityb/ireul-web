@@ -1,6 +1,4 @@
 class SongsController < ApplicationController
-  before_action :set_song, only: [:show, :edit, :update, :destroy, :enqueue]
-
   # GET /songs
   # GET /songs.json
   def index
@@ -10,6 +8,7 @@ class SongsController < ApplicationController
   # GET /songs/1
   # GET /songs/1.json
   def show
+    @song = Song.find(params[:id])
   end
 
   # GET /songs/new
@@ -63,10 +62,6 @@ class SongsController < ApplicationController
     end
   end
 
-  # POST /songs/1/enqueue
-  def enqueue
-    @song.enqueue()
-    head :ok, content_type: 'text/html'
   end
 
   def self.comment_flatten(comments)
@@ -80,11 +75,6 @@ class SongsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_song
-      @song = Song.find(params[:id])
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def song_params
       params.require(:song).permit(:file)

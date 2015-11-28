@@ -6,22 +6,15 @@ class Song < ActiveRecord::Base
   validates_attachment_file_name :file, matches: [/ogg\Z/]
   validates_attachment_content_type :file, content_type: ["audio/ogg", "video/ogg"]
 
-  def artist()
+  def artist
     self.metadata["ARTIST"]
   end
 
-  def album()
+  def album
     self.metadata["ALBUM"]
   end
 
-  def title()
+  def title
     self.metadata["TITLE"]
-  end
-
-  def enqueue()
-    oggfile = open(self.file.path, 'rb')
-    oggbuf = oggfile.read()
-    oggfile.close()
-    IreulWeb::Application.ireul_client.enqueue(oggbuf)
   end
 end
