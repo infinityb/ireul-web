@@ -18,6 +18,7 @@ class SongsController < ApplicationController
 
   # GET /songs/1/edit
   def edit
+    @song = Song.find(params[:id])
   end
 
   # POST /songs
@@ -55,6 +56,7 @@ class SongsController < ApplicationController
   # DELETE /songs/1
   # DELETE /songs/1.json
   def destroy
+    @song = Song.find(params[:id])
     @song.destroy
     respond_to do |format|
       format.html { redirect_to songs_url, notice: 'Song was successfully destroyed.' }
@@ -62,13 +64,24 @@ class SongsController < ApplicationController
     end
   end
 
+  def search
+    # TODO: move out into metadata table
+    # HACK: can break anytime
+    @query = params.require(:query).force_encoding('UTF-8')
+    head :ok if @query.nil?
+    @songs = Song.where("metadata LIKE ?", "%#{@query}%")
+
+    respond_to do |format|
+      format.html { render :search }
+      format.json { render json: @songs }
+    end
   end
 
   def self.comment_flatten(comments)
     out = Hash::new()
     comments.each do |k, v|
       if not v.empty?
-        out[k] = v.first
+        out[k] = v.first.force_encoding('UTF-8')
       end
     end
     out

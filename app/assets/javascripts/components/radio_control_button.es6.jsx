@@ -6,7 +6,8 @@ class RadioControlButton extends React.Component {
 
   handleClick (event) {
     var req = new XMLHttpRequest();
-    req.open(this.props.httpMethod, this.props.radioMethod);
+    req.open(this.props.httpMethod, this.props.radioMethod, true);
+    req.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
     req.send();
   }
 
@@ -26,6 +27,14 @@ RadioControlButton.propTypes = {
 
 
 class RadioSkipButton extends RadioControlButton {
+  handleClick (event) {
+    super.handleClick(event);
+    this.setState({ disabled: true });
+  }
+}
+
+
+class RadioEnqueueButton extends RadioControlButton {
   handleClick (event) {
     super.handleClick(event);
     this.setState({ disabled: true });

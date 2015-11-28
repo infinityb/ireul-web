@@ -4,9 +4,11 @@ Rails.application.routes.draw do
 
   root 'radio#index'
 
-  post 'radio/enqueue/:id' => 'radio#enqueue'
   get 'radio/index'
-  get 'radio/skip' => 'radio#skip'
+  post 'radio/enqueue/:id' => 'radio#enqueue'
+  post 'radio/skip' => 'radio#skip'
+
+  post 'songs/search/:query' => 'songs#search'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
