@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/infinityb/ruby-ogg.git
+  revision: fe5d563031b322947251d13fe13f7d7ba21de945
+  specs:
+    ogg (0.0.5)
+      bindata (~> 1.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -86,8 +93,6 @@ GEM
       mini_portile2 (~> 2.0.0.rc2)
     nokogiri (1.6.7.rc4-x64-mingw32)
       mini_portile2 (~> 2.0.0.rc2)
-    ogg (0.0.5)
-      bindata (~> 1.4)
     paperclip (4.3.2)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -177,7 +182,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   nokogiri (>= 1.6.7.rc)
-  ogg (= 0.0.5)
+  ogg (= 0.0.5)!
   paperclip (~> 4.3)
   rails (= 4.2.5)
   rake
@@ -189,3 +194,6 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
+
+BUNDLED WITH
+   1.10.6

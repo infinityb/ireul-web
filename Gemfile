@@ -67,4 +67,4 @@ gem "paperclip", "~> 4.3"
 # Install with bundle install --no-cache
 # http://stackoverflow.com/a/15690307
 gem 'ireul', '0.0.1'
-gem 'ogg', '0.0.5'
+gem 'ogg', '0.0.5', :git => 'https://github.com/infinityb/ruby-ogg.git'
