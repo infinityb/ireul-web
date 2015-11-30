@@ -4,7 +4,7 @@ class RadioController < ApplicationController
 
   def skip
     IreulWeb::Application.ireul_client.fast_forward(:track_boundary)
-    head :ok, content_type: 'text/html'
+    render json: { status: :ok }
   end
 
   def enqueue
@@ -13,7 +13,8 @@ class RadioController < ApplicationController
     oggbuf = oggfile.read()
     oggfile.close()
     IreulWeb::Application.ireul_client.enqueue(oggbuf)
-    head :ok, content_type: 'text/html'
+
+    render json: { status: :ok }
   end
 
   def song_params

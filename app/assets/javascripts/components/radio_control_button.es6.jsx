@@ -8,7 +8,16 @@ class RadioControlButton extends React.Component {
     var req = new XMLHttpRequest();
     req.open(this.props.httpMethod, this.props.radioMethod, true);
     req.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
+    req.onreadystatechange = function () {
+      if (req.readyState == 4) {
+        this.handleResponse(JSON.parse(req.responseText));
+      }
+    }.bind(this);
     req.send();
+  }
+
+  handleResponse (res) {
+    // noop
   }
 
   render () {
@@ -31,6 +40,13 @@ class RadioSkipButton extends RadioControlButton {
     super.handleClick(event);
     this.setState({ disabled: true });
   }
+
+  handleResponse (res) {
+    if (res.status === "ok") {
+      // To replace with on song change, not on skip request success
+      this.setState({ disabled: false });
+    }
+  }
 }
 
 
@@ -38,5 +54,12 @@ class RadioEnqueueButton extends RadioControlButton {
   handleClick (event) {
     super.handleClick(event);
     this.setState({ disabled: true });
+  }
+
+  handleResponse (res) {
+    if (res.status === "ok") {
+      // To replace with on song change, not on skip request success
+      this.setState({ disabled: false });
+    }
   }
 }
