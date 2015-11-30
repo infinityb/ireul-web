@@ -5,5 +5,5 @@
   <td><%= link_to 'Show', song %></td>
   <td><%= link_to 'Edit', edit_song_path(song) %></td>
   <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  <td><%= button_to 'Enqueue', "/radio/enqueue/#{song.id}", method: :post %></td>
+  <td><%= react_component('RadioEnqueueButton', httpMethod: 'post', radioMethod: "/radio/enqueue/#{song.id}", label: 'Enqueue') %></td>
 </tr>
