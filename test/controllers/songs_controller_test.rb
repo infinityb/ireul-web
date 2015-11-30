@@ -42,9 +42,15 @@ class SongsControllerTest < ActionController::TestCase
   end
 
   test "should destroy song" do
+    song_id = @song.id
+
+    assert(Metadatum.where(song_id: song_id).count > 0)
+
     assert_difference('Song.count', -1) do
       delete :destroy, id: @song
     end
+
+    assert(Metadatum.where(song_id: song_id).count == 0)
 
     assert_redirected_to songs_path
   end
