@@ -16,7 +16,7 @@ class SongSearch extends React.Component {
     if (query.length > 0) {
       req.onreadystatechange = function () {
         if (req.readyState == 4 && this.state.query.length > 0) {
-          this.setState({ results: JSON.parse(req.responseText) });
+          this.setState({ results: JSON.parse(req.responseText).results });
         }
       }.bind(this);
       req.open('post', "songs/search/" + query + ".json", true);

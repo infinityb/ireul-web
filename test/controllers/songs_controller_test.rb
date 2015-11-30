@@ -65,12 +65,12 @@ class SongsControllerTest < ActionController::TestCase
     post :search, query: @song.title, format: 'json'
     assert_response :success
 
-    expected = [{
+    expected_songs = [{
       "id" => @song.id,
       "artist" => @song.artist,
       "title" => @song.title
     }].to_json
 
-    assert_equal expected, @response.body.strip
+    assert_equal expected_songs, JSON.parse(@response.body)["results"].to_json
   end
 end

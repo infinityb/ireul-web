@@ -1,9 +1,16 @@
-<% res = @songs.map do |s|
+<% songs = @songs.map do |s|
   {
     id: s.id,
     artist: s.artist,
-    title: s.title
+    title: s.title,
   }
-end %>
+end
+
+res = {
+  status: :ok,
+  query: @query,
+  time: Time.now.utc,
+  results: songs
+} %>
 
 <%= res.to_json.html_safe %>
