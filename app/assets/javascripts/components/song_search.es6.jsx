@@ -15,13 +15,15 @@ class SongSearch extends React.Component {
 
     if (query.length > 0) {
       req.onreadystatechange = function () {
-        if (req.readyState == 4) {
+        if (req.readyState == 4 && this.state.query.length > 0) {
           this.setState({ results: JSON.parse(req.responseText) });
         }
       }.bind(this);
       req.open('post', "songs/search/" + query + ".json", true);
       req.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
       req.send();
+    } else if (this.state.results.length > 0) {
+      this.setState({ results: [] });
     }
   }
 
