@@ -10,7 +10,7 @@ class SongSearch extends React.Component {
   }
 
   search (query) {
-    var req = new XMLHttpRequest();
+    let req = new XMLHttpRequest();
     query = query.trim();
 
     if (query.length > 0) {
@@ -26,16 +26,20 @@ class SongSearch extends React.Component {
   }
 
   render () {
-    var results;
+    let results;
     if (this.state.results.length < 0) {
       results = React.DOM.p(null, "No results.");
     } else {
       results = React.DOM.ul(null, this.state.results.map(function (result) {
-        return React.DOM.li(null,
-          React.DOM.p(null, result.artist),
-          React.DOM.p(null, result.title),
-          React.createElement(RadioEnqueueButton, { httpMethod: 'post', radioMethod: '/radio/enqueue/' + result.id, label: 'Enqueue' })
-        );
+        let controls = React.createElement(RadioEnqueueButton, { httpMethod: 'post', radioMethod: '/radio/enqueue/' + result.id, label: 'Enqueue' });
+        let props = {
+          id: result.id,
+          artist: result.artist,
+          title: result.title,
+          controls: controls
+        };
+
+        return React.DOM.li(null, React.createElement(Song, props));
       }));
     }
 
