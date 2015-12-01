@@ -26,15 +26,12 @@ module IreulWeb
     config.x.ireul = Rails.application.config_for(:ireul)
 
     def self.ireul_client
-      @ireul ||= IreulService.new do |i|
+      IreulService.instance.configure do |i|
         i.url      = config.x.ireul["url"]
         i.port     = config.x.ireul["port"]
         i.username = config.x.ireul["username"]
         i.password = config.x.ireul["password"]
-        i.connect
       end
-
-      @ireul
     end
   end
 end

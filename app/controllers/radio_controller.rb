@@ -4,7 +4,9 @@ class RadioController < ApplicationController
 
   def skip
     IreulWeb::Application.ireul_client.fast_forward(:track_boundary)
-    render json: { status: :ok, action: :enqueue, time: Time.now.utc }
+    render json: { status: :ok, action: :skip, time: Time.now.utc }
+  rescue IreulService::IreulConnError
+    render json: { status: :failure, action: :skip, time: Time.now.utc }
   end
 
   def enqueue
@@ -15,6 +17,8 @@ class RadioController < ApplicationController
     IreulWeb::Application.ireul_client.enqueue(oggbuf)
 
     render json: { status: :ok, action: :enqueue, time: Time.now.utc }
+  rescue IreulService::IreulConnError
+    render json: { status: :failure, action: :enqueue, time: Time.now.utc }
   end
 
   def song_params
