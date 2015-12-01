@@ -1,4 +1,4 @@
-class SongSearch extends React.Component {
+class SongSearcher extends React.Component {
   constructor (props) {
     super(props);
     this.state = { query: "", results: [], searching: false };
