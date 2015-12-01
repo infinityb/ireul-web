@@ -19,7 +19,7 @@ class SongSearcher extends React.Component {
           this.setState({ results: JSON.parse(req.responseText).results, searching: false });
         }
       }.bind(this);
-      req.open('post', "songs/search/" + query + ".json", true);
+      req.open('post', "songs/search.json?query=" + encodeURI(query), true);
       req.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
       req.send();
       this.setState({ searching: true });

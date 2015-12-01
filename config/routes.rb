@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post 'radio/skip' => 'radio#skip'
 
   post 'songs/search/:query' => 'songs#search'
+  post 'songs/search' => 'songs#search'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
