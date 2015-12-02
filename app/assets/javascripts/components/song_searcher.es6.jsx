@@ -14,14 +14,14 @@ class SongSearcher extends React.Component {
   }
 
   search (query, page) {
-    let req = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     page = page || 1;
     query = query.trim();
 
     if (query.length > 0) {
-      req.onreadystatechange = function () {
-        if (req.readyState == 4 && this.state.query.length > 0) {
-          let res = JSON.parse(req.responseText);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && this.state.query.length > 0) {
+          let res = JSON.parse(xhr.responseText);
           let results;
 
           if (this.state.hasMore) {
@@ -43,9 +43,9 @@ class SongSearcher extends React.Component {
         }
       }.bind(this);
 
-      req.open('post', "songs/search.json?query=" + encodeURI(query) + "&page=" + page, true);
-      req.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
-      req.send();
+      xhr.open('post', "songs/search.json?query=" + encodeURI(query) + "&page=" + page, true);
+      xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
+      xhr.send();
       this.setState({ searching: true });
     } else if (this.state.results.length > 0) {
       // Emptied query (backspace, delete)
