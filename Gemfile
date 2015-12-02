@@ -24,7 +24,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem "bcrypt"
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -69,4 +69,4 @@ gem "paperclip", "~> 4.3"
 gem 'ireul', '0.0.1'
 gem 'ogg', '0.0.5', :git => 'https://github.com/infinityb/ruby-ogg.git'
 
-gem "bcrypt"
+gem "kaminari"
