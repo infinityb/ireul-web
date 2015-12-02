@@ -8,11 +8,11 @@ class RadioControlButton extends React.Component {
     var req = new XMLHttpRequest();
     req.open(this.props.httpMethod, this.props.radioMethod, true);
     req.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
-    req.onreadystatechange = function () {
+    req.onreadystatechange = () => {
       if (req.readyState == 4) {
         this.handleResponse(JSON.parse(req.responseText));
       }
-    }.bind(this);
+    };
     req.send();
   }
 

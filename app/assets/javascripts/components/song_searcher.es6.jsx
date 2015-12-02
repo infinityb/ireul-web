@@ -19,7 +19,7 @@ class SongSearcher extends React.Component {
     query = query.trim();
 
     if (query.length > 0) {
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = () => {
         if (xhr.readyState == 4 && this.state.query.length > 0) {
           let res = JSON.parse(xhr.responseText);
           let results;
@@ -41,7 +41,7 @@ class SongSearcher extends React.Component {
             searching: false
           });
         }
-      }.bind(this);
+      };
 
       xhr.open('post', "songs/search.json?query=" + encodeURI(query) + "&page=" + page, true);
       xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
