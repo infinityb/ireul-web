@@ -10,7 +10,9 @@ res = {
   status: :ok,
   query: @query,
   time: Time.now.utc,
-  results: songs
+  results: songs,
+  page: @page,
+  has_more: @has_more
 } %>
 
 <%= res.to_json.html_safe %>

@@ -1,25 +1,49 @@
 class SongSearcher extends React.Component {
   constructor (props) {
     super(props);
-    this.state = { query: "", results: [], searching: false };
+    this.state = { query: "", results: [], searching: false, page: 1 };
   }
 
   onChange (event) {
-    this.setState({ query: event.currentTarget.value });
+    this.setState({ query: event.currentTarget.value, page: 1, hasMore: false });
     this.search(event.currentTarget.value);
   }
 
-  search (query) {
+  searchMore () {
+    this.search(this.state.query, this.state.page + 1);
+  }
+
+  search (query, page) {
     let req = new XMLHttpRequest();
+    page = page || 1;
     query = query.trim();
 
     if (query.length > 0) {
       req.onreadystatechange = function () {
         if (req.readyState == 4 && this.state.query.length > 0) {
-          this.setState({ results: JSON.parse(req.responseText).results, searching: false });
+          let res = JSON.parse(req.responseText);
+          let results;
+
+          if (this.state.hasMore) {
+            // 1. Some (not first) page, has extra pages (hasMore = true)
+            // 2. Last page -- this.state.hasMore has not been set to false yet
+            //    render() will not render a more button, but we still add to existing results
+            results = this.state.results.concat(res.results);
+          } else {
+            // 3. First page, no extra pages
+            results = res.results;
+          }
+
+          this.setState({
+            hasMore: res.has_more,
+            page: parseInt(res.page, 10),
+            results: results,
+            searching: false
+          });
         }
       }.bind(this);
-      req.open('post', "songs/search.json?query=" + encodeURI(query), true);
+
+      req.open('post', "songs/search.json?query=" + encodeURI(query) + "&page=" + page, true);
       req.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
       req.send();
       this.setState({ searching: true });
@@ -34,19 +58,30 @@ class SongSearcher extends React.Component {
   }
 
   render () {
-    let results;
+    let resultsEl;
+    let hasMoreButton;
 
     if (this.state.query.length === 0) {
-      results = React.DOM.p(null, "Type in the search box to start searching.");
+      resultsEl = React.DOM.p(null, "Type in the search box to start searching.");
     } else if (!this.state.searching && this.state.results.length === 0) {
-      results = React.DOM.p(null, "No results found for \"" + this.state.query + "\".");
+      resultsEl = React.DOM.p(null, "No results found for \"" + this.state.query + "\".");
     } else {
-      results = React.DOM.table(null,
-        React.DOM.thead(null, React.DOM.tr(null, React.DOM.td(null, "Artist"), React.DOM.td(null, "Title"))),
+      resultsEl = React.DOM.table(null,
+        React.DOM.thead(null,
+          React.DOM.tr(null,
+            React.DOM.td(null, "Artist"),
+            React.DOM.td(null, "Title")
+          )
+        ),
         React.DOM.tbody(null,
           this.state.results.map(function (result) {
-            let controls = React.createElement(RadioEnqueueButton, { httpMethod: 'post', radioMethod: '/radio/enqueue/' + result.id, label: 'Enqueue' });
+            let controls = React.createElement(RadioEnqueueButton, {
+              httpMethod: 'post',
+              radioMethod: '/radio/enqueue/' + result.id, label: 'Enqueue'
+            });
+
             let props = {
+              key: "song-searcher" + result.id,
               id: result.id,
               artist: result.artist,
               title: result.title,
@@ -60,10 +95,15 @@ class SongSearcher extends React.Component {
       ));
     }
 
+    if (this.state.hasMore) {
+      hasMoreButton = React.DOM.a({ href: "#", onClick: this.searchMore.bind(this) }, "More...");
+    }
+
     return (
       <div>
         <input type="text" placeholder="Search songs..." onChange={this.onChange.bind(this)} />
-        {results}
+        {resultsEl}
+        {hasMoreButton}
       </div>
     );
   }
