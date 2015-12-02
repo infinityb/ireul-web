@@ -66,33 +66,7 @@ class SongSearcher extends React.Component {
     } else if (!this.state.searching && this.state.results.length === 0) {
       resultsEl = React.DOM.p(null, "No results found for \"" + this.state.query + "\".");
     } else {
-      resultsEl = React.DOM.table(null,
-        React.DOM.thead(null,
-          React.DOM.tr(null,
-            React.DOM.td(null, "Artist"),
-            React.DOM.td(null, "Title")
-          )
-        ),
-        React.DOM.tbody(null,
-          this.state.results.map(function (result) {
-            let controls = React.createElement(RadioEnqueueButton, {
-              httpMethod: 'post',
-              radioMethod: '/radio/enqueue/' + result.id, label: 'Enqueue'
-            });
-
-            let props = {
-              key: "song-searcher" + result.id,
-              id: result.id,
-              artist: result.artist,
-              title: result.title,
-              tabular: true,
-              controls: controls
-            };
-
-            return React.createElement(Song, props);
-          }
-        )
-      ));
+      resultsEl = React.createElement(SongList, { songs: this.state.results });
     }
 
     if (this.state.hasMore) {
