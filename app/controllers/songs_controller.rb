@@ -3,6 +3,13 @@ class SongsController < ApplicationController
   # GET /songs.json
   def index
     @songs = Song.page(params[:page])
+    @page = params[:page]
+    @page_count = @songs.total_pages
+
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   # GET /songs/1
