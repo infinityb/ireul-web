@@ -17,7 +17,7 @@ h1 {
 	margin: 3rem 0;
 }
 
-button {
+@mixin clickable {
 	text-align: center;
 	padding: 0.5rem;
 	border: solid 1px #666;
@@ -27,7 +27,6 @@ button {
 
 	&:hover:enabled {
 		color: $flair-color !important;
-		/*background-color: transparent !important;*/
 		background-color: $button-highlight-color;
 		cursor: pointer;
 	};
@@ -36,6 +35,10 @@ button {
 		color: #555 !important;
 		border: solid 1px #444 !important;
 	};
+}
+
+button {
+	@include clickable;
 }
 
 .radio {
@@ -90,7 +93,12 @@ button {
 		-moz-border-bottom-colors: none;
 		-moz-border-left-colors: none;
 		border-image: none;
-		outline: none
+		outline: none;
+		transition: border-color 0.1s;
+
+		&:focus {
+			border-color: $flair-color;
+		}
 	}
 }
 
@@ -104,19 +112,13 @@ button {
 
 	li {
 		flex: 1;
-		text-align: center;
-		padding: 0.5rem 0;
-		border: solid 1px #666;
-		color: #DDD !important;
-		text-decoration: none;
-		font-size: 1rem;
-	}
+		@include clickable;
 
-	li:hover {
-		color: $flair-color !important;
-		/*background-color: transparent !important;*/
-		background-color: $button-highlight-color;
-		cursor: pointer;
+		&:hover {
+			color: $flair-color !important;
+			background-color: $button-highlight-color;
+			cursor: pointer;
+		};
 	}
 }
 
