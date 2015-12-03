@@ -1,3 +1,114 @@
 // Place all the styles related to the radio controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+div[data-react-class="Radio"] {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+
+h1 {
+	text-align: center;
+	margin: 3rem 0;
+}
+
+.radio {
+	display: flex;
+	flex-direction: column;
+	max-width: 50rem;
+	flex: 1;
+}
+
+.radio > div {
+	padding: 1rem 2rem;
+	margin: 1rem;
+	background-color: #3C3C3C;
+}
+
+.queue-history {
+	display: flex;
+	flex-direction: row;
+	min-height: 5rem;
+	margin: 2rem 0;
+	font-size: 1rem;
+
+	.queue, .history {
+		align-items: center;
+		flex: 1;
+		text-align: center;
+	}
+}
+
+.song-library {
+	display: flex;
+	flex-direction: column;
+}
+
+.song-searcher {
+	display: flex;
+	flex-direction: column;
+
+	input {
+		/*width: 75%;*/
+		/*max-width: 80rem;*/
+		font-size: 1rem;
+		/*font-family: "Vollkorn",Georgia,serif;*/
+		color: #ddd;
+		background-color: transparent;
+		border-width: 0px 0px 2px;
+		border-style: none none solid;
+		border-color: -moz-use-text-color -moz-use-text-color #666;
+		-moz-border-top-colors: none;
+		-moz-border-right-colors: none;
+		-moz-border-bottom-colors: none;
+		-moz-border-left-colors: none;
+		border-image: none;
+		margin: 1rem 0;
+	}
+}
+
+.tabs {
+	ul {
+		display: flex;
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+	}
+
+	li {
+		flex: 1;
+		text-align: center;
+		padding: 0.5rem 0;
+		border: solid 1px #666;
+	}
+
+	a {
+		color: #DDD !important;
+		text-decoration: none;
+		font-size: 1rem;
+		padding: 0.5rem;
+	}
+
+	a:hover {
+		color: #CC6961 !important;
+		background-color: transparent !important;
+	}
+}
+
+.radio-player {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.now-playing {
+	display: flex;
+	font-size: 1.6rem;
+	margin: 2rem 0 1rem 0;
+}
+
+.audio-player {
+	margin: 1rem;
+}

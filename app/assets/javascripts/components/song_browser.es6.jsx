@@ -35,8 +35,8 @@ class SongBrowser extends React.Component {
 
   render () {
     return (
-      <div>
-        <SongList songs={this.state.songs} />
+      <div className="song-browser">
+        <SongList songs={this.state.songs} controls="true" tabular="true" />
         <div>
           <button disabled={this.state.page <= 1} onClick={this.loadPrevPage.bind(this)}>Back</button>
           Page {this.state.page} of {this.state.pageCount}

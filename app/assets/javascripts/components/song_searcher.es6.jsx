@@ -62,11 +62,10 @@ class SongSearcher extends React.Component {
     let hasMoreButton;
 
     if (this.state.query.length === 0) {
-      resultsEl = React.DOM.p(null, "Type in the search box to start searching.");
     } else if (!this.state.searching && this.state.results.length === 0) {
       resultsEl = React.DOM.p(null, "No results found for \"" + this.state.query + "\".");
     } else {
-      resultsEl = React.createElement(SongList, { songs: this.state.results });
+      resultsEl = React.createElement(SongList, { songs: this.state.results, controls: true, tabular: true });
     }
 
     if (this.state.hasMore) {
@@ -74,8 +73,8 @@ class SongSearcher extends React.Component {
     }
 
     return (
-      <div>
-        <input type="text" placeholder="Search songs..." onChange={this.onChange.bind(this)} />
+      <div className="song-searcher">
+        <input type="text" placeholder="Type here to start searching..." onChange={this.onChange.bind(this)} />
         {resultsEl}
         {hasMoreButton}
       </div>

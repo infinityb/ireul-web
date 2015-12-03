@@ -1,15 +1,23 @@
 class Queue extends React.Component {
   render () {
+    let songQueue;
+
     if (typeof this.props.songs === "undefined" || this.props.songs.length === 0) {
-      return React.DOM.div(null, "No songs in queue");
+      songQueue = React.DOM.div(null, "No songs in queue");
     } else {
-      return React.DOM.ul(null, this.props.songs.map(function (song) {
-        return React.DOM.li(null, song);
-      }));
+      songQueue = React.createElement(SongList, { songs: this.props.songs, tabular: false });
     }
+
+    return (
+      <div className={this.props.className}>
+        <div>{this.props.title}</div>
+        {songQueue}
+      </div>
+    )
   }
 }
 
 Queue.propTypes = {
-  song: React.PropTypes.arrayOf(React.PropTypes.element)
+  // songs: React.PropTypes.arrayOf(React.PropTypes.element),
+  // title: React.PropTypes.arrayOf(React.PropTypes.string)
 };

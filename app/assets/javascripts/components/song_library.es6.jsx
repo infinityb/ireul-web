@@ -15,16 +15,17 @@ class SongLibrary extends React.Component {
     case "Search":
       content = React.createElement(SongSearcher);
       break;
-    case "All":
+    case "Browse":
       content = React.createElement(SongBrowser);
       break;
     }
 
-    return React.DOM.div(null,
+    return React.DOM.div({ className: "song-library" },
       React.createElement(Tabs, {
-        tabs: ["Search", "All"],
+        tabs: ["Search", "Browse"],
         selectedPage: this.state.selectedPage,
-        onChange: this.changePage.bind(this)
+        onChange: this.changePage.bind(this),
+        className: "tabs"
       }),
       content
     );
