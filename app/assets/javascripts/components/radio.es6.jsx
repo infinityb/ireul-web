@@ -63,6 +63,7 @@ class Radio extends React.Component {
         background-size: cover;
 
         filter: blur(25px) saturate(60%);
+        -webkit-filter: blur(25px) saturate(60%);
       }
     `
 
