@@ -1,5 +1,7 @@
 <% res = {
-  image: @image
+  image: @image,
+  artist: @artist,
+  title: @title
 } %>
 
 <%= res.to_json.html_safe %>

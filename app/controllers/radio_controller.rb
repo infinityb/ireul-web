@@ -22,9 +22,9 @@ class RadioController < ApplicationController
   end
 
   def info
-    # replace param with current song
-    # @song = Song.
-    @image = BackgroundImage.where(song_id: params[:song_id]).first.image.url
+    @artist = "Some artist"
+    @title = "Some title"
+    @image = BackgroundImage.where(song_id: params[:song_id]).first.image.url # replace param with current song
 
     respond_to do |format|
       format.json

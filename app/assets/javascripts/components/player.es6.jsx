@@ -1,12 +1,6 @@
 class Player extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {
-      nowPlaying: {
-        artist: "MACINTOSH Plus",
-        title: "Eccoと悪寒ダイビング龍龙"
-      }
-    };
   }
 
   render () {
@@ -17,8 +11,8 @@ class Player extends React.Component {
     );
 
     let nowPlaying = React.DOM.div({ className: "now-playing" },
-      React.DOM.div({ className: "title" }, this.state.nowPlaying.title),
-      React.DOM.div({ className: "artist" }, this.state.nowPlaying.artist)
+      React.DOM.div({ className: "title" }, this.props.nowPlaying.title),
+      React.DOM.div({ className: "artist" }, this.props.nowPlaying.artist)
     );
 
     return React.DOM.div(playerStyle,
