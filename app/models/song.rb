@@ -7,6 +7,8 @@ class Song < ActiveRecord::Base
   has_one :metadata, foreign_key: 'artist_metadata_id'
   has_one :metadata, foreign_key: 'title_metadata_id'
 
+  has_many :background_images, dependent: :destroy
+
   def artist
     m = Metadatum.find_by_id(self.artist_metadata_id)
     m.value if !m.nil?

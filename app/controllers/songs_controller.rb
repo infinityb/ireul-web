@@ -17,11 +17,14 @@ class SongsController < ApplicationController
   def show
     @song = Song.find(params[:id])
     @metadata = @song.metadatum
+    @images = BackgroundImage.where(song_id: @song.id)
+    puts @images.inspect
   end
 
   # GET /songs/new
   def new
     @song = Song.new
+    @background_image = BackgroundImage.new
   end
 
   # GET /songs/1/edit
@@ -33,17 +36,18 @@ class SongsController < ApplicationController
   # POST /songs.json
   def create
     saved = false
-    @song = Song.new(song_params)
 
     Song.transaction do
       Metadatum.transaction do
+      BackgroundImage.transaction do
+        @song = Song.new(song_params)
         metadatum = autofill_vorbis_comments(song_params)[:metadata]
         @song.save # Need to assign @song an ID first
 
         metadatum.each do |k, v|
           field = MetadataField.find_by_name(k)
           if field.blank?
-            logger.info "#{params[:path]}: Skipping field #{k} with value #{v} as no MetadataField of #{k} was found"
+            logger.info "#{params[:path]}: Skipping field #{k} as no MetadataField of #{k} was found"
             next
           end
 
@@ -59,7 +63,16 @@ class SongsController < ApplicationController
           end
         end
 
+        # TODO: Auto store image for song if it has one in the tags
+        # if metadatum["METADATA_BLOCK_PICTURE"] && metadatum["METADATA_BLOCK_PICTURE"][0]
+          # Should only have JPEG or PNG for OGG
+          puts params[:background_image].inspect
+        if params[:background_image]
+          BackgroundImage.create(song: @song, image: image_params[:image])
+        end
+
         saved = @song.save
+      end
       end
     end
 
@@ -136,11 +149,16 @@ class SongsController < ApplicationController
       params.require(:song).permit(:file)
     end
 
+    def image_params
+      params.require(:background_image).permit(:image)
+    end
+
     def autofill_vorbis_comments(params)
-      Ogg::Vorbis::Info.open(params[:file].path) do |info|
-        params[:metadata] = SongsController::comment_flatten(info.comments)
+      ret = {}
+      Ogg::Vorbis::Info.open(params[:file].path) do |x|
+        ret[:metadata] = SongsController::comment_flatten(x.comments)
       end
-      params
+      ret
     end
 end
 

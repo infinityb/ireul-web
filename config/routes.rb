@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'radio#index'
 
   get 'radio/index'
+  get 'radio/info' => 'radio#info'
   post 'radio/enqueue/:id' => 'radio#enqueue'
   post 'radio/skip' => 'radio#skip'
 

@@ -21,6 +21,18 @@ class RadioController < ApplicationController
     render json: { status: :failure, action: :enqueue, time: Time.now.utc }
   end
 
+  def info
+    # replace param with current song
+    # @song = Song.
+    @image = BackgroundImage.where(song_id: params[:song_id]).first.image.url
+
+    respond_to do |format|
+      format.json
+    end
+  end
+
+  private
+
   def song_params
     params.require(:song).permit(:song_id)
   end

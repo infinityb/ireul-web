@@ -13,6 +13,11 @@
 
   <%= form.file_field :file %>
 
+  <%= fields_for :background_image do |f| %>
+    Image (optional)
+    <%= f.file_field :image %>
+  <% end %>
+
   <div class="actions">
     <%= form.submit %>
   </div>

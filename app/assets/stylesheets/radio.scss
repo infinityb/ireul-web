@@ -190,6 +190,17 @@ input {
 	}
 }
 
-.debug-input {
-	width: 100%;
+.player-debug-section {
+	display: flex;
+	flex-direction: column;
+
+	.player-debug-controls {
+		display: flex;
+		flex-direction: row;
+
+		input {
+			flex: 8;
+			margin: 0 1rem 0 0;
+		}
+	}
 }

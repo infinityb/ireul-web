@@ -29,17 +29,16 @@ class Radio extends React.Component {
 
       React.DOM.div({ className: "player-debug-section" },
         React.DOM.h2(null, "Debug"),
-        React.DOM.input({
-          className: 'debug-input',
-          placeholder: "change background with image url",
-          onChange: this.debugSetBackground.bind(this)
-        }, null)
+        React.DOM.div({ className: "player-debug-controls" },
+          React.DOM.input({
+            className: 'debug-input',
+            placeholder: "change background with image url",
+            onChange: this.debugSetBackground.bind(this)
+          }, null),
+          React.DOM.button({ onClick: this.getInfo.bind(this) }, "Get info for song 63")
+        )
       )
     );
-  }
-
-  debugSetBackground (event) {
-    this.setBackground(event.target.value);
   }
 
   setupBackground () {
@@ -77,5 +76,28 @@ class Radio extends React.Component {
     // console.log(document.styleSheets[0].cssRules[0].style.backgroundImage = url);
     // Maybe in the future data-attr for url type will be supported
     // el.setAttribute('data-bgimgsrc', src);
+  }
+
+  debugSetBackground (event) {
+    this.setBackground(event.target.value);
+  }
+
+  getInfo () {
+    console.log('getting info');
+    // remove param once it's done
+    let req = new XMLHttpRequest();
+    req.open('get', 'radio/info.json?song_id=64', true);
+    req.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
+    req.onreadystatechange = () => {
+      if (req.readyState == 4) {
+        console.log(req.responseText)
+        this.handleInfoResponse(JSON.parse(req.responseText));
+      }
+    };
+    req.send();
+  }
+
+  handleInfoResponse (res) {
+    this.setBackground(res.image);
   }
 }
