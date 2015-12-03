@@ -3,6 +3,12 @@ class Radio extends React.Component {
     super(props);
   }
 
+  componentDidMount () {
+    if (typeof this.props.backgroundElementSelector !== "undefined") {
+      this.setupBackground();
+    }
+  }
+
   render () {
     return React.DOM.div({ className: "radio" },
       React.DOM.div({ className: "player-information-section" },
@@ -19,7 +25,56 @@ class Radio extends React.Component {
 
       React.DOM.div({ className: "player-controls-section" },
         React.createElement(RadioSkipButton, { httpMethod: "post", radioMethod: "/radio/skip", label: "Skip" } )
+      ),
+
+      React.DOM.div({ className: "player-debug-section" },
+        React.DOM.h2(null, "Debug"),
+        React.DOM.input({
+          className: 'debug-input',
+          placeholder: "change background with image url",
+          onChange: this.debugSetBackground.bind(this)
+        }, null)
       )
     );
+  }
+
+  debugSetBackground (event) {
+    this.setBackground(event.target.value);
+  }
+
+  setupBackground () {
+    // Create a pseudo element so we can apply CSS filters (blur, etc.) only on the background image
+    let style =
+      this.props.backgroundElementSelector + `:before {
+        content: "";
+        position: fixed;
+        left: 0;
+        right: 0;
+
+        display: block;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+
+        background-repeat: no-repeat;
+        background-position: center;
+        background-origin: center;
+        background-attachment: fixed;
+        background-size: cover;
+
+        filter: blur(25px) saturate(60%);
+      }
+    `
+
+    document.styleSheets[0].insertRule(style, 0);
+  }
+
+  setBackground (src) {
+    // This is a hack
+    let url = "url('" + src + "')";
+    document.styleSheets[0].cssRules[0].style.backgroundImage = url;
+    // console.log(document.styleSheets[0].cssRules[0].style.backgroundImage = url);
+    // Maybe in the future data-attr for url type will be supported
+    // el.setAttribute('data-bgimgsrc', src);
   }
 }
