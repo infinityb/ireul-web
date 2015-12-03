@@ -18,7 +18,6 @@ class SongsController < ApplicationController
     @song = Song.find(params[:id])
     @metadata = @song.metadatum
     @images = BackgroundImage.where(song_id: @song.id)
-    puts @images.inspect
   end
 
   # GET /songs/new
@@ -40,33 +39,11 @@ class SongsController < ApplicationController
     Song.transaction do
       Metadatum.transaction do
       BackgroundImage.transaction do
-        @song = Song.new(song_params)
+        @song = Song.create(song_params) # Need to assign @song an ID first
         metadatum = autofill_vorbis_comments(song_params)[:metadata]
-        @song.save # Need to assign @song an ID first
 
-        metadatum.each do |k, v|
-          field = MetadataField.find_by_name(k)
-          if field.blank?
-            logger.info "#{params[:path]}: Skipping field #{k} as no MetadataField of #{k} was found"
-            next
-          end
+        create_metadatum_records(metadatum)
 
-          metadata = Metadatum.create(song: @song, metadata_field: field, value: v.force_encoding('UTF-8'))
-
-          # Manually assign FKs for special fields
-          # TODO: maybe kill these two FKs
-          case field.name
-          when "ARTIST"
-            @song.artist_metadata_id = metadata.id
-          when "TITLE"
-            @song.title_metadata_id = metadata.id
-          end
-        end
-
-        # TODO: Auto store image for song if it has one in the tags
-        # if metadatum["METADATA_BLOCK_PICTURE"] && metadatum["METADATA_BLOCK_PICTURE"][0]
-          # Should only have JPEG or PNG for OGG
-          puts params[:background_image].inspect
         if params[:background_image]
           BackgroundImage.create(song: @song, image: image_params[:image])
         end
@@ -159,6 +136,33 @@ class SongsController < ApplicationController
         ret[:metadata] = SongsController::comment_flatten(x.comments)
       end
       ret
+    end
+
+    def create_metadatum_records(metadatum)
+      metadatum.each do |k, v|
+        field = MetadataField.find_by_name(k)
+        if field.blank?
+          logger.info "#{params[:path]}: Skipping field #{k} as no MetadataField of #{k} was found"
+          next
+        end
+
+        metadata = Metadatum.create(
+          song: @song,
+          metadata_field: field,
+          value: v.force_encoding('UTF-8')
+        )
+
+        # Manually assign FKs for special fields
+        # TODO: maybe kill these two FKs
+        case field.name
+        when "ARTIST"
+          @song.artist_metadata_id = metadata.id
+        when "TITLE"
+          @song.title_metadata_id = metadata.id
+        # TODO: Auto store image for song if it has one in the tags
+        # when "METADATA_BLOCK_PICTURE"
+        end
+      end
     end
 end
 
