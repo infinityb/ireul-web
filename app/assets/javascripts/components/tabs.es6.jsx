@@ -1,7 +1,8 @@
 class Tabs extends React.Component {
   render () {
     let tab = function (id) {
-      return React.DOM.a({
+      return React.DOM.li({
+        key: "t." + id,
         href: "#" + id,
         className: this.props.selectedItem === id ? "selected" : "",
         onClick: this.props.onChange.bind(null, id)
@@ -9,7 +10,7 @@ class Tabs extends React.Component {
     }.bind(this);
 
     let tabs = this.props.tabs.map(function (el) {
-      return React.DOM.li({ key: "t." + el }, tab(el));
+      return tab(el);
     });
 
     return React.DOM.div(

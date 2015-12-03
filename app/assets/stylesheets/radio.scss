@@ -2,6 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$button-highlight-color: #111;
+$flair-color: #CC6961;
+
 div[data-react-class="Radio"] {
 	display: flex;
 	align-items: center;
@@ -14,10 +17,31 @@ h1 {
 	margin: 3rem 0;
 }
 
+button {
+	text-align: center;
+	padding: 0.5rem;
+	border: solid 1px #666;
+	color: #DDD !important;
+	font-size: 1rem;
+	background: transparent;
+
+	&:hover:enabled {
+		color: $flair-color !important;
+		/*background-color: transparent !important;*/
+		background-color: $button-highlight-color;
+		cursor: pointer;
+	};
+
+	&:disabled {
+		color: #555 !important;
+		border: solid 1px #444 !important;
+	};
+}
+
 .radio {
 	display: flex;
 	flex-direction: column;
-	max-width: 50rem;
+	max-width: 60rem;
 	flex: 1;
 }
 
@@ -44,6 +68,10 @@ h1 {
 .song-library {
 	display: flex;
 	flex-direction: column;
+
+	.tabs {
+		margin: 0 0 1rem 0;
+	}
 }
 
 .song-searcher {
@@ -51,21 +79,18 @@ h1 {
 	flex-direction: column;
 
 	input {
-		/*width: 75%;*/
-		/*max-width: 80rem;*/
 		font-size: 1rem;
-		/*font-family: "Vollkorn",Georgia,serif;*/
 		color: #ddd;
 		background-color: transparent;
-		border-width: 0px 0px 2px;
+		border-width: 0px 0px 1px;
 		border-style: none none solid;
-		border-color: -moz-use-text-color -moz-use-text-color #666;
+		border-color: -moz-use-text-color -moz-use-text-color #ddd;
 		-moz-border-top-colors: none;
 		-moz-border-right-colors: none;
 		-moz-border-bottom-colors: none;
 		-moz-border-left-colors: none;
 		border-image: none;
-		margin: 1rem 0;
+		outline: none
 	}
 }
 
@@ -82,18 +107,16 @@ h1 {
 		text-align: center;
 		padding: 0.5rem 0;
 		border: solid 1px #666;
-	}
-
-	a {
 		color: #DDD !important;
 		text-decoration: none;
 		font-size: 1rem;
-		padding: 0.5rem;
 	}
 
-	a:hover {
-		color: #CC6961 !important;
-		background-color: transparent !important;
+	li:hover {
+		color: $flair-color !important;
+		/*background-color: transparent !important;*/
+		background-color: $button-highlight-color;
+		cursor: pointer;
 	}
 }
 
@@ -105,10 +128,51 @@ h1 {
 
 .now-playing {
 	display: flex;
-	font-size: 1.6rem;
+	font-size: 1.8rem;
 	margin: 2rem 0 1rem 0;
 }
 
 .audio-player {
 	margin: 1rem;
+}
+
+.song-list {
+	width: 100%;
+}
+
+.song-list-row {
+	display: flex;
+
+	td {
+		display: flex;
+		align-items: center;
+		/*justify-content: center;*/
+	}
+
+	.artist {
+		flex: 2;
+	}
+
+	.title {
+		flex: 2;
+	}
+}
+
+.song-browser {
+	.paginator {
+		display: flex;
+		width: 100%;
+		justify-content: center;
+		margin: 1rem 0 0 0;
+
+		button, div {
+			display: flex;
+			margin: 0 2rem;
+		}
+
+		.page-info {
+			font-size: 1rem;
+			align-items: center;
+		}
+	}
 }

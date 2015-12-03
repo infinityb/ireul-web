@@ -4,19 +4,19 @@ class Song extends React.Component {
 
     if (this.props.tabular) {
       return (
-        <tr>
-          <td>{this.props.artist}</td>
-          <td>{this.props.title}</td>
-          <td>{this.props.controls}</td>
+        <tr className="song-list-row">
+          <td className="artist">{this.props.artist}</td>
+          <td className="title">{this.props.title}</td>
+          <td className="controls">{this.props.controls}</td>
         </tr>
       );
     } else {
       return (
-        <div>
-          <span>{this.props.artist}</span>
+        <div className="song-list-item">
+          <span className="artist">{this.props.artist}</span>
           &nbsp;&mdash;&nbsp;
-          <span>{this.props.title}</span>
-          <span>{this.props.controls}</span>
+          <span className="title">{this.props.title}</span>
+          <span className="controls">{this.props.controls}</span>
         </div>
       );
     }

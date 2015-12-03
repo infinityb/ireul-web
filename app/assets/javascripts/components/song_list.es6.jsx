@@ -8,31 +8,40 @@ class SongList extends React.Component {
       return;
     }
 
-    return React.DOM.table(null,
-      React.DOM.tbody(null,
-        this.props.songs.map((song) => {
-          let controls;
+    let contents = this.props.songs.map((song) => {
+      let controls;
 
-          if (this.props.controls) {
-            controls = React.createElement(RadioEnqueueButton, {
-              httpMethod: 'post',
-              radioMethod: '/radio/enqueue/' + song.id, label: 'Enqueue'
-            });
-          }
+      if (this.props.controls) {
+        controls = React.DOM.div({ className: 'song-list-control' },
+          React.createElement(RadioEnqueueButton, {
+            httpMethod: 'post',
+            radioMethod: '/radio/enqueue/' + song.id, label: 'Enqueue'
+          })
+        );
+      }
 
-          let props = {
-            key: "song-list" + song.id,
-            id: song.id,
-            artist: song.artist,
-            title: song.title,
-            tabular: this.props.tabular,
-            controls: controls
-          };
+      let props = {
+        key: "song-list" + song.id,
+        id: song.id,
+        artist: song.artist,
+        title: song.title,
+        tabular: this.props.tabular,
+        controls: controls
+      };
 
-          return React.createElement(Song, props);
-        }
-      )
-    ));
+      return React.createElement(Song, props);
+    });
+
+    if (this.props.tabular) {
+      return React.DOM.table({ className: "song-list" },
+        React.DOM.tbody(null, contents)
+      );
+    } else {
+      return React.DOM.div({ className: "song-list" },
+        contents
+      );
+    }
+
   }
 }
 
