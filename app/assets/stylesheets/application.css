@@ -14,6 +14,11 @@
  *= require_self
  */
 
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700,700italic);
+/* Importing both fonts leads to ridiculous page sizes */
+/*@import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
+@import url(http://fonts.googleapis.com/earlyaccess/notosanssc.css);*/
+
 html {
 	background-color: #2F2F2F;
 

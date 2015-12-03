@@ -3,8 +3,8 @@ class Player extends React.Component {
     super(props);
     this.state = {
       nowPlaying: {
-        artist: "yana",
-        title: "Fall In The Dark"
+        artist: "MACINTOSH PLUS",
+        title: "Eccoと悪寒ダイビング龍龙"
       }
     };
   }
