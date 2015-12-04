@@ -5,12 +5,13 @@
 A Rails client for [Ireul](https://github.com/infinityb/ireul/).
 
 ## Dev setup
-1. Clone
-2. `bundle update`
-3. `bundle install`
-4. `rake db:seed`
-5. Configure `config/ireul.yml` with Ireul server url/port
-6. `bundle exec rails server`
+1. [Install ImageMagick](http://www.imagemagick.org/index.php)
+2. Clone
+6. Configure `config/ireul.yml` with Ireu
+3. `bundle update`
+4. `bundle install`
+5. `rake db:seed`l server url/port
+7. `bundle exec rails server`
 
 ## Test
 `rake test`
@@ -21,3 +22,4 @@ A Rails client for [Ireul](https://github.com/infinityb/ireul/).
 
 ### Installing on Windows
 * Ruby22 + bcrypt — [1](https://github.com/codahale/bcrypt-ruby/issues/116), [2](https://www.alib.jp/entries/bcrypt_ext_load_error_on_ruby21x), make sure `git`, DevKit `dk/bin` and `dk/mingw/bin` are in PATH
+* [ImageMagick](http://www.imagemagick.org/script/binary-releases.php#windows)

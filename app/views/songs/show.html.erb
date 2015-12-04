@@ -5,6 +5,11 @@
   <%= @song.file_file_size %>
 </p>
 
+<p>
+  <strong>ID:</strong>
+  <%= @song.id %>
+</p>
+
 <p><%= @song.metadatum.count %> metadata fields</p>
 <table>
   <tr>
@@ -22,7 +27,13 @@
 
 <p><%= @images.length %> attached images</p>
 <% @images.each do |i| %>
-  <%= image_tag i.image.url %>
+  <div>
+    <%= image_tag i.image.url, style: "max-width: 90vw" %>
+    <br>
+    <%= image_tag i.image.url(:tiny) %>
+    <%= image_tag i.image.url(:small) %>
+    <%= image_tag i.image.url(:medium) %>
+  </div>
 <% end %>
 
 <br>

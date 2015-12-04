@@ -41,7 +41,7 @@ class Radio extends React.Component {
             placeholder: "change background with image url",
             onChange: this.debugSetBackground.bind(this)
           }, null),
-          React.DOM.button({ onClick: this.getInfo.bind(this) }, "Get info for song 63")
+          React.DOM.button({ onClick: this.getInfo.bind(this) }, "Get info for song 69")
         )
       )
     );
@@ -92,7 +92,7 @@ class Radio extends React.Component {
     console.log('getting info');
     // remove param once it's done
     let req = new XMLHttpRequest();
-    req.open('get', 'radio/info.json?song_id=64', true);
+    req.open('get', 'radio/info.json?song_id=69', true);
     req.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
     req.onreadystatechange = () => {
       if (req.readyState == 4) {

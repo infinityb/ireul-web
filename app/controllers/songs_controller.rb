@@ -45,7 +45,7 @@ class SongsController < ApplicationController
         create_metadatum_records(metadatum)
 
         if params[:background_image]
-          BackgroundImage.create(song: @song, image: image_params[:image])
+          @image = BackgroundImage.create(song: @song, image: image_params[:image])
         end
 
         saved = @song.save

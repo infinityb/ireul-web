@@ -1,12 +1,16 @@
 <%= form_for(@song) do |form| %>
-  <% if @song.errors.any? %>
+  <% if @song.errors.any? || (@image && @image.errors.any?) %>
     <div id="error_explanation">
-      <h2><%= pluralize(@song.errors.count, "error") %> prohibited this song from being saved:</h2>
+      <h2><%= pluralize(@song.errors.count + @image.errors.count, "error") %> prohibited this song from being saved:</h2>
 
       <ul>
       <% @song.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
+
+      <% @image.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end if @image %>
       </ul>
     </div>
   <% end %>
