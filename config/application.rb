@@ -33,5 +33,7 @@ module IreulWeb
         i.password = config.x.ireul["password"]
       end
     end
+
+    Paperclip.options[:content_type_mappings] = { ogg: 'application/ogg' }
   end
 end

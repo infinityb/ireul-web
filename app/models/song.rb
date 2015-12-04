@@ -1,7 +1,7 @@
 class Song < ActiveRecord::Base
   has_attached_file :file
   validates_attachment_file_name :file, matches: [/ogg\Z/]
-  validates_attachment_content_type :file, content_type: ["audio/ogg", "video/ogg"]
+  validates_attachment_content_type :file, content_type: ["audio/ogg", "video/ogg", "application/ogg"]
 
   has_many :metadatum, dependent: :destroy
   has_one :metadata, foreign_key: 'artist_metadata_id'
