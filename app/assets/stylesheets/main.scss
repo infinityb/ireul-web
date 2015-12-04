@@ -13,9 +13,14 @@ p, ol, ul, td, a, th {
 
 a {
   color: $color-blue;
+  text-decoration: none;
 
   &:visited {
-    color: $color-purple;
+    color: $color-blue;
+  }
+
+  &:hover {
+    color: $color-flair;
   }
 }
 
@@ -185,4 +190,22 @@ table.vertical {
   align-items: center;
   justify-content: center;
   height: 6rem;
+}
+
+.pagination {
+  margin-top: 1rem;
+  font-size: 1rem;
+
+  a {
+    padding: 0.5rem;
+    text-decoration: none;
+  }
+
+  .page a {
+    padding: 1rem;
+  }
+
+  .current {
+    color: $color-flair;
+  }
 }
