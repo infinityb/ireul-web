@@ -133,8 +133,8 @@ class SongsController < ApplicationController
 
     def autofill_vorbis_comments(params)
       ret = {}
-      Ogg::Vorbis::Info.open(params[:file].path) do |x|
-        ret[:metadata] = SongsController::comment_flatten(x.comments)
+      Ogg::Vorbis::Info.open(params[:file].path) do |f|
+        ret[:metadata] = SongsController::comment_flatten(f.comments)
       end
       ret
     end

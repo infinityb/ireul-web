@@ -34,6 +34,6 @@ module IreulWeb
       end
     end
 
-    Paperclip.options[:content_type_mappings] = { ogg: 'application/ogg' }
+    Paperclip.options[:content_type_mappings] = { ogg: ['application/ogg', 'audio/x-vorbis+ogg'] }
   end
 end
