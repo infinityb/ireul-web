@@ -100,6 +100,12 @@ div[data-react-class="Radio"] {
 	width: 100%;
 }
 
+.song-list-table {
+	width: 100%;
+	.artist-header { width: 25%; }
+	.title-header { width: 35%; }
+}
+
 .song-list-row {
 	display: flex;
 

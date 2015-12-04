@@ -196,12 +196,23 @@ table.vertical {
   margin-top: 1rem;
   font-size: 1rem;
 
+  .first, .prev, .next, .last {
+    a {
+      @include clickable-link;
+      color: $color-white;
+
+      &:hover {
+        color: $color-flair;
+      }
+    }
+  }
+
   a {
     padding: 0.5rem;
     text-decoration: none;
   }
 
-  .page a {
+  .page a, .current {
     padding: 1rem;
   }
 
