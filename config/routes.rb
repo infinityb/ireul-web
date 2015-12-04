@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'radio/index'
   get 'radio/info' => 'radio#info'
   post 'radio/enqueue/:id' => 'radio#enqueue'
+  post 'radio/request/:id' => 'radio#request_song'
   post 'radio/skip' => 'radio#skip'
 
   post 'songs/search/:query' => 'songs#search'

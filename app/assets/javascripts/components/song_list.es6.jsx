@@ -13,9 +13,10 @@ class SongList extends React.Component {
 
       if (this.props.controls) {
         controls = React.DOM.div({ className: 'song-list-control' },
-          React.createElement(RadioEnqueueButton, {
+          React.createElement(RadioRequestButton, {
             httpMethod: 'post',
-            radioMethod: '/radio/enqueue/' + song.id, label: 'Enqueue'
+            radioMethod: '/radio/request/' + song.id, label: 'Request',
+            canRequestAt: song.canRequestAt
           })
         );
       }

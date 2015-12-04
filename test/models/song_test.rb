@@ -20,4 +20,13 @@ class SongTest < ActiveSupport::TestCase
       Song.create(file: get_test_audio('bell44100.ogg'))
     end
   end
+
+  test "it checks if it is able to be requested" do
+    assert(Rails.configuration.x.ireul["request_time_gap_min"] > 0)
+    song = songs(:songs_001)
+    song.last_requested_at = DateTime.now
+
+    refute(song.can_request?)
+    assert(song.can_request_at > DateTime.now)
+  end
 end

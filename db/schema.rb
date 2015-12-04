@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203183738) do
+ActiveRecord::Schema.define(version: 20151204112205) do
 
   create_table "background_images", force: :cascade do |t|
     t.integer  "song_id"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20151203183738) do
     t.datetime "file_updated_at"
     t.integer  "artist_metadata_id"
     t.integer  "title_metadata_id"
+    t.datetime "last_requested_at"
   end
 
   add_index "songs", ["artist_metadata_id"], name: "index_songs_on_artist_metadata_id"

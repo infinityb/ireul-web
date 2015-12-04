@@ -7,8 +7,18 @@ class RadioControllerTest < ActionController::TestCase
   end
 
   test "should skip song" do
-    skip("figure out how to stub sockets in MiniTest")
-    get :skip
-    assert_response :success
+    skip("unimplemented")
+  end
+
+  test "should request song" do
+    skip("unimplemented")
+  end
+
+  test "should enqueue song" do
+    skip("unimplemented")
+  end
+
+  test "should return info" do
+    skip("unimplemented")
   end
 end

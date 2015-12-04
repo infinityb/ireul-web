@@ -1,7 +1,7 @@
 class RadioControlButton extends React.Component {
   constructor (props) {
     super(props);
-    this.state = { disabled: false };
+    this.state = { disabled: false, noCache: false };
   }
 
   handleClick (event) {
@@ -60,6 +60,41 @@ class RadioEnqueueButton extends RadioControlButton {
     if (res.status === "ok") {
       // To replace with on song change, not on skip request success
       this.setState({ disabled: false });
+    }
+  }
+}
+
+
+class RadioRequestButton extends RadioControlButton {
+  constructor (props) {
+    super(props);
+  }
+
+  checkIfRequestable () {
+    let canRequestAt = Date.parse(this.props.canRequestAt);
+
+    if (Date.now() < canRequestAt) {
+      this.setState({ disabled: true });
+      let checkAgainIn = canRequestAt - Date.now() + 1000;
+      setTimeout(this.checkIfRequestable.bind(this), checkAgainIn);
+    } else {
+      this.setState({ disabled: false });
+    }
+  }
+
+  handleClick (event) {
+    super.handleClick(event);
+    this.setState({ disabled: true });
+  }
+
+  componentDidMount() {
+    this.checkIfRequestable();
+  }
+
+  handleResponse (res) {
+    if (res.status === "ok") {
+      let checkAgainIn = Date.parse(res.canRequestAt) - Date.now() + 1000;
+      setTimeout(this.checkIfRequestable.bind(this), checkAgainIn);
     }
   }
 }

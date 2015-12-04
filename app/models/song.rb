@@ -26,6 +26,21 @@ class Song < ActiveRecord::Base
     m.value if !m.nil?
   end
 
+  def can_request?
+    min_gap = Rails.configuration.x.ireul["request_time_gap_min"]
+    self.last_requested_at.nil? ||
+    (Time.zone.now - self.last_requested_at) > min_gap.minute
+  end
+
+  def can_request_at
+    min_gap = Rails.configuration.x.ireul["request_time_gap_min"]
+    if self.last_requested_at.nil?
+      return Time.zone.now
+    else
+      self.last_requested_at + min_gap.minute
+    end
+  end
+
   private
 
   def validate_sample_rate
