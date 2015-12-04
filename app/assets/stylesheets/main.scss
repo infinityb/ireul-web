@@ -80,7 +80,7 @@ input[type="file"] {
   justify-content: center;
   max-width: $container-max-width;
   background-color: $color-card-background;
-  margin: auto;
+  margin: 0 auto 5rem auto;
   padding: 0 0 3rem 0;
   border-top: 3rem solid $color-background;
 
@@ -90,11 +90,10 @@ input[type="file"] {
   }
 
   .header a {
-    margin: 0 0.2rem 0 0;
+    margin: 0 0.4rem 0 0;
   }
 
   table {
-    // max-width: 95%;
     max-width: 85%;
   }
 

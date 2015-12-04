@@ -24,13 +24,15 @@
   </table>
 
   <h2>Metadata</h2>
-  <h3><%= @song.metadatum.count %> metadata fields</h3>
+  <h3><%= pluralize(@song.metadatum.count, "metadata field") %></h3>
   <table class="vertical">
+    <thead>
       <tr>
         <td>Field</td>
         <td>Value</td>
         <td>ID</td>
       </tr>
+    </thead>
 
     <% @song.metadatum.each do |m| %>
       <tr>
@@ -42,7 +44,7 @@
   </table>
 
   <h2>Images</h2>
-  <h3><%= @images.length %> attached images</h3>
+  <h3><%= pluralize(@images.length, "attached image") %></h3>
   <% @images.each do |i| %>
     <table class="vertical">
         <tr><td>Filesize</td><td><%= i.image_file_size %>, <%= number_to_human_size(i.image_file_size) %></td></tr>
@@ -51,12 +53,12 @@
         <tr><td>Inspect</td><td><%= i.inspect %></td></tr>
     </table>
 
-    <div class="image-set" style="max-width: 100%; margin: 0 1rem;">
+    <div class="image-set" style="max-width: 100%; margin: 1rem;">
       <%= image_tag i.image.url, style: "max-width: 100%" %>
       <br>
-      <%= image_tag i.image.url(:tiny) %>
-      <%= image_tag i.image.url(:small) %>
-      <%= image_tag i.image.url(:medium) %>
+      <%= image_tag i.image.url(:tiny), style: "max-width: 100%" %>
+      <%= image_tag i.image.url(:small), style: "max-width: 100%" %>
+      <%= image_tag i.image.url(:medium), style: "max-width: 100%" %>
     </div>
   <% end %>
 </div>
