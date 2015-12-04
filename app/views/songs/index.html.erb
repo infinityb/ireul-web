@@ -1,26 +1,33 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
 
-<h1>Listing Songs</h1>
+  <div class="header">
+    <h1>Songs</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Artist</th>
-      <th>Title</th>
-      <th>File size</th>
-      <th colspan="4"></th>
-    </tr>
-  </thead>
+    <%= link_to 'New', new_song_path %>
 
-  <tbody>
-    <% @songs.each do |song| %>
-      <%= render song %>
+    <% if notice %>
+      <p id="notice"><%= notice %></p>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<%= paginate @songs %>
+  <table>
+    <thead>
+      <tr>
+        <th>Artist</th>
+        <th>Title</th>
+        <th style="text-align: right">File size (B)</th>
+        <th colspan="4"></th>
+      </tr>
+    </thead>
 
-<br>
+    <tbody>
+      <% @songs.each do |song| %>
+        <%= render song %>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Song', new_song_path %>
+  <%= paginate @songs %>
+
+  <br>
+</div>

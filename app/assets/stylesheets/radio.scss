@@ -2,9 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$button-highlight-color: #111;
-$flair-color: #CC6961;
-
 div[data-react-class="Radio"] {
 	display: flex;
 	align-items: center;
@@ -12,47 +9,17 @@ div[data-react-class="Radio"] {
 	width: 100%;
 }
 
-h1 {
-	text-align: center;
-	padding: 3rem 0;
-	margin: 0;
-}
-
-@mixin clickable {
-	text-align: center;
-	padding: 0.5rem;
-	border: solid 1px #666;
-	color: #DDD !important;
-	font-size: 1rem;
-	background: transparent;
-
-	&:hover:enabled {
-		color: $flair-color !important;
-		background-color: $button-highlight-color;
-		cursor: pointer;
-	};
-
-	&:disabled {
-		color: #555 !important;
-		border: solid 1px #444 !important;
-	};
-}
-
-button {
-	@include clickable;
-}
-
 .radio {
 	display: flex;
 	flex-direction: column;
-	max-width: 60rem;
+	max-width: $container-max-width;
 	flex: 1;
 }
 
 .radio > div {
 	padding: 1rem 2rem;
 	margin: 1rem;
-	background-color: #3C3C3C;
+	background-color: $color-card-background;
 }
 
 .queue-history {
@@ -82,27 +49,6 @@ button {
 	flex-direction: column;
 }
 
-input {
-	font-size: 1rem;
-	min-height: 2rem;
-	color: #ddd;
-	background-color: transparent;
-	border-width: 0px 0px 1px;
-	border-style: none none solid;
-	border-color: -moz-use-text-color -moz-use-text-color #ddd;
-	-moz-border-top-colors: none;
-	-moz-border-right-colors: none;
-	-moz-border-bottom-colors: none;
-	-moz-border-left-colors: none;
-	border-image: none;
-	outline: none;
-	transition: border-color 0.1s;
-
-	&:focus {
-		border-color: $flair-color;
-	}
-}
-
 .tabs {
 	ul {
 		display: flex;
@@ -116,7 +62,7 @@ input {
 		@include clickable;
 
 		&:hover {
-			color: $flair-color !important;
+			color: $color-flair !important;
 			background-color: $button-highlight-color;
 			cursor: pointer;
 		};

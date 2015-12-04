@@ -1,29 +1,34 @@
-<%= form_for(@song) do |form| %>
+<%= form_for(@song) do |f| %>
   <% if @song.errors.any? || (@image && @image.errors.any?) %>
     <div id="error_explanation">
 
-      <h2>Errors prevented this song from being saved:</h2>
+      <h2>Fix the following errors:</h2>
 
       <ul>
-      <% @song.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @song.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
 
-      <% @image.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end if @image %>
+        <% if @image %>
+          <% @image.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
-  <%= form.file_field :file %>
+  <div class= "fields">
+    <%= f.label "Song (48kHz OGG Vorbis file)" %>
+    <%= f.file_field :file %>
 
-  <%= fields_for :background_image do |f| %>
-    Image (optional)
-    <%= f.file_field :image %>
-  <% end %>
+    <%= fields_for :background_image do |g| %>
+      <%= g.label "Image (optional)" %>
+      <%= g.file_field :image %>
+    <% end %>
+  </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= f.submit %>
   </div>
 <% end %>

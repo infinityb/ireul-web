@@ -34,10 +34,11 @@ class Radio extends React.Component {
       ),
 
       React.DOM.div({ className: "player-debug-section" },
-        React.DOM.h2(null, "Debug"),
+        React.DOM.h3(null, "Debug"),
         React.DOM.div({ className: "player-debug-controls" },
           React.DOM.input({
             className: 'debug-input',
+            type: 'text',
             placeholder: "change background with image url",
             onChange: this.debugSetBackground.bind(this)
           }, null),
@@ -72,13 +73,18 @@ class Radio extends React.Component {
       }
     `
 
-    document.styleSheets[0].insertRule(style, 0);
+    // HACK: Doing this so the required styles are kept all packaged
+    //       in this component. If it breaks and the fix is hard,
+    //       just extract the style into a CSS file/<style> element.
+    // HACK: 40 is an arbitrary number
+    // Modify existing styles
+    document.styleSheets[0].insertRule(style, 40);
   }
 
   setBackground (src) {
     // This is a hack
     let url = "url('" + src + "')";
-    document.styleSheets[0].cssRules[0].style.backgroundImage = url;
+    document.styleSheets[0].cssRules[40].style.backgroundImage = url;
     // console.log(document.styleSheets[0].cssRules[0].style.backgroundImage = url);
     // Maybe in the future data-attr for url type will be supported
     // el.setAttribute('data-bgimgsrc', src);
@@ -89,14 +95,12 @@ class Radio extends React.Component {
   }
 
   getInfo () {
-    console.log('getting info');
     // remove param once it's done
     let req = new XMLHttpRequest();
     req.open('get', 'radio/info.json?song_id=1', true);
     req.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
     req.onreadystatechange = () => {
       if (req.readyState == 4) {
-        console.log(req.responseText)
         this.handleInfoResponse(JSON.parse(req.responseText));
       }
     };

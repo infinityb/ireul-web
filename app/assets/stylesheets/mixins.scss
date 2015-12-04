@@ -1,0 +1,19 @@
+@mixin clickable {
+  text-align: center;
+  padding: 0.5rem;
+  border: solid 1px #666;
+  color: #DDD !important;
+  font-size: 1rem;
+  background: transparent;
+
+  &:hover:enabled {
+    color: $color-flair !important;
+    background-color: $button-highlight-color;
+    cursor: pointer;
+  };
+
+  &:disabled {
+    color: #555 !important;
+    border: solid 1px #444 !important;
+  };
+}

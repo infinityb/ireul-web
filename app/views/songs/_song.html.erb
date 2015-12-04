@@ -1,12 +1,12 @@
-<tr>
+<tr class="song-entry">
   <td><%= song.artist %></td>
   <td><%= song.title %></td>
-  <td><%= song.file_file_size %></td>
-  <td><%= link_to 'Show', song %></td>
-  <td><%= link_to 'Edit', edit_song_path(song) %></td>
-  <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  <td>
-    <%= react_component('RadioEnqueueButton', httpMethod: 'post', radioMethod: "/radio/enqueue/#{song.id}", label: 'Enqueue') %>
+  <td class="numeric"><%= song.file_file_size %></td>
+  <td class="controls">
+    <%= link_to 'Show', song %>&nbsp;
+    <%= link_to 'Edit', edit_song_path(song) %>&nbsp;
+    <%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %>&nbsp;
+    <%= react_component('RadioEnqueueButton', httpMethod: 'post', radioMethod: "/radio/enqueue/#{song.id}", label: 'Enqueue') %>&nbsp;
     <%= react_component('RadioRequestButton', httpMethod: 'post', radioMethod: "/radio/request/#{song.id}", label: 'Request') %>
   </td>
 </tr>

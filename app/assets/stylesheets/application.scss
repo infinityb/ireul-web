@@ -9,10 +9,13 @@
  * compiled file so the styles you add here take precedence over styles defined in any styles
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
- *
- *= require_tree .
- *= require_self
  */
+
+@import 'variables';
+@import 'mixins';
+@import 'radio';
+@import 'main';
+@import 'songs';
 
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700,700italic);
 /* Importing both fonts leads to ridiculous page sizes */
@@ -20,7 +23,7 @@
 @import url(http://fonts.googleapis.com/earlyaccess/notosanssc.css);*/
 
 html {
-	background-color: #2F2F2F;
+	background-color: $color-background;
 	margin: 0;
 	padding: 0;
 }

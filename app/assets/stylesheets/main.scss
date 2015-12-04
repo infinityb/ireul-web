@@ -1,0 +1,188 @@
+body {
+  color: #333;
+  font-family: 'Noto Sans', 'Noto Sans JP', 'Noto Sans SC', 'Yu Gothic', FangSong, sans-serif;
+  font-size: 1rem;
+  line-height: 1.4rem;
+}
+
+p, ol, ul, td, a, th {
+  font-family: 'Noto Sans', 'Noto Sans JP', 'Noto Sans SC', 'Yu Gothic', FangSong, sans-serif;
+  font-size: 1rem;
+  line-height: 1.4rem;
+}
+
+a {
+  color: $color-blue;
+
+  &:visited {
+    color: $color-purple;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  margin: 0;
+}
+
+h1 {
+  font-size: 3.2rem;
+  padding: 2rem 0 1rem 0;
+}
+
+h2 {
+  font-size: 1.8rem;
+  padding: 1.6rem 0 0.8rem 0;
+}
+
+h3 {
+ font-size: 1rem;
+ font-style: italic;
+}
+
+input[type=text] {
+  font-size: 1rem;
+  min-height: 2rem;
+  color: #ddd;
+  background-color: transparent;
+  border-width: 0px 0px 1px;
+  border-style: none none solid;
+  border-color: -moz-use-text-color -moz-use-text-color #ddd;
+  -moz-border-top-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  border-image: none;
+  outline: none;
+  transition: border-color 0.1s;
+
+  &:focus {
+    border-color: $color-flair;
+  }
+}
+
+button, input[type="submit"] {
+  @include clickable;
+}
+
+input[type="file"] {
+  @include clickable;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: $container-max-width;
+  background-color: $color-card-background;
+  margin: auto;
+  padding: 0 0 3rem 0;
+  border-top: 3rem solid $color-background;
+
+  .header, form, table {
+    min-width: 85%;
+    margin: 1.5rem 0 0 0;
+  }
+
+  .header a {
+    margin: 0 0.2rem 0 0;
+  }
+
+  table {
+    // max-width: 95%;
+    max-width: 85%;
+  }
+
+  form {
+    #error_explanation {
+      border-left: 1.5rem solid $color-red;
+    }
+
+    .field_with_errors {
+      display: flex;
+      background-color: $color-red;
+    }
+
+    label {
+      font-size: 1rem;
+      margin: 1rem 0 0.3rem 0;
+    }
+
+    .fields {
+      display: flex;
+      flex-direction: column;
+
+      input[type="file"] {
+        flex: 1;
+      }
+    }
+
+    .actions {
+      margin: 1rem 0;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    min-width: 85%;
+    // align-self: flex-start;
+  }
+}
+
+#notice, #error_explanation {
+  background-color: $color-card-background-lighter;
+  color: $color-white;
+  // margin: 1rem;
+  padding: 1rem;
+}
+
+#notice {
+  border-left: 1.5rem solid $color-green;
+}
+
+table {
+  border-collapse: collapse;
+
+  .controls {
+    display: flex;
+    align-items: center;
+  }
+
+  .numeric {
+    text-align: right;
+    font-family: monospace;
+  }
+
+  thead, th {
+    border-bottom: solid 1px $color-white;
+  }
+
+  th {
+    text-align: left;
+    font-variant: small-caps;
+    padding: 0.5rem 0;
+  }
+}
+
+table.vertical {
+  td:first-child {
+    text-align: right;
+    padding-right: 1rem;
+    width: 20%;
+  }
+
+  td {
+    vertical-align: top;
+    word-break: break-all;
+  }
+}
+
+.image-set {
+  width: 95%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6rem;
+}
