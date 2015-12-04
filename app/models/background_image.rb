@@ -11,4 +11,6 @@ class BackgroundImage < ActiveRecord::Base
   }
 
   validates_attachment_content_type :image, :content_type => [/\Aimage/]
+  validates :song, presence: true
+  validates :image, presence: true
 end

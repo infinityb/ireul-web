@@ -12,19 +12,19 @@ class MetadatumTest < ActiveSupport::TestCase
     end
   end
 
-  test "it ensures presense of song" do
+  test "it validates presense of song" do
     assert_no_difference('Metadatum.count') do
       Metadatum.create(song: nil, metadata_field: @field, value: "my value")
     end
   end
 
-  test "it ensures presense of metadata_field" do
+  test "it validates presense of metadata_field" do
     assert_no_difference('Metadatum.count') do
       Metadatum.create(song: @song, metadata_field: nil, value: "my value")
     end
   end
 
-  test "it ensure presence of a value" do
+  test "it validates presence of a value" do
     assert_no_difference('Metadatum.count') do
       Metadatum.create(song: @song, metadata_field: @field, value: nil)
     end

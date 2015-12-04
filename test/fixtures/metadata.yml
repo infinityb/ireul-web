@@ -2,56 +2,84 @@
 metadata_001:
   id: 1
   song_id: 1
-  metadata_field_id: 1
-  value: "にーそっくすす"
-  created_at: '2015-11-28 14:52:03.257971'
-  updated_at: '2015-11-28 14:52:03.257971'
+  metadata_field_id: 2
+  value: Haunted Dancefloor
+  created_at: '2015-12-04 08:13:41.836597'
+  updated_at: '2015-12-04 08:13:41.836597'
 metadata_002:
   id: 2
   song_id: 1
-  metadata_field_id: 6
-  value: Anime
-  created_at: '2015-11-28 14:52:03.263987'
-  updated_at: '2015-11-28 14:52:03.263987'
+  metadata_field_id: 3
+  value: HAUNTED DANCEHALL
+  created_at: '2015-12-04 08:13:41.839974'
+  updated_at: '2015-12-04 08:13:41.839974'
 metadata_003:
   id: 3
   song_id: 1
-  metadata_field_id: 2
-  value: KN33S0XXX
-  created_at: '2015-11-28 14:52:03.266495'
-  updated_at: '2015-11-28 14:52:03.266495'
+  metadata_field_id: 7
+  value: '04'
+  created_at: '2015-12-04 08:13:41.842437'
+  updated_at: '2015-12-04 08:13:41.842437'
 metadata_004:
   id: 4
   song_id: 1
-  metadata_field_id: 7
-  value: '7'
-  created_at: '2015-11-28 14:52:03.270505'
-  updated_at: '2015-11-28 14:52:03.270505'
-metadata_005:
-  id: 26
-  song_id: 9
-  metadata_field_id: 2
-  value: Unknown Doll
-  created_at: '2015-11-28 15:23:36.832106'
-  updated_at: '2015-11-28 15:23:36.832106'
-metadata_006:
-  id: 27
-  song_id: 9
-  metadata_field_id: 3
-  value: "幻想郷茶房 ～tea for two～"
-  created_at: '2015-11-28 15:23:36.836087'
-  updated_at: '2015-11-28 15:23:36.836087'
-metadata_007:
-  id: 28
-  song_id: 9
-  metadata_field_id: 7
-  value: '01'
-  created_at: '2015-11-28 15:23:36.838594'
-  updated_at: '2015-11-28 15:23:36.838594'
-metadata_008:
-  id: 29
-  song_id: 9
   metadata_field_id: 1
-  value: Okawa Tomoya
-  created_at: '2015-11-28 15:23:36.841100'
-  updated_at: '2015-11-28 15:23:36.841100'
+  value: Masayoshi Minoshima
+  created_at: '2015-12-04 08:13:41.844944'
+  updated_at: '2015-12-04 08:13:41.844944'
+metadata_005:
+  id: 5
+  song_id: 2
+  metadata_field_id: 2
+  value: Bad Apple!! feat. nomico
+  created_at: '2015-12-04 08:13:57.215928'
+  updated_at: '2015-12-04 08:13:57.215928'
+metadata_006:
+  id: 6
+  song_id: 2
+  metadata_field_id: 3
+  value: Lovelight
+  created_at: '2015-12-04 08:13:57.217933'
+  updated_at: '2015-12-04 08:13:57.217933'
+metadata_007:
+  id: 7
+  song_id: 2
+  metadata_field_id: 7
+  value: '02'
+  created_at: '2015-12-04 08:13:57.219241'
+  updated_at: '2015-12-04 08:13:57.219241'
+metadata_008:
+  id: 8
+  song_id: 3
+  metadata_field_id: 3
+  value: "マジコカタストロフィ"
+  created_at: '2015-12-04 08:15:10.191047'
+  updated_at: '2015-12-04 08:15:10.191047'
+metadata_009:
+  id: 9
+  song_id: 3
+  metadata_field_id: 1
+  value: yana
+  created_at: '2015-12-04 08:15:10.194728'
+  updated_at: '2015-12-04 08:15:10.194728'
+metadata_010:
+  id: 10
+  song_id: 3
+  metadata_field_id: 6
+  value: "東方"
+  created_at: '2015-12-04 08:15:10.198892'
+  updated_at: '2015-12-04 08:15:10.198892'
+metadata_011:
+  id: 11
+  song_id: 3
+  metadata_field_id: 2
+  value: Fall In The Dark
+  created_at: '2015-12-04 08:15:10.200897'
+  updated_at: '2015-12-04 08:15:10.200897'
+metadata_012:
+  id: 12
+  song_id: 3
+  metadata_field_id: 7
+  value: '2'
+  created_at: '2015-12-04 08:15:10.203404'
+  updated_at: '2015-12-04 08:15:10.203404'

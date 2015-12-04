@@ -6,8 +6,9 @@ class Song < ActiveRecord::Base
   has_many :metadatum, dependent: :destroy
   has_one :metadata, foreign_key: 'artist_metadata_id'
   has_one :metadata, foreign_key: 'title_metadata_id'
-
   has_many :background_images, dependent: :destroy
+
+  validates :file, presence: true
 
   def artist
     m = Metadatum.find_by_id(self.artist_metadata_id)
