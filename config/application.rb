@@ -26,16 +26,24 @@ module IreulWeb
     config.x.ireul = Rails.application.config_for(:ireul)
 
     def self.ireul_client
-      IreulService.instance.configure do |i|
-        i.url      = config.x.ireul["url"]
-        i.port     = config.x.ireul["port"]
-        i.username = config.x.ireul["username"]
-        i.password = config.x.ireul["password"]
+      if !IreulService.instance.configured
+        IreulService.instance.configure do |i|
+          i.url      = config.x.ireul["url"]
+          i.port     = config.x.ireul["port"]
+          i.username = config.x.ireul["username"]
+          i.password = config.x.ireul["password"]
+        end
+
+        IreulService.instance.connect
+        IreulService.instance
       end
+
+      IreulService.instance
     end
 
     # Storing it here instead of inside IreulService
     # It seemed it was getting wiped inside Ireul every few minutes and I didn't know why
+    # Maybe the Rails dev env loader was doing something weird?
     attr_accessor :handle_map
     self.handle_map = {}
 

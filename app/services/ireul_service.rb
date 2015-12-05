@@ -1,6 +1,7 @@
 require 'ireul'
 require 'socket'
 
+# ALL CALLS TO @IREUL must be wrapped in a @ireul_sema.synchronize call
 class IreulService
   include Singleton
 
@@ -11,17 +12,16 @@ class IreulService
   attr_accessor :port
   attr_accessor :username
   attr_accessor :password
+  attr_reader :configured
 
   RETRY_DELAY = 10
 
   def configure
     yield self if block_given?
-
-    if !@configured
-      connect
-      @configured = true
-    end
-
+    @configured = true
+    @ireul_sema = Mutex.new
+    @reconnecting_sema = Mutex.new
+    @queue_watcher_sema = Mutex.new
     self
   end
 
@@ -29,6 +29,7 @@ class IreulService
     Rails.logger.info "Connecting to Ireul at #{self.url}:#{self.port}..."
     @socket = TCPSocket::new(self.url, self.port)
     @ireul = Ireul::Core.new(@socket)
+    start_queue_watcher
   rescue Errno::ECONNREFUSED => e
     Rails.logger.warn "Failed to connect to Ireul: starting reconnect...\n#{e.inspect}"
     reconnect
@@ -36,7 +37,6 @@ class IreulService
   end
 
   def reconnect
-    @reconnecting_sema ||= Mutex.new
     if @reconnecting_sema.try_lock
       Thread.new do
         catch :connected do
@@ -44,6 +44,7 @@ class IreulService
             Rails.logger.info "Trying reconnect to #{self.url}:#{self.port}..."
             @socket = TCPSocket::new(self.url, self.port)
             @ireul = Ireul::Core.new(@socket)
+            start_queue_watcher
             throw :connected
           rescue
             sleep RETRY_DELAY
@@ -58,12 +59,43 @@ class IreulService
   end
 
   def enqueue(song)
-    handle = @ireul.enqueue(open(song.file.path, 'rb').read())
-    IreulWeb::Application.handle_map[handle.value] = song.id
+    song_buf = open(song.file.path, 'rb').read()
+    @ireul_sema.synchronize do
+      handle = @ireul.enqueue(song_buf)
+      IreulWeb::Application.handle_map[handle.value] = song.id
+    end
     # TODO: clean handle_map
   end
 
   private
+
+  def start_queue_watcher
+    if @queue_watcher_sema.try_lock
+      Rails.logger.info("Starting queue watcher...")
+      @queue_watcher = Thread.new do
+        loop do
+          Rails.logger.info("Checking queue...")
+
+          queue = @ireul_sema.synchronize do
+            @ireul.queue_status
+          end
+
+          if queue.upcoming.nil? || queue.upcoming.empty?
+            # Optimise getting random song
+            song = Song.offset(rand(Song.count)).first
+            Rails.logger.info("Queue empty, queuing song #{song.id}...")
+            enqueue(song)
+          end
+          sleep 30
+        end
+      end
+    else
+      Rails.logger.info("Old queue detected, creating a new one...")
+      @queue_watcher.kill
+      @queue_watcher_sema.unlock
+      start_queue_watcher
+    end
+  end
 
   def handle_conn_error(e)
     Rails.logger.warn "Failed to connect to Ireul: reconnecting...\n#{e.inspect}"
@@ -77,9 +109,9 @@ class IreulService
       raise IreulConnError
     else
       if @ireul.method(method).arity > 0
-        @ireul.send(method, args)
+        @ireul_sema.synchronize { @ireul.send(method, args) }
       else
-        @ireul.send(method)
+        @ireul_sema.synchronize { @ireul.send(method) }
       end
     end
   rescue IreulConnError, Errno::ECONNRESET, Errno::ECONNREFUSED, Errno::ECONNABORTED => e
