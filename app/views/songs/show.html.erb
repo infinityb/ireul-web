@@ -20,6 +20,8 @@
     <tr><td>File updated at</td><td><%= @song.file_updated_at %></td>
     <tr><td>Content type</td><td><%= @song.file_content_type %></td></tr>
     <tr><td>Original filename</td><td><%= @song.file_file_name %></td>
+    <tr><td>File URL</td><td><%= @song.file.url %></td>
+    <tr><td>Audio</td><td><%= link_to "Download", @song.file.url %><br><audio src=<%= @song.file.url %> controls></audio></td>
     <tr><td>Inspect</td><td><%= @song.inspect %></td></tr>
   </table>
 
