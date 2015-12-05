@@ -8,7 +8,7 @@
       time_ago_in_words(song.last_requested_at) + " ago"
   end %>
 
-  <td>friendly_last_requested_at</td>
+  <td><%= friendly_last_requested_at %></td>
   <td class="controls">
     <%= link_to 'S', song %>&nbsp;
     <%= link_to 'E', edit_song_path(song) %>&nbsp;
