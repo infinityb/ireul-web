@@ -27,7 +27,7 @@ class Radio extends React.Component {
     let queue = React.createElement(Queue, {
       className: "queue",
       title: "queue",
-      songs: this.state.radio.upcoming
+      songs: this.state.radio.upcoming.slice(0, 5)
     });
 
     let player = React.createElement(Player, {
