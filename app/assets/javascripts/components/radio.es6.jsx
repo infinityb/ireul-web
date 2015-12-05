@@ -3,7 +3,7 @@ class Radio extends React.Component {
     super(props);
 
     this.fallbackInfo = {
-      artist: "Somthing went wrong",
+      artist: "Something went wrong",
       title: "Nothing is playing",
       duration: 0,
       position: 0
