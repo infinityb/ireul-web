@@ -243,6 +243,11 @@ div[data-react-class="Radio"] {
 			p {
 				margin-top: 0
 			}
+
+			&:after {
+				transition: opacity 0.2s;
+				opacity: 0;
+			}
 		}
 
 		.play-button-true {
@@ -256,7 +261,7 @@ div[data-react-class="Radio"] {
 				}
 
 				&:after{
-					transition: opacity 0s;
+					transition: opacity 0.2s;
 					opacity: 0;
 				}
 			}
