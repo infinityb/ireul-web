@@ -52,7 +52,7 @@ class AudioPlayer extends React.Component {
 
   render () {
     let playButtonLabel = this.state.playing ? "🔇" : "▶"; // mute, play
-    let audio = React.DOM.div({ className: "audio-player-element" },
+    let audio = React.DOM.div({ className: "audio-player-element", preload: "none" },
       React.DOM.audio({ ref: "audioObject" },
         React.DOM.source({ src: this.props.source, type: "audio/ogg" })
       )
