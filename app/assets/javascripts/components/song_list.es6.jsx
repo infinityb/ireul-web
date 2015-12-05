@@ -22,7 +22,7 @@ class SongList extends React.Component {
       }
 
       let props = {
-        key: "song-list" + song.id,
+        key: "song-list." + song.artist + "." + song.title,
         id: song.id,
         artist: song.artist,
         title: song.title,

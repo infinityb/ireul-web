@@ -10,7 +10,7 @@ class Queue extends React.Component {
 
     return (
       <div className={this.props.className}>
-        <div>{this.props.title}</div>
+        <div className="queue-title">{this.props.title}</div>
         {songQueue}
       </div>
     )

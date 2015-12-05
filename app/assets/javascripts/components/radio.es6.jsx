@@ -1,11 +1,17 @@
 class Radio extends React.Component {
   constructor (props) {
     super(props);
+
+    this.fallbackInfo = {
+      artist: "Somthing went wrong",
+      title: "Nothing is playing",
+      duration: 0,
+      position: 0
+    };
+
     this.state = { radio: {
-      current: {
-        artist: "MACINTOSH Plus",
-        title: "Eccoと悪寒ダイビング龍龙"
-      }
+      current: this.fallbackInfo,
+      upcoming: []
     }};
   }
 
@@ -13,15 +19,28 @@ class Radio extends React.Component {
     if (typeof this.props.backgroundElementSelector !== "undefined") {
       this.setupBackground();
     }
+    this.getInfo();
+    setInterval(this.getInfo.bind(this), 10000);
   }
 
   render () {
+    let queue = React.createElement(Queue, {
+      className: "queue",
+      title: "queue",
+      songs: this.state.radio.upcoming
+    });
+
+    let player = React.createElement(Player, {
+      nowPlaying: this.state.radio.current || this.fallbackInfo,
+      audioSrc: this.props.audioSrc,
+    });
+
     return React.DOM.div({ className: "radio" },
       React.DOM.div({ className: "player-information-section" },
-        React.createElement(Player, { nowPlaying: this.state.radio.current, audioSrc: "http://lollipop.hiphop:8000/ireul" }),
+        player,
         React.DOM.div({ className: "queue-history"},
-          React.createElement(Queue, { className: "history", title: "History", songs: [{ id: 1, artist: "lmao", title: "lmbo" }] }),
-          React.createElement(Queue, { className: "queue", title: "Queue", songs: [{ id: 3, artist: "lmao", title: "lmbo" }] })
+          React.createElement(Queue, { className: "history", title: "history", songs: [{ id: 1, artist: "lmao", title: "lmbo" }] }),
+          queue
         )
       ),
 
@@ -29,21 +48,9 @@ class Radio extends React.Component {
         React.createElement(SongLibrary)
       ),
 
-      React.DOM.div({ className: "player-controls-section" },
+      React.DOM.div({ className: "player-admin-section" },
+        React.DOM.h3(null, "Admin"),
         React.createElement(RadioSkipButton, { httpMethod: "post", radioMethod: "/radio/skip", label: "Skip" } )
-      ),
-
-      React.DOM.div({ className: "player-debug-section" },
-        React.DOM.h3(null, "Debug"),
-        React.DOM.div({ className: "player-debug-controls" },
-          React.DOM.input({
-            className: 'debug-input',
-            type: 'text',
-            placeholder: "change background with image url",
-            onChange: this.debugSetBackground.bind(this)
-          }, null),
-          React.DOM.button({ onClick: this.getInfo.bind(this) }, "Get info for debug song")
-        )
       )
     );
   }
@@ -82,12 +89,17 @@ class Radio extends React.Component {
   }
 
   setBackground (src) {
-    // This is a hack
-    let url = "url('" + src + "')";
+    let url;
+    if (typeof src !== 'undefined' && src !== null) {
+      // This is a hack
+      url = "url('" + src + "')";
+      document.styleSheets[0].cssRules[40].style.backgroundImage = url;
+      // Maybe in the future data-attr for url type will be supported
+      // el.setAttribute('data-bgimgsrc', src);
+    } else {
+      url = "none";
+    }
     document.styleSheets[0].cssRules[40].style.backgroundImage = url;
-    // console.log(document.styleSheets[0].cssRules[0].style.backgroundImage = url);
-    // Maybe in the future data-attr for url type will be supported
-    // el.setAttribute('data-bgimgsrc', src);
   }
 
   debugSetBackground (event) {
@@ -95,27 +107,24 @@ class Radio extends React.Component {
   }
 
   getInfo () {
-    // remove param once it's done
-    let req = new XMLHttpRequest();
-    req.open('get', 'radio/info.json?song_id=1', true);
-    req.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
-    req.onreadystatechange = () => {
-      if (req.readyState == 4) {
-        this.handleInfoResponse(JSON.parse(req.responseText));
+    let xhr = new XMLHttpRequest();
+    xhr.open('get', 'radio/info', true);
+    xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        this.handleInfoResponse(JSON.parse(xhr.responseText));
       }
     };
-    req.send();
+    xhr.send();
   }
 
   handleInfoResponse (res) {
-    // TODO: follow API mapping
     this.setBackground(res.image);
+
     this.setState({
       radio: {
-        current: {
-          artist: res.artist,
-          title: res.title
-        }
+        current: res.current,
+        upcoming: res.upcoming
       }
     });
   }

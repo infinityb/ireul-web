@@ -1,5 +1,6 @@
 @mixin clickable {
   @include clickable-style;
+  // Inconsistent button heights
 
   &:hover:enabled {
     color: $color-flair !important;
@@ -25,10 +26,10 @@
 
 @mixin clickable-style {
   text-align: center;
-  padding: 0.5rem;
+  padding: 0.8rem;
   border: solid 1px #666;
   color: #DDD !important;
-  font-size: 1rem;
+  font-size: 1.6rem;
   background: transparent;
   user-select: none;
   -webkit-touch-callout: none;

@@ -2,7 +2,7 @@ class SongsController < ApplicationController
   # GET /songs
   # GET /songs.json
   def index
-    @songs = Song.page(params[:page])
+    @songs = Song.page(params[:page]).per(15)
     @page = params[:page]
     @page_count = @songs.total_pages
 
@@ -98,7 +98,7 @@ class SongsController < ApplicationController
       song_ids = Metadatum.where("value LIKE ?", "%#{@query}%").pluck(:song_id)
       matching_songs = Song.find(song_ids)
       paginated = Kaminari.paginate_array(matching_songs)
-      @songs = paginated.page(params[:page])
+      @songs = paginated.page(params[:page]).per(15)
       @page = params[:page]
       @has_more = !@songs.last_page?
     else

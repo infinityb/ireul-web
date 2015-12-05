@@ -15,10 +15,7 @@ class RadioController < ApplicationController
 
   def enqueue
     song ||= @song || Song.find(params[:id])
-    oggfile = open(song.file.path, 'rb')
-    oggbuf = oggfile.read()
-    oggfile.close()
-    IreulWeb::Application.ireul_client.enqueue(oggbuf)
+    IreulWeb::Application.ireul_client.enqueue(song)
 
     render json: { status: :ok, action: :enqueue, time: Time.now.utc, canRequestAt: @song.can_request_at }
   rescue IreulService::IreulConnError
@@ -43,19 +40,43 @@ class RadioController < ApplicationController
     end
   end
 
+  # TODO: Replace polling with ActionCable with Rails 5
+  # TODO: Optimise this
   def info
-    @artist = "Some artist"
-    @title = "Some title"
-    @image = BackgroundImage.where(song_id: params[:song_id]).first.image.url(:medium) # replace param with current song
+    queue = IreulWeb::Application.ireul_client.queue_status
+    upcoming = queue.upcoming || []
 
-    respond_to do |format|
-      format.json
+    if !queue.current.nil?
+      handle = queue.current.instance_variable_get("@track").handle[0]
+      song_id = IreulWeb::Application.handle_map[handle]
+      song = Song.find_by_id(song_id)
+      bg_image = BackgroundImage.where(song_id: song.id).first if song
+      image_url = bg_image.image.url(:medium) if bg_image # TODO: Add fallback images
     end
+
+    render json: {
+      image: image_url || nil,
+      current: queue_track_to_json(queue.current),
+      upcoming: upcoming.map { |t| queue_track_to_json(t) }
+    }
   end
 
   private
 
   def song_params
     params.require(:song).permit(:song_id)
+  end
+
+  def queue_track_to_json(t)
+    return nil if t.nil?
+
+    {
+      artist: t.artist.force_encoding("utf-8"),
+      album: t.album.force_encoding("utf-8"),
+      title: t.title.force_encoding("utf-8"),
+      position: t.position,
+      duration: t.duration,
+      start_time: t.start_time
+    }
   end
 end

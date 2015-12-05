@@ -1,14 +1,14 @@
 body {
   color: #333;
   font-family: 'Noto Sans', 'Noto Sans JP', 'Noto Sans SC', 'Yu Gothic', FangSong, sans-serif;
-  font-size: 1rem;
-  line-height: 1.4rem;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
 }
 
 p, ol, ul, td, a, th {
   font-family: 'Noto Sans', 'Noto Sans JP', 'Noto Sans SC', 'Yu Gothic', FangSong, sans-serif;
-  font-size: 1rem;
-  line-height: 1.4rem;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
 }
 
 a {
@@ -30,23 +30,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 3.2rem;
-  padding: 2rem 0 1rem 0;
+  font-size: 5rem;
+  padding: 3.2rem 0 2.6rem 0;
 }
 
 h2 {
   font-size: 1.8rem;
-  padding: 1.6rem 0 0.8rem 0;
+  padding: 2.6rem 0 1.2rem 0;
 }
 
 h3 {
- font-size: 1rem;
+ font-size: 1.6rem;
  font-style: italic;
 }
 
 input[type=text] {
-  font-size: 1rem;
-  min-height: 2rem;
+  font-size: 1.6rem;
+  min-height: 3.2rem;
   color: #ddd;
   background-color: transparent;
   border-width: 0px 0px 1px;
@@ -67,6 +67,7 @@ input[type=text] {
 
 button, input[type="submit"] {
   @include clickable;
+  min-height: 4rem;
 }
 
 input[type="file"] {
@@ -81,8 +82,8 @@ input[type="file"] {
   max-width: $container-max-width;
   background-color: $color-card-background;
   margin: 0 auto 5rem auto;
-  padding: 0 0 3rem 0;
-  border-top: 3rem solid $color-background;
+  padding: 0 0 4.8rem 0;
+  border-top: 4.8rem solid $color-background;
 
   .header, form, table {
     min-width: 85%;
@@ -97,9 +98,13 @@ input[type="file"] {
     max-width: 85%;
   }
 
+  td {
+    vertical-align: top;
+  }
+
   form {
     #error_explanation {
-      border-left: 1.5rem solid $color-red;
+      border-left: 2.4rem solid $color-red;
     }
 
     .field_with_errors {
@@ -108,8 +113,8 @@ input[type="file"] {
     }
 
     label {
-      font-size: 1rem;
-      margin: 1rem 0 0.3rem 0;
+      font-size: 1.6rem;
+      margin: 1.6rem 0 0.5rem 0;
     }
 
     .fields {
@@ -122,7 +127,7 @@ input[type="file"] {
     }
 
     .actions {
-      margin: 1rem 0;
+      margin: 1.6rem 0;
     }
   }
 
@@ -134,11 +139,11 @@ input[type="file"] {
 #notice, #error_explanation {
   background-color: $color-card-background-lighter;
   color: $color-white;
-  padding: 1rem;
+  padding: 1.6rem;
 }
 
 #notice {
-  border-left: 1.5rem solid $color-green;
+  border-left: 2.4rem solid $color-green;
 }
 
 table {
@@ -161,14 +166,14 @@ table {
   th {
     text-align: left;
     font-variant: small-caps;
-    padding: 0.5rem 0;
+    padding: 0.8rem 0;
   }
 }
 
 table.vertical {
   td:first-child {
     text-align: right;
-    padding-right: 1rem;
+    padding-right: 1.6rem;
     width: 20%;
   }
 
@@ -186,12 +191,12 @@ table.vertical {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 6rem;
+  height: 9.6rem;
 }
 
 .pagination {
-  margin-top: 1rem;
-  font-size: 1rem;
+  margin-top: 1.6rem;
+  font-size: 1.6rem;
 
   .first, .prev, .next, .last {
     a {
@@ -205,12 +210,12 @@ table.vertical {
   }
 
   a {
-    padding: 0.5rem;
+    padding: 0.8rem;
     text-decoration: none;
   }
 
   .page a, .current {
-    padding: 1rem;
+    padding: 1.6rem;
   }
 
   .current {

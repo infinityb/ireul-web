@@ -16,8 +16,12 @@ class IreulService
 
   def configure
     yield self if block_given?
-    connect if !@configured
-    @configured = true
+
+    if !@configured
+      connect
+      @configured = true
+    end
+
     self
   end
 
@@ -53,15 +57,32 @@ class IreulService
     end
   end
 
-  def method_missing(method, args)
+  def enqueue(song)
+    handle = @ireul.enqueue(open(song.file.path, 'rb').read())
+    IreulWeb::Application.handle_map[handle.value] = song.id
+    # TODO: clean handle_map
+  end
+
+  private
+
+  def handle_conn_error(e)
+    Rails.logger.warn "Failed to connect to Ireul: reconnecting...\n#{e.inspect}"
+    Rails.logger.warn e.backtrace.join("\n")
+    reconnect
+    raise IreulConnError
+  end
+
+  def method_missing(method, args=nil)
     if @ireul.nil?
       raise IreulConnError
     else
-      @ireul.send(method, args)
+      if @ireul.method(method).arity > 0
+        @ireul.send(method, args)
+      else
+        @ireul.send(method)
+      end
     end
-  rescue IreulConnError, Errno::ECONNRESET, Errno::ECONNREFUSED => e
-    Rails.logger.warn "Failed to connect to Ireul: reconnecting...\n#{e.inspect}"
-    reconnect
-    raise IreulConnError
+  rescue IreulConnError, Errno::ECONNRESET, Errno::ECONNREFUSED, Errno::ECONNABORTED => e
+    handle_conn_error(e)
   end
 end
