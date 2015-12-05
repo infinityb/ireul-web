@@ -1,10 +1,5 @@
 @mixin clickable {
-  text-align: center;
-  padding: 0.5rem;
-  border: solid 1px #666;
-  color: #DDD !important;
-  font-size: 1rem;
-  background: transparent;
+  @include clickable-style;
 
   &:hover:enabled {
     color: $color-flair !important;
@@ -19,16 +14,26 @@
 }
 
 @mixin clickable-link {
- text-align: center;
- padding: 0.5rem;
- border: solid 1px #666;
- color: #DDD !important;
- font-size: 1rem;
- background: transparent;
+  @include clickable-style;
 
- &:hover {
-   color: $color-flair !important;
-   background-color: $button-highlight-color;
-   cursor: pointer;
- };
+  &:hover {
+    color: $color-flair !important;
+    background-color: $button-highlight-color;
+    cursor: pointer;
+  };
+}
+
+@mixin clickable-style {
+  text-align: center;
+  padding: 0.5rem;
+  border: solid 1px #666;
+  color: #DDD !important;
+  font-size: 1rem;
+  background: transparent;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }

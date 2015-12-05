@@ -128,14 +128,12 @@ input[type="file"] {
 
   h1, h2, h3, h4, h5, h6 {
     min-width: 85%;
-    // align-self: flex-start;
   }
 }
 
 #notice, #error_explanation {
   background-color: $color-card-background-lighter;
   color: $color-white;
-  // margin: 1rem;
   padding: 1rem;
 }
 
