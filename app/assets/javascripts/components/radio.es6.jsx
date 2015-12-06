@@ -93,24 +93,24 @@ class Radio extends React.Component {
     // HACK: 40 is an arbitrary number
     // Modify existing styles
     document.styleSheets[0].insertRule(style, 40);
+    this.background = null;
   }
 
   setBackground (src) {
     let url;
     if (typeof src !== 'undefined' && src !== null) {
-      // This is a hack
-      url = "url('" + src + "')";
-      document.styleSheets[0].cssRules[40].style.backgroundImage = url;
-      // Maybe in the future data-attr for url type will be supported
-      // el.setAttribute('data-bgimgsrc', src);
+      if (src !== this.background) {
+        this.background = src;
+        // This is a hack
+        url = "url('" + src + "')";
+        document.styleSheets[0].cssRules[40].style.backgroundImage = url;
+        // Maybe in the future data-attr for url type will be supported
+        // el.setAttribute('data-bgimgsrc', src);
+      }
     } else {
       url = "none";
     }
     document.styleSheets[0].cssRules[40].style.backgroundImage = url;
-  }
-
-  debugSetBackground (event) {
-    this.setBackground(event.target.value);
   }
 
   getInfo () {
