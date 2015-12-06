@@ -18,6 +18,7 @@ A Rails client for [Ireul](https://github.com/infinityb/ireul/).
 `rake test`
 
 ## Notes and useful commands
+* Login at `http://example.com/login`
 * `rake db:fixtures:dump`
 * `Gemfile.lock` is in `.gitignore` due to cross-platform issues [1](https://github.com/bundler/bundler-features/issues/4). Also helps with running on Travis CI as local gems are used in this app.
 
