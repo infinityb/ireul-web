@@ -17,6 +17,12 @@ Rails (with React) client for [Ireul](https://github.com/infinityb/ireul/), a ra
 7. `bundle exec rails server`
 8. `rails runner script/create_user.rb`
 
+## Features
+* Song database (48kHz OGG)
+* Song requests with cooldowns
+* Frosted background images for each song
+* Cool interface
+
 ## Notes and useful commands
 * Login at `http://example.com/login`
 * `rake db:fixtures:dump` dumps existing DB as fixtures
