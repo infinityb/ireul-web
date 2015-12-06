@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   end
 
   controller :radio do
-    get  'radio' => :index
-    get  'radio/info' => :info
+    get 'radio' => :index
+    get 'radio/info' => :info
     post 'radio/enqueue/:id' => :enqueue
     post 'radio/request/:id' => :request_song
     post 'radio/skip' => :skip
@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   controller :songs do
     post 'songs/search/:query' => :search
+    post 'songs/search' => :search
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
