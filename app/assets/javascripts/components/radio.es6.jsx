@@ -76,7 +76,7 @@ class Radio extends React.Component {
 
         background-repeat: no-repeat;
         background-position: center;
-        background-origin: top-left;
+        background-origin: center;
         background-size: cover;
 
         filter: blur(0.625rem) saturate(60%);
