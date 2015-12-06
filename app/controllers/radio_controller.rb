@@ -45,6 +45,7 @@ class RadioController < ApplicationController
   def info
     queue = IreulWeb::Application.ireul_client.queue_status
     upcoming = queue.upcoming || []
+    history = queue.history || []
 
     if !queue.current.nil?
       handle = queue.current.instance_variable_get("@track").handle[0]
@@ -57,7 +58,8 @@ class RadioController < ApplicationController
     render json: {
       image: image_url || nil,
       current: queue_track_to_json(queue.current),
-      upcoming: upcoming.map { |t| queue_track_to_json(t) }
+      upcoming: upcoming.map { |t| queue_track_to_json(t) },
+      history: history.map { |t| queue_track_to_json(t) }
     }
   end
 
@@ -76,7 +78,7 @@ class RadioController < ApplicationController
       title: t.title.force_encoding("utf-8"),
       position: t.position,
       duration: t.duration,
-      start_time: t.start_time
+      start_time: t.try(:start_time)
     }
   end
 end

@@ -11,7 +11,8 @@ class Radio extends React.Component {
 
     this.state = { radio: {
       current: this.fallbackInfo,
-      upcoming: []
+      upcoming: [],
+      history: []
     }};
   }
 
@@ -30,6 +31,12 @@ class Radio extends React.Component {
       songs: this.state.radio.upcoming.slice(0, 5)
     });
 
+    let history = React.createElement(Queue, {
+      className: "history",
+      title: "history",
+      songs: this.state.radio.history.slice(this.state.radio.history.length - 5).reverse()
+    });
+
     let player = React.createElement(Player, {
       nowPlaying: this.state.radio.current || this.fallbackInfo,
       audioSrc: this.props.audioSrc,
@@ -39,7 +46,7 @@ class Radio extends React.Component {
       React.DOM.div({ className: "player-information-section" },
         player,
         React.DOM.div({ className: "queue-history"},
-          React.createElement(Queue, { className: "history", title: "history", songs: [{ id: 1, artist: "lmao", title: "lmbo" }] }),
+          history,
           queue
         )
       ),
@@ -124,7 +131,8 @@ class Radio extends React.Component {
     this.setState({
       radio: {
         current: res.current,
-        upcoming: res.upcoming
+        upcoming: res.upcoming,
+        history: res.history
       }
     });
   }

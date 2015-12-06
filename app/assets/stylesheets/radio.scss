@@ -27,7 +27,7 @@ div[data-react-class="Radio"] {
 	flex-direction: row;
 	flex-wrap: wrap;
 	margin: 3.2rem 0;
-	font-size: 1.6rem;
+	font-size: 1.2rem;
 
 	.queue, .history {
 		align-items: center;
@@ -129,6 +129,12 @@ div[data-react-class="Radio"] {
 	.title {
 		flex: 2;
 	}
+}
+
+.song-list-item {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .song-browser {

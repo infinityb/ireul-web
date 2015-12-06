@@ -13,9 +13,7 @@ class Song extends React.Component {
     } else {
       return (
         <div className="song-list-item">
-          <span className="artist">{this.props.artist}</span>
-          &nbsp;&mdash;&nbsp;
-          <span className="title">{this.props.title}</span>
+          <span className="song">{this.props.artist + " — " + this.props.title}</span>
           <span className="controls">{this.props.controls}</span>
         </div>
       );
