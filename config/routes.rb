@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
   root 'radio#index'
 
-  get 'admin' => 'admin#index'
+  controller :admin do
+    get 'admin' => :index
+  end
 
   controller :sessions do
     get 'login' => :new
@@ -12,17 +14,17 @@ Rails.application.routes.draw do
     delete 'logout' => :destroy
   end
 
-  # controller :radio do
-  # end
+  controller :radio do
+    get  'radio' => :index
+    get  'radio/info' => :info
+    post 'radio/enqueue/:id' => :enqueue
+    post 'radio/request/:id' => :request_song
+    post 'radio/skip' => :skip
+  end
 
-  get 'radio/index'
-  get 'radio/info' => 'radio#info'
-  post 'radio/enqueue/:id' => 'radio#enqueue'
-  post 'radio/request/:id' => 'radio#request_song'
-  post 'radio/skip' => 'radio#skip'
-
-  post 'songs/search/:query' => 'songs#search'
-  post 'songs/search' => 'songs#search'
+  controller :songs do
+    post 'songs/search/:query' => :search
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
