@@ -59,6 +59,8 @@ class Radio extends React.Component {
 
   setupBackground () {
     // Create a pseudo element so we can apply CSS filters (blur, etc.) only on the background image
+    // transform: translate3d(0,0,0);
+    // HW accel seemed to cause problems on some devices
     let style =
       this.props.backgroundElementSelector + `:before {
         content: "";
@@ -98,14 +100,13 @@ class Radio extends React.Component {
         this.background = src;
         // This is a hack
         url = "url('" + src + "')";
-        document.styleSheets[0].cssRules[40].style.backgroundImage = url;
         // Maybe in the future data-attr for url type will be supported
         // el.setAttribute('data-bgimgsrc', src);
+        document.styleSheets[0].cssRules[40].style.backgroundImage = url;
       }
     } else {
       url = "none";
     }
-    document.styleSheets[0].cssRules[40].style.backgroundImage = url;
   }
 
   getInfo () {
