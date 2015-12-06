@@ -1,6 +1,8 @@
 require 'action_view'
 
 class RadioController < ApplicationController
+  skip_before_filter :authorize, only: [:index, :info, :request_song]
+
   include ActionView::Helpers::DateHelper
 
   def index

@@ -7,6 +7,11 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def force_authorize
+    allow_any_instance_of(ApplicationController)
+      .to receive(:authorize)
+      .and_return(true)
+  end
 
   module ImageHelper
     def get_test_image(filename)
@@ -28,3 +33,26 @@ class ActiveSupport::TestCase
     end
   end
 end
+
+# rspec/mocks integration with minitest
+# https://www.relishapp.com/rspec/rspec-mocks/v/3-2/docs/outside-rspec/integrate-with-minitest
+require 'minitest/autorun'
+require 'rspec/mocks'
+
+module MinitestRSpecMocksIntegration
+  include ::RSpec::Mocks::ExampleMethods
+
+  def before_setup
+    ::RSpec::Mocks.setup
+    super
+  end
+
+  def after_teardown
+    super
+    ::RSpec::Mocks.verify
+  ensure
+    ::RSpec::Mocks.teardown
+  end
+end
+
+Minitest::Test.send(:include, MinitestRSpecMocksIntegration)

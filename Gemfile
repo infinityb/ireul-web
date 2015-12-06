@@ -35,6 +35,7 @@ gem "bcrypt"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'rspec-mocks'
 end
 
 group :development do
@@ -53,10 +54,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Windows compatability requirement
 gem "nokogiri", ">= 1.6.7.rc"
 
-# gem "bcrypt"
-
 gem 'react-rails', '~> 1.5.0'
 gem "paperclip", "~> 4.3"
+gem "kaminari"
 
 # Replace when gem is published
 # For some reason, when you are trying to use a gem from local source,
@@ -68,5 +68,3 @@ gem "paperclip", "~> 4.3"
 # http://stackoverflow.com/a/15690307
 gem 'ireul', '0.0.4'
 gem 'ogg', '0.0.5', :git => 'https://github.com/infinityb/ruby-ogg.git'
-
-gem "kaminari"

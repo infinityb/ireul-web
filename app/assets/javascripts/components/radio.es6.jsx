@@ -53,11 +53,6 @@ class Radio extends React.Component {
 
       React.DOM.div({ className: "song-library-section" },
         React.createElement(SongLibrary)
-      ),
-
-      React.DOM.div({ className: "player-admin-section" },
-        React.DOM.h3(null, "Admin"),
-        React.createElement(RadioSkipButton, { httpMethod: "post", radioMethod: "/radio/skip", label: "Skip" } )
       )
     );
   }

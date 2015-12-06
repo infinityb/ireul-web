@@ -1,27 +1,32 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="header">
+    <h1>Search songs</h1>
 
-<h1>Listing Songs Search Results</h1>
+    <%= link_to 'Back', :back %>
 
-Searched for "<%= @query %>" and found <%= pluralize(@songs.count, "result") %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Artist</th>
-      <th>Album</th>
-      <th>Title</th>
-      <th>File size</th>
-      <th colspan="4"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @songs.each do |song| %>
-      <%= render song %>
+    <% if notice %>
+      <p id="notice"><%= notice %></p>
     <% end %>
-  </tbody>
-</table>
 
-<br>
+    <div style="width: 100%;">"<%= @query %>", <%= pluralize(@songs.count, "result") %></div>
+  </div>
 
-<%= link_to 'All songs', songs_path %>
+  <table class="song-list-table">
+    <thead>
+      <tr>
+        <th class="artist-header">Artist</th>
+        <th class="title-header">Title</th>
+        <th class="last-requested-header">Last requested</th>
+        <th colspan="4"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @songs.each do |song| %>
+        <%= render song %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @songs %>
+</div>

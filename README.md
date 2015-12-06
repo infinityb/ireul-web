@@ -12,6 +12,7 @@ A Rails client for [Ireul](https://github.com/infinityb/ireul/).
 4. `bundle install`
 5. `rake db:seed`l server url/port
 7. `bundle exec rails server`
+8. `rails runner script/create_user.rb`
 
 ## Test
 `rake test`

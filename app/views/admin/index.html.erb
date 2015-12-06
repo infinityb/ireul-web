@@ -1,0 +1,21 @@
+<div class="container">
+
+  <div class="header">
+    <h1>Administration</h1>
+    <div><%= @user.name %>, employee #<%= @user.id %></div>
+
+    <% if notice %>
+      <p id="notice"><%= notice %></p>
+    <% end %>
+  </div>
+
+  <div class="content">
+	<h2>Songs</h2>
+	<%= link_to "Song index", songs_path %><br>
+	<%= link_to "New song", new_song_path %>
+
+	<h2>Users</h2>
+	<%= link_to 'User index', users_path %><br>
+	<%= link_to 'New user', new_user_path %>
+  </div>
+</div>

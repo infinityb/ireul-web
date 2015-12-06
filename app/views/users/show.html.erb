@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="header">
+    <h1>Show user</h1>
+    <%= link_to 'Edit', edit_user_path(@user) %>
+    <%= link_to 'Back', users_path %>
+
+    <% if notice %>
+      <p id="notice"><%= notice %></p>
+    <% end %>
+
+    <table class="vertical">
+      <tr><td>ID</td><td><%= @user.id %></td></tr>
+      <tr><td>Name</td><td><%= @user.name %></td></tr>
+      <tr><td>Created at</td><td><%= @user.created_at %> (<%= time_ago_in_words(@user.created_at) %> ago)</td></tr>
+      <tr><td>Updated at</td><td><%= @user.updated_at %> (<%= time_ago_in_words(@user.updated_at) %> ago)</td></tr>
+    </table>
+  </div>
+</div>

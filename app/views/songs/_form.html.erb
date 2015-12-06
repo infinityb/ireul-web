@@ -2,7 +2,7 @@
   <% if @song.errors.any? || (@image && @image.errors.any?) %>
     <div id="error_explanation">
 
-      <h2>Fix the following errors:</h2>
+      <h2>Fix the following errors</h2>
 
       <ul>
         <% @song.errors.full_messages.each do |message| %>

@@ -1,4 +1,9 @@
 class SongsController < ApplicationController
+  skip_before_filter :authorize, only: [:index, :search]
+  # authorize2 is an alias for authorize and is used to work around a bug on
+  # conditional skipping of filters
+  before_filter :authorize2, only: [:index, :search], :unless => :json_request?
+
   # GET /songs
   # GET /songs.json
   def index
@@ -111,6 +116,8 @@ class SongsController < ApplicationController
     end
   end
 
+  private
+
   def self.comment_flatten(comments)
     out = Hash::new()
     comments.each do |k, v|
@@ -121,49 +128,52 @@ class SongsController < ApplicationController
     out
   end
 
-  private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def song_params
-      params.require(:song).permit(:file)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def song_params
+    params.require(:song).permit(:file)
+  end
 
-    def image_params
-      params.require(:background_image).permit(:image)
-    end
+  def image_params
+    params.require(:background_image).permit(:image)
+  end
 
-    def autofill_vorbis_comments(params)
-      ret = {}
-      Ogg::Vorbis::Info.open(params[:file].path) do |f|
-        ret[:metadata] = SongsController::comment_flatten(f.comments)
+  def autofill_vorbis_comments(params)
+    ret = {}
+    Ogg::Vorbis::Info.open(params[:file].path) do |f|
+      ret[:metadata] = SongsController::comment_flatten(f.comments)
+    end
+    ret
+  end
+
+  def create_metadatum_records(metadatum)
+    metadatum.each do |k, v|
+      field = MetadataField.find_by_name(k)
+      if field.blank?
+        logger.info "#{params[:path]}: Skipping field #{k} as no MetadataField of #{k} was found"
+        next
       end
-      ret
-    end
 
-    def create_metadatum_records(metadatum)
-      metadatum.each do |k, v|
-        field = MetadataField.find_by_name(k)
-        if field.blank?
-          logger.info "#{params[:path]}: Skipping field #{k} as no MetadataField of #{k} was found"
-          next
-        end
+      metadata = Metadatum.create(
+        song: @song,
+        metadata_field: field,
+        value: v.force_encoding('UTF-8')
+      )
 
-        metadata = Metadatum.create(
-          song: @song,
-          metadata_field: field,
-          value: v.force_encoding('UTF-8')
-        )
-
-        # Manually assign FKs for special fields
-        # TODO: maybe kill these two FKs
-        case field.name
-        when "ARTIST"
-          @song.artist_metadata_id = metadata.id
-        when "TITLE"
-          @song.title_metadata_id = metadata.id
-        # TODO: Auto store image for song if it has one in the tags
-        # when "METADATA_BLOCK_PICTURE"
-        end
+      # Manually assign FKs for special fields
+      # TODO: maybe kill these two FKs
+      case field.name
+      when "ARTIST"
+        @song.artist_metadata_id = metadata.id
+      when "TITLE"
+        @song.title_metadata_id = metadata.id
+      # TODO: Auto store image for song if it has one in the tags
+      # when "METADATA_BLOCK_PICTURE"
       end
     end
+  end
+
+  def json_request?
+    request.format.symbol == :json
+  end
 end
 

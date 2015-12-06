@@ -1,7 +1,19 @@
 Rails.application.routes.draw do
+  resources :users
   resources :songs
 
   root 'radio#index'
+
+  get 'admin' => 'admin#index'
+
+  controller :sessions do
+    get 'login' => :new
+    post 'login' => :create
+    delete 'logout' => :destroy
+  end
+
+  # controller :radio do
+  # end
 
   get 'radio/index'
   get 'radio/info' => 'radio#info'

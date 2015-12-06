@@ -1,0 +1,23 @@
+.admin-panel {
+	width: $magic-width;
+	max-width: $container-max-width;
+	background-color: $color-card-background;
+	margin: 0 auto 3.6rem auto;
+	display: flex;
+	justify-content: center;
+
+	.admin-controls {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		padding: 1.6rem 3.2rem;
+
+		div, button {
+			margin: 0 1rem 0 0;
+		}
+
+		.render-time {
+			margin-left: auto;
+		}
+	}
+}

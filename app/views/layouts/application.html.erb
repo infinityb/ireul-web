@@ -10,5 +10,19 @@
 
 <%= yield %>
 
+<% if session[:user_id] %>
+  <div class="admin-panel">
+    <div class="admin-controls">
+        <%= react_component('RadioSkipButton', {
+            httpMethod: "post",
+            radioMethod: "/radio/skip",
+            label: "Skip"
+        }) %>
+        <div class="render-time"><%= sprintf("%.2f", (Time.now.to_f - @start_time)) %>s</div>
+        <%= button_to 'Logout', logout_path, method: :delete %>
+    </div>
+  </div>
+<% end %>
+
 </body>
 </html>

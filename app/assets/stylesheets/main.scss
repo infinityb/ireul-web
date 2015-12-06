@@ -35,7 +35,7 @@ h1 {
 }
 
 h2 {
-  font-size: 1.8rem;
+  font-size: 2.8rem;
   padding: 2.6rem 0 1.2rem 0;
 }
 
@@ -44,7 +44,7 @@ h3 {
  font-style: italic;
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
   font-size: 1.6rem;
   min-height: 3.2rem;
   color: #ddd;
@@ -85,7 +85,7 @@ input[type="file"] {
   padding: 0 0 4.8rem 0;
   border-top: 4.8rem solid $color-background;
 
-  .header, form, table {
+  .header, .content, form, table {
     min-width: 85%;
     margin: 1.5rem 0 0 0;
   }
@@ -105,11 +105,16 @@ input[type="file"] {
   form {
     #error_explanation {
       border-left: 2.4rem solid $color-red;
+      margin: 0 0 2rem 0;
     }
 
     .field_with_errors {
       display: flex;
       background-color: $color-red;
+
+      input[type="text"], input[type="password"] {
+        width: 100%;
+      }
     }
 
     label {

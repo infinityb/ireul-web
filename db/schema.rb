@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151204112205) do
+ActiveRecord::Schema.define(version: 20151206123501) do
 
   create_table "background_images", force: :cascade do |t|
     t.integer  "song_id"
@@ -56,5 +56,12 @@ ActiveRecord::Schema.define(version: 20151204112205) do
 
   add_index "songs", ["artist_metadata_id"], name: "index_songs_on_artist_metadata_id"
   add_index "songs", ["title_metadata_id"], name: "index_songs_on_title_metadata_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
 end

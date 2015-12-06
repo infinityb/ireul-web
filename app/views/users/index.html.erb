@@ -1,0 +1,42 @@
+<div class="container">
+
+  <div class="header">
+    <h1>Users</h1>
+
+    <%= link_to 'New', new_user_path %>
+
+    <% if notice %>
+      <p id="notice"><%= notice %></p>
+    <% end %>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Digest</th>
+        <th colspan="4"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td style="min-width: 3rem;"><%= user.id %></td>
+          <td style="width: 100%"><%= user.name %></td>
+          <td style="font-family: monospace;"><%= user.password_digest %></td>
+          <td class="controls" style="padding: 0 0 0 1rem;">
+            <%= link_to 'S', user %>
+            <%= link_to 'E', edit_user_path(user) %>
+            <%= link_to 'D', user, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @users %>
+
+  <br>
+</div>
