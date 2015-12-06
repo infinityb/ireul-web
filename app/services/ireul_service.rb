@@ -18,10 +18,13 @@ class IreulService
 
   def configure
     yield self if block_given?
+
     @configured = true
     @ireul_sema = Mutex.new
     @reconnecting_sema = Mutex.new
     @@queue_watcher_sema = Mutex.new
+    @@queue_watcher = nil
+
     self
   end
 
@@ -70,7 +73,9 @@ class IreulService
   private
 
   def start_queue_watcher
-    if @@queue_watcher_sema.try_lock
+    @@queue_watcher.kill if @@queue_watcher
+
+    @@queue_watcher_sema.synchronize do
       Rails.logger.info("Starting queue watcher...")
       @@queue_watcher = Thread.new do
         loop do
@@ -89,11 +94,6 @@ class IreulService
           sleep 30
         end
       end
-    else
-      Rails.logger.info("Old queue detected, creating a new one...")
-      @@queue_watcher.kill
-      @@queue_watcher_sema.unlock
-      start_queue_watcher
     end
   end
 
