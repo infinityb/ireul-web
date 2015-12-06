@@ -54,7 +54,7 @@ class RadioController < ApplicationController
       song_id = IreulWeb::Application.handle_map[handle]
       song = Song.find_by_id(song_id)
       bg_image = BackgroundImage.where(song_id: song.id).first if song
-      image_url = bg_image.image.url(:medium) if bg_image # TODO: Add fallback images
+      image_url = bg_image.image.url(:small) if bg_image # TODO: Add fallback images
     end
 
     render json: {

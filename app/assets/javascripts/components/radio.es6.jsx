@@ -58,9 +58,10 @@ class Radio extends React.Component {
   }
 
   setupBackground () {
-    // Create a pseudo element so we can apply CSS filters (blur, etc.) only on the background image
-    // transform: translate3d(0,0,0);
-    // HW accel seemed to cause problems on some devices
+    // Create a pseudo element so we can apply CSS filters (blur, etc.)
+    // only on the background image.
+    // Blur on a smaller preimage, then scale it up using CSS transform
+    // Loses some quality but massive gains in performance.
     let style =
       this.props.backgroundElementSelector + `:before {
         content: "";
@@ -70,17 +71,21 @@ class Radio extends React.Component {
 
         display: block;
         z-index: -1;
-        width: 100%;
-        height: 100%;
+        width: 25%;
+        height: 25%;
 
         background-repeat: no-repeat;
         background-position: center;
-        background-origin: center;
-        background-attachment: fixed;
+        background-origin: top-left;
         background-size: cover;
 
-        filter: blur(25px) saturate(60%);
-        -webkit-filter: blur(25px) saturate(60%);
+        filter: blur(0.625rem) saturate(60%);
+        -webkit-filter: blur(0.625rem) saturate(60%);
+
+        will-change: background-image;
+        transform-origin: top left;
+        transform: translateZ(0) scale(4);
+        max-height: 100%;
       }
     `
 
