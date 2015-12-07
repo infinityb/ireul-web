@@ -36,6 +36,7 @@ class AudioPlayer extends React.Component {
 
   componentDidMount () {
     setInterval(this.updateProgressBar.bind(this), 1000);
+    this.setVolume(1);
   }
 
   updateProgressBar () {
@@ -54,11 +55,11 @@ class AudioPlayer extends React.Component {
     if (this.state.playing) {
       // Can't stop a live stream, thank HTML5 and sorry mobile users!
       this.refs.audioObject.pause();
-      this.refs.audioObject.volume = 0;
+      this.setVolume(0);
       this.setState({ playing: false });
     } else {
       this.refs.audioObject.play();
-      this.refs.audioObject.volume = 1;
+      this.setVolume(this.volume);
       this.setState({ playing: true });
     }
   }
@@ -72,6 +73,7 @@ class AudioPlayer extends React.Component {
     // Perceptual volume
     let adjustedVolume = (Math.pow(10, value) - 1) / (10 - 1);
     adjustedVolume = Math.max(0, Math.min(1, adjustedVolume));
+    this.volume = adjustedVolume;
     this.refs.audioObject.volume = adjustedVolume;
   }
 
