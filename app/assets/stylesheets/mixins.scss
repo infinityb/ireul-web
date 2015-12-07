@@ -25,16 +25,21 @@
 }
 
 @mixin clickable-style {
+  @include no-select;
+
   text-align: center;
   padding: 0.8rem;
   border: solid 1px #666;
   color: #DDD !important;
   font-size: 1.6rem;
   background: transparent;
-  user-select: none;
+}
+
+@mixin no-select {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  user-select: none;
 }
