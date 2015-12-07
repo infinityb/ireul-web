@@ -42,7 +42,7 @@ class AudioPlayer extends React.Component {
     let duration = this.props.nowPlaying.duration;
     let position;
     if (this.props.nowPlaying && this.props.nowPlaying.start_time) {
-      position = this.time_from(this.props.nowPlaying.start_time) / 1000;
+      position = this.timeFrom(this.props.nowPlaying.start_time) / 1000;
     } else {
       position = 0;
     }
@@ -63,9 +63,16 @@ class AudioPlayer extends React.Component {
     }
   }
 
-  time_from (time) {
+  timeFrom (time) {
     let parsed = Date.parse(time);
     return Date.now() - parsed;
+  }
+
+  setVolume (value) {
+    // Perceptual volume
+    let adjustedVolume = (Math.pow(10, value) - 1) / (10 - 1);
+    adjustedVolume = Math.max(0, Math.min(1, adjustedVolume));
+    this.refs.audioObject.volume = adjustedVolume;
   }
 
   render () {
@@ -88,7 +95,10 @@ class AudioPlayer extends React.Component {
       <div className="audio-player">
         <div className="controls">{playButton}</div>
         <StreamProgressBar value={this.state.position} max={this.props.nowPlaying.duration} />
-        <TimeInfo position={this.state.position} duration={this.props.nowPlaying.duration} />
+        <div className="below-bar">
+          <Slider min={0} max={100} initial={100} onChange={this.setVolume.bind(this)} />
+          <TimeInfo position={this.state.position} duration={this.props.nowPlaying.duration} />
+        </div>
         {audio}
       </div>
     );
@@ -120,7 +130,7 @@ class TimeInfo extends React.Component {
 }
 
 class StreamProgressBar extends React.Component {
-  time_from (time) {
+  timeFrom (time) {
     let parsed = Date.parse(time);
     return Date.now() - parsed;
   }
