@@ -22,7 +22,6 @@ class IreulService
     @configured = true
     @ireul_sema = Mutex.new
     @reconnecting_sema = Mutex.new
-    @@queue_watcher_sema = Mutex.new
     @@queue_watcher = nil
 
     self
@@ -75,7 +74,7 @@ class IreulService
   def start_queue_watcher
     @@queue_watcher.kill if @@queue_watcher
 
-    @@queue_watcher_sema.synchronize do
+    IreulWeb::Application.queue_watcher_sema.synchronize do
       Rails.logger.info("Starting queue watcher...")
       @@queue_watcher = Thread.new do
         loop do

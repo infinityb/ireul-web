@@ -25,6 +25,14 @@ module IreulWeb
 
     config.x.ireul = Rails.application.config_for(:ireul)
 
+    # Storing it here instead of inside IreulService
+    # It seemed it was getting wiped inside Ireul every few minutes and I didn't know why
+    # Maybe the Rails dev env loader was doing something weird?
+    attr_accessor :handle_map
+    attr_accessor :queue_watcher_sema
+    self.handle_map = {}
+    self.queue_watcher_sema = Mutex.new
+
     def self.ireul_client
       if !IreulService.instance.configured
         IreulService.instance.configure do |i|
@@ -40,12 +48,6 @@ module IreulWeb
 
       IreulService.instance
     end
-
-    # Storing it here instead of inside IreulService
-    # It seemed it was getting wiped inside Ireul every few minutes and I didn't know why
-    # Maybe the Rails dev env loader was doing something weird?
-    attr_accessor :handle_map
-    self.handle_map = {}
 
     Paperclip.options[:content_type_mappings] = { ogg: ['application/ogg', 'audio/x-vorbis+ogg'] }
   end
