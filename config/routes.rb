@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :users
   resources :songs
+  resources :metadatum, except: [:show, :index]
+  post 'metadatum/new' => "metadatum#create" # need this line; what is Rails doing?
 
   root 'radio#index'
 

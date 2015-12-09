@@ -44,11 +44,20 @@ h3 {
  font-style: italic;
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], select {
   font-size: 1.6rem;
   min-height: 3.2rem;
   color: #ddd;
   background-color: transparent;
+  outline: none;
+  transition: border-color 0.1s;
+
+  &:focus {
+    border-color: $color-flair;
+  }
+}
+
+input[type=text], input[type=password] {
   border-width: 0px 0px 1px;
   border-style: none none solid;
   border-color: -moz-use-text-color -moz-use-text-color #ddd;
@@ -57,12 +66,11 @@ input[type=text], input[type=password] {
   -moz-border-bottom-colors: none;
   -moz-border-left-colors: none;
   border-image: none;
-  outline: none;
-  transition: border-color 0.1s;
+}
 
-  &:focus {
-    border-color: $color-flair;
-  }
+select {
+  border-width: 1px;
+  border-style: solid;
 }
 
 button, input[type="submit"] {

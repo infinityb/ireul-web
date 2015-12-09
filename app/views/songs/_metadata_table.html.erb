@@ -1,0 +1,22 @@
+<table class="vertical">
+  <thead>
+    <tr>
+      <td>Field</td>
+      <td>Value</td>
+      <td>ID</td>
+      <td colspan=4></td>
+    </tr>
+  </thead>
+
+  <% @song.metadatum.each do |m| %>
+    <tr>
+      <td><%= m.metadata_field.name %></td>
+      <td><%= m.value %></td>
+      <td><%= m.id %></td>
+      <td>
+        <%= link_to 'E', edit_metadatum_path(m.id) %>
+        <%= link_to 'D', metadatum_path(m.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+</table>

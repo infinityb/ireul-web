@@ -1,18 +1,21 @@
 <div class="container">
+  <div class="header">
+    <h1>Edit song</h1>
+    <%= link_to 'Show', @song %>
+    <%= link_to 'Back', songs_path %>
+  </div>
 
-	<div class="header">
-		<h1>Edit song</h1>
-		<%= link_to 'Show', @song %>
-		<%= link_to 'Back', songs_path %>
-	</div>
+  <%= render "metadata_section" %>
 
-	<div>
-		<% if @song.file %>
-			<audio src=<%= @song.file.url %> controls></audio>
-		<% end %>
-		<%= link_to(image_tag(@background_image.image.url(:tiny)), @background_image.image.url) if @background_image %>
-	</div>
+  <div class="header">
+    <h2>Attachments</h2>
+  </div>
+  <div>
+    <% if @song.file %>
+      <audio src=<%= @song.file.url %> controls></audio>
+    <% end %>
+    <%= link_to(image_tag(@background_image.image.url(:tiny)), @background_image.image.url) if @background_image %>
+  </div>
 
-	<%= render 'form' %>
-
+  <%= render 'form' %>
 </div>

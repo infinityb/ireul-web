@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="header">
+    <h1>New metadata</h1>
+    <%= link_to 'Back', :back %>
+  </div>
+
+  <%= form_for(:metadatum, url: '/metadatum') do |f| %>
+    <% if @metadata.errors.any? %>
+      <div id="error_explanation">
+
+        <h2>Fix the following errors</h2>
+
+        <ul>
+        <% @metadata.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <h2>Adding field for song #<%= @song.id %></h2>
+
+    <div class="fields">
+      <%= f.label :metadata_field_id, "Field" %>
+      <%= f.collection_select :metadata_field_id, MetadataField.all, :id, :name, include_blank: "Pick one", required: true %>
+
+      <%= f.label :value %><br>
+      <%= f.text_field :value, size: 40, required: true %>
+
+      <%= f.hidden_field :song_id, value: @song.id %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Add field" %>
+    </div>
+
+  <% end %>
+
+</div>

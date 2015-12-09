@@ -1,0 +1,6 @@
+<div class="header">
+  <h2>Metadata</h2>
+  <%= link_to 'New field', new_metadatum_path(song_id: @song.id) %>
+  <h3><%= pluralize(@song.metadatum.count, "metadata field") %></h3>
+</div>
+<%= render "metadata_table" %>
