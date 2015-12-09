@@ -109,8 +109,9 @@ class Radio extends React.Component {
         // el.setAttribute('data-bgimgsrc', src);
         document.styleSheets[0].cssRules[40].style.backgroundImage = url;
       }
-    } else {
-      url = "none";
+    } else if (this.background !== "none") {
+      this.background = "none";
+      document.styleSheets[0].cssRules[40].style.backgroundImage = "none";
     }
   }
 
