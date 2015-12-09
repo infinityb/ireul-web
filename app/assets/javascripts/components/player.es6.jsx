@@ -55,7 +55,9 @@ class AudioPlayer extends React.Component {
     if (this.state.playing) {
       // Can't stop a live stream, thank HTML5 and sorry mobile users!
       this.refs.audioObject.pause();
+      let premuteVolume = this.refs.audioObject.volume;
       this.setVolume(0);
+      this.volume = premuteVolume;
       this.setState({ playing: false });
     } else {
       this.refs.audioObject.play();
