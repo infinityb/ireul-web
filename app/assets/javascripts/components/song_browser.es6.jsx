@@ -27,10 +27,18 @@ class SongBrowser extends React.Component {
 
   loadPrevPage () {
     this.loadPage(this.state.page - 1);
+    this.gotoTop();
   }
 
   loadNextPage () {
     this.loadPage(this.state.page + 1);
+    this.gotoTop();
+  }
+
+  gotoTop () {
+    let url = location.href;
+    location.href = "#song-library";
+    history.replaceState(null, null, url);
   }
 
   render () {

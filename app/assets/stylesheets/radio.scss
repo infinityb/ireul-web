@@ -116,19 +116,18 @@ div[data-react-class="Radio"] {
 
 .song-list-row {
 	display: flex;
+	flex-wrap: wrap;
 
 	td {
 		display: flex;
 		align-items: center;
-		/*justify-content: center;*/
 	}
 
-	.artist {
+	.artist, .title {
 		flex: 2;
-	}
-
-	.title {
-		flex: 2;
+		display: inline-block;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 }
 

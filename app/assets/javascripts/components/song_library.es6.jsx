@@ -20,7 +20,7 @@ class SongLibrary extends React.Component {
       break;
     }
 
-    return React.DOM.div({ className: "song-library" },
+    return React.DOM.div({ className: "song-library", id: "song-library" },
       React.createElement(Tabs, {
         tabs: ["Search", "Browse"],
         selectedPage: this.state.selectedPage,
