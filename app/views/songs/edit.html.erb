@@ -6,6 +6,13 @@
 		<%= link_to 'Back', songs_path %>
 	</div>
 
+	<div>
+		<% if @song.file %>
+			<audio src=<%= @song.file.url %> controls></audio>
+		<% end %>
+		<%= link_to(image_tag(@background_image.image.url(:tiny)), @background_image.image.url) if @background_image %>
+	</div>
+
 	<%= render 'form' %>
 
 </div>
