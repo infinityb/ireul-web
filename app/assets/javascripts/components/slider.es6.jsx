@@ -25,6 +25,8 @@ class Slider extends React.Component {
     document.addEventListener('dragend', this.upListener);
     document.addEventListener('mousemove', this.moveListener);
     document.addEventListener('mouseup', this.upListener);
+    document.addEventListener('touchmove', this.moveListener);
+    document.addEventListener('touchend', this.upListener);
   }
 
   handleDrag (e) {
@@ -37,9 +39,11 @@ class Slider extends React.Component {
   }
 
   handleDragEnd () {
-    document.removeEventListener('mousemove', this.moveListener);
     document.removeEventListener('dragend', this.upListener);
+    document.removeEventListener('mousemove', this.moveListener);
     document.removeEventListener('mouseup', this.upListener);
+    document.removeEventListener('touchmove', this.moveListener);
+    document.removeEventListener('touchend', this.upListener);
   }
 
   handleOnClick (e) {
@@ -59,7 +63,16 @@ class Slider extends React.Component {
   position (e) {
     let node = React.findDOMNode(this.refs.slider);
     let rect = node.getBoundingClientRect();
-    let x = e.clientX || e.nativeEvent.clientX;
+
+    let x;
+    if (e.clientX) {
+      x = e.clientX;
+    } else if (e.nativeEvent && e.nativeEvent.clientX) {
+      x = e.nativeEvent.clientX;
+    } else if (e.touches && e.touches[0] && e.touches[0].clientX) {
+      x = e.touches[0].clientX;
+    }
+
     let clampedX = Math.max(rect.left, Math.min(x, rect.right));
     let offset = React.findDOMNode(this.refs.handle).getBoundingClientRect().width / 2;
     let position = ((clampedX - offset) - rect.left) / rect.width;
@@ -81,7 +94,8 @@ class Slider extends React.Component {
             ref="handle"
             className="handle"
             style={{ marginLeft: (this.state.value * 100) + "%" }}
-            onMouseDown={this.handleKnob.bind(this)}>
+            onMouseDown={this.handleKnob.bind(this)}
+            onTouchStart={this.handleKnob.bind(this)}>
           </div>
         </div>
       </div>
