@@ -2,8 +2,8 @@
 
   <div class="header">
     <h1>Show song</h1>
+    <%= link_to 'Back', :back %>
     <%= link_to 'Edit', edit_song_path(@song) %>
-    <%= link_to 'Back', songs_path %>
 
     <% if notice %>
       <p id="notice"><%= notice %></p>
@@ -29,22 +29,5 @@
     <tr><td>Inspect</td><td><%= @song.inspect %></td></tr>
   </table>
 
-  <h2>Images</h2>
-  <h3><%= pluralize(@images.length, "attached image") %></h3>
-  <% @images.each do |i| %>
-    <table class="vertical">
-        <tr><td>Filesize</td><td><%= i.image_file_size %>, <%= number_to_human_size(i.image_file_size) %></td></tr>
-        <tr><td>Content type</td><td><%= i.image_content_type %></td></tr>
-        <tr><td>Original filename</td><td><%= i.image_file_name %></td></tr>
-        <tr><td>Inspect</td><td><%= i.inspect %></td></tr>
-    </table>
-
-    <div class="image-set" style="max-width: 100%; margin: 1rem;">
-      <%= image_tag i.image.url, style: "max-width: 100%" %>
-      <br>
-      <%= image_tag i.image.url(:tiny), style: "max-width: 100%" %>
-      <%= image_tag i.image.url(:small), style: "max-width: 100%" %>
-      <%= image_tag i.image.url(:medium), style: "max-width: 100%" %>
-    </div>
-  <% end %>
+  <%= render "images_section" %>
 </div>

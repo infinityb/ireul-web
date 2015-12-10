@@ -68,7 +68,6 @@ class MetadatumController < ApplicationController
       flash[:notice] = e.message
     end
 
-    @metadata.destroy
     respond_to do |format|
       format.html { redirect_to @song }
       format.json { head :no_content }

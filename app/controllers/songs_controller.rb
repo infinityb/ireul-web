@@ -35,7 +35,7 @@ class SongsController < ApplicationController
   def edit
     @song = Song.find(params[:id])
     @file = @song.file
-    @background_image = BackgroundImage.find_by_song_id(@song.id)
+    @images = BackgroundImage.where(song_id: @song.id)
   end
 
   # POST /songs

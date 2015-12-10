@@ -1,0 +1,11 @@
+<div class="header">
+  <h2>Images</h2>
+  <%= link_to 'New image', new_background_image_path(song_id: @song.id) %>
+  <h3><%= pluralize(@images.length, "attached image") %></h3>
+</div>
+
+<% @images.each do |i| %>
+  <table class="vertical">
+    <tr><td><%= image_tag i.image.url(:tiny), style: "max-width: 100%" %></td><td><%= link_to 'D', background_image_path(i.id), method: :delete, data: { confirm: 'Are you sure?' } %></td></tr>
+  </table>
+<% end %>

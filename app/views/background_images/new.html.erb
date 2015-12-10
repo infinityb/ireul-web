@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="header">
+    <h1>New background image</h1>
+    <%= link_to 'Back', :back %>
+  </div>
+
+  <%= form_for(:background_image, url: '/background_images') do |f| %>
+    <% if @image.errors.any? %>
+      <div id="error_explanation">
+
+        <h2>Fix the following errors</h2>
+
+        <ul>
+        <% @image.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <h2>Adding image for song #<%= @song.id %></h2>
+
+    <div class="fields">
+      <%= f.label "Image (optional)" %>
+      <%= f.file_field :image %>
+
+      <%= f.hidden_field :song_id, value: @song.id %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Add image" %>
+    </div>
+
+  <% end %>
+
+</div>
