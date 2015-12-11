@@ -9,7 +9,6 @@ Rails (with React) client for [Ireul](https://github.com/infinityb/ireul/), a ra
 ## Dev setup
 1. [Install ImageMagick](http://www.imagemagick.org/index.php)
 2. Clone
-6. Configure `config/ireul.yml` with Ireu
 3. `bundle update`
 4. `bundle install`
 5. `rake db:seed`
