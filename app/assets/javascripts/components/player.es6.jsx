@@ -80,8 +80,8 @@ class AudioPlayer extends React.Component {
   }
 
   render () {
-    let audio = React.DOM.div({ className: "audio-player-element", preload: "none" },
-      React.DOM.audio({ ref: "audioObject" },
+    let audio = React.DOM.div({ className: "audio-player-element" },
+      React.DOM.audio({ ref: "audioObject", preload: "none" },
         React.DOM.source({ src: this.props.source, type: "audio/ogg" })
       )
     );
