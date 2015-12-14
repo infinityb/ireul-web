@@ -7,14 +7,17 @@ Rails (with React) client for [Ireul](https://github.com/infinityb/ireul/), a ra
 ![Screenshot](http://i.imgur.com/SgSDlBG.png)
 
 ## Dev setup
+0. [Install NodeJS](https://nodejs.org/en/download/)
 1. [Install ImageMagick](http://www.imagemagick.org/index.php)
 2. Clone
 3. `bundle update`
 4. `bundle install`
-5. `rake db:seed`
-6. Configure `config/ireul.yml` with Ireul server url/port
-7. `bundle exec rails server`
-8. `rails runner script/create_user.rb`
+5. `rake db:migrate`
+6. `rake db:seed`
+7. Configure `config/ireul.yml` with Ireul server url/port
+8. `cp config/fake_secrets.yml config/secrets.yml`
+9. `rails runner script/create_user.rb`
+10. `bundle exec rails server`
 
 ## Features
 * Song database (48kHz OGG)
