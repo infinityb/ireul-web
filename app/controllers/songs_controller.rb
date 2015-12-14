@@ -41,27 +41,8 @@ class SongsController < ApplicationController
   # POST /songs
   # POST /songs.json
   def create
-    saved = false
-
-    Song.transaction do
-      Metadatum.transaction do
-      BackgroundImage.transaction do
-        @song = Song.create(song_params) # Need to assign @song an ID first
-        metadatum = autofill_vorbis_comments(song_params)[:metadata]
-
-        create_metadatum_records(metadatum)
-
-        if params[:background_image]
-          @image = BackgroundImage.create(song: @song, image: image_params[:image])
-        end
-
-        saved = @song.save
-      end
-      end
-    end
-
     respond_to do |format|
-      if saved
+      if create_song
         format.html { redirect_to @song, notice: 'Song was successfully created.' }
         format.json { render :show, status: :created, location: @song }
       else
@@ -116,6 +97,29 @@ class SongsController < ApplicationController
       format.html
       format.json
     end
+  end
+
+  def create_song
+    saved = false
+
+    Song.transaction do
+      Metadatum.transaction do
+      BackgroundImage.transaction do
+        @song = Song.create(song_params) # Need to assign @song an ID first
+        metadatum = autofill_vorbis_comments(song_params)[:metadata]
+
+        create_metadatum_records(metadatum)
+
+        if params[:background_image]
+          @image = BackgroundImage.create(song: @song, image: image_params[:image])
+        end
+
+        saved = @song.save
+      end
+      end
+    end
+
+    saved
   end
 
   private
