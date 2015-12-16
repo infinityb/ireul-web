@@ -1,7 +1,7 @@
 class Player extends React.Component {
   render () {
     let audioPlayer = React.createElement(AudioPlayer, {
-      source: "http://lollipop.hiphop:8000/ireul?" + Date.now(),
+      source: this.props.audioSrc + "?" + Date.now(),
       crossOrigin: "anonymous",
       nowPlaying: this.props.nowPlaying
     });

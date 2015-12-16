@@ -5,6 +5,7 @@ development:
   url: 127.0.0.1
   port: 3001
   request_time_gap_min: 1
+  stream_link: 127.0.0.1/icecast.ogg
 test:
   environment: test
   username: testuser
@@ -12,6 +13,7 @@ test:
   url: 127.0.0.1
   port: 3001
   request_time_gap_min: 0.05
+  stream_link: 127.0.0.1/icecast.ogg
 production:
   environment: production
   username: produser
@@ -19,3 +21,4 @@ production:
   url: 127.0.0.1
   port: 3001
   request_time_gap_min: 60
+  stream_link: 127.0.0.1/icecast.ogg
