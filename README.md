@@ -15,9 +15,8 @@ Rails (with React) client for [Ireul](https://github.com/infinityb/ireul/), a ra
 5. `rake db:migrate`
 6. `rake db:seed`
 7. Configure `config/ireul.yml` with Ireul server url/port
-8. `cp config/fake_secrets.yml config/secrets.yml`
-9. `rails runner script/create_user.rb`
-10. `bundle exec rails server`
+8. `rails runner script/create_user.rb`
+9. `bundle exec rails server`
 
 ## Features
 * Song database (48kHz OGG)
@@ -28,12 +27,18 @@ Rails (with React) client for [Ireul](https://github.com/infinityb/ireul/), a ra
 ## Notes and useful commands
 * Login at `http://example.com/login`
 * `rake db:fixtures:dump` dumps existing DB as fixtures
-* `rails runner script/ingest.rb`
+* `rails runner script/ingest.rb` to import songs
 * `Gemfile.lock` is in `.gitignore` due to cross-platform issues [1](https://github.com/bundler/bundler-features/issues/4). Also helps with running on Travis CI as local gems are used in this app.
-
-### Test
-`rake test`
 
 ### Windows
 * Ruby22 + bcrypt — [1](https://github.com/codahale/bcrypt-ruby/issues/116), [2](https://www.alib.jp/entries/bcrypt_ext_load_error_on_ruby21x), make sure `git`, DevKit `dk/bin`, `dk/mingw/bin` are in PATH
 * [ImageMagick](http://www.imagemagick.org/script/binary-releases.php#windows)
+
+## Testing
+`rake test`
+
+## Deploying
+See [DEPLOYING.md](DEPLOYING.md)
+
+## License
+MIT. See [LICENSE](LICENSE)

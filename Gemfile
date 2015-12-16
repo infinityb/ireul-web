@@ -29,13 +29,12 @@ gem "bcrypt"
 # Use Unicorn as the app server
 # gem 'unicorn'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'rspec-mocks'
+  gem 'capistrano-rails'
+  gem 'capistrano-passenger'
 end
 
 group :development do

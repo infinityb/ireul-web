@@ -1,0 +1,13 @@
+server 'example.com', roles: %w{app web}
+
+set :ssh_options, {
+  user: 'username',
+  keys: %w(~/.ssh/id_rsa),
+  forward_agent: true,
+  auth_methods: %w(publickey),
+  port: 22
+}
+
+set :passenger_environment_variables, {
+  port: 80
+}

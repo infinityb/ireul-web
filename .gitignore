@@ -14,7 +14,6 @@ pickle-email-*.html
 
 # TODO Comment out these rules if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
-config/secrets.yml
 
 ## Environment normalisation:
 /.bundle
@@ -89,3 +88,6 @@ $RECYCLE.BIN/
 # Cross-platform issues with Gemfile.lock
 # https://github.com/bundler/bundler-features/issues/4
 Gemfile.lock
+
+# Use template file for production deployment configuration
+config/deploy/production.rb
