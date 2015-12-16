@@ -3,10 +3,19 @@ def ingest_dir(song_glob_pattern, image_glob_pattern)
 
   # File::FNM_CASEFOLD = case-insensitive option
   Dir.glob(song_glob_pattern, File::FNM_CASEFOLD).select do |song_path|
-    image_path = Dir.glob("./" + File.dirname(song_path) + "/" + image_glob_pattern, File::FNM_CASEFOLD).first
-    puts "Ingesting song: #{song_path}, image: #{image_path}"
-    ingest_song(song_path, image_path)
-    processed_count += 1
+    begin
+      image_path = nil
+      Dir.chdir(File.dirname(song_path)) do |d|
+        image_path = Dir.glob(image_glob_pattern, File::FNM_CASEFOLD).first
+      end
+
+      puts "Ingesting song: #{song_path}, image: #{image_path}"
+      ingest_song(song_path, image_path)
+      processed_count += 1
+    rescue Exception => e
+      puts e.inspect
+      next
+    end
   end
 
   puts "#{processed_count} songs processed."
