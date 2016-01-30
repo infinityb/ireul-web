@@ -1,0 +1,24 @@
+development:
+  environment: development
+  username: devuser
+  password: devpass
+  url: 172.17.0.1
+  port: 3001
+  request_time_gap_min: 1
+  stream_link: 127.0.0.1/icecast.ogg
+test:
+  environment: test
+  username: testuser
+  password: testpass
+  url: 172.17.0.1
+  port: 3001
+  request_time_gap_min: 0.05
+  stream_link: 127.0.0.1/icecast.ogg
+production:
+  environment: production
+  username: produser
+  password: prodpass
+  url: 172.17.0.1
+  port: 3001
+  request_time_gap_min: 60
+  stream_link: 127.0.0.1/icecast.ogg
