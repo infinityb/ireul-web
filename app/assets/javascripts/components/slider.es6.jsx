@@ -1,23 +1,23 @@
 class Slider extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = { value: props.initial };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.setState({ value: this.positionFromValue(this.props.initial) });
   }
 
-  handleMouseDown (e) {
-    let value = this.position(e);
-    this.setState({ value: value });
+  handleMouseDown(e) {
+    const value = this.position(e);
+    this.setState({ value });
 
     if (this.props.onChange) {
       this.props.onChange(value);
     }
   }
 
-  handleKnob () {
+  handleKnob() {
     this.moveListener = this.handleDrag.bind(this);
     this.upListener = this.handleDragEnd.bind(this);
 
@@ -29,16 +29,16 @@ class Slider extends React.Component {
     document.addEventListener('touchend', this.upListener);
   }
 
-  handleDrag (e) {
-    let value = this.position(e);
-    this.setState({ value: value });
+  handleDrag(e) {
+    const value = this.position(e);
+    this.setState({ value });
 
     if (this.props.onChange) {
       this.props.onChange(value);
     }
   }
 
-  handleDragEnd () {
+  handleDragEnd() {
     document.removeEventListener('dragend', this.upListener);
     document.removeEventListener('mousemove', this.moveListener);
     document.removeEventListener('mouseup', this.upListener);
@@ -46,23 +46,23 @@ class Slider extends React.Component {
     document.removeEventListener('touchend', this.upListener);
   }
 
-  handleOnClick (e) {
+  handleOnClick(e) {
     e.stopPropagation();
     e.preventDefault();
   }
 
-  positionFromValue (value) {
-    let rect = React.findDOMNode(this.refs.slider).getBoundingClientRect();
-    let percentage = (this.state.value - this.props.min) / (this.props.max - this.props.min);
-    let offset = React.findDOMNode(this.refs.handle).getBoundingClientRect().width / 2;
-    let position = (percentage * rect.width - offset) / rect.width;
+  positionFromValue() {
+    const rect = React.findDOMNode(this.refs.slider).getBoundingClientRect();
+    const percentage = (this.state.value - this.props.min) / (this.props.max - this.props.min);
+    const offset = React.findDOMNode(this.refs.handle).getBoundingClientRect().width / 2;
+    const position = (percentage * rect.width - offset) / rect.width;
 
     return position;
   }
 
-  position (e) {
-    let node = React.findDOMNode(this.refs.slider);
-    let rect = node.getBoundingClientRect();
+  position(e) {
+    const node = React.findDOMNode(this.refs.slider);
+    const rect = node.getBoundingClientRect();
 
     let x;
     if (e.clientX) {
@@ -73,29 +73,36 @@ class Slider extends React.Component {
       x = e.touches[0].clientX;
     }
 
-    let clampedX = Math.max(rect.left, Math.min(x, rect.right));
-    let offset = React.findDOMNode(this.refs.handle).getBoundingClientRect().width / 2;
-    let position = ((clampedX - offset) - rect.left) / rect.width;
+    const clampedX = Math.max(rect.left, Math.min(x, rect.right));
+    const offset = React.findDOMNode(this.refs.handle).getBoundingClientRect().width / 2;
+    const position = ((clampedX - offset) - rect.left) / rect.width;
 
     return position;
   }
 
-  render () {
+  render() {
+    const handleKnob = this.handleKnob.bind(this);
+    const onMouseDown = this.handleMouseDown.bind(this);
+    const onClick = this.handleOnClick.bind(this);
+
     return (
       <div
         ref="slider"
         className="slider"
-        onMouseDown={this.handleMouseDown.bind(this)}
-        onClick={this.handleOnClick.bind(this)}>
+        onMouseDown={onMouseDown}
+        onClick={onClick}
+      >
         <div
           ref="fill"
-          className="fill">
+          className="fill"
+        >
           <div
             ref="handle"
             className="handle"
-            style={{ marginLeft: (this.state.value * 100) + "%" }}
-            onMouseDown={this.handleKnob.bind(this)}
-            onTouchStart={this.handleKnob.bind(this)}>
+            style={{ marginLeft: `${this.state.value * 100}%` }}
+            onMouseDown={handleKnob}
+            onTouchStart={handleKnob}
+          >
           </div>
         </div>
       </div>
@@ -107,5 +114,6 @@ Slider.propTypes = {
   min: React.PropTypes.number,
   max: React.PropTypes.number,
   value: React.PropTypes.number,
-  onChange: React.PropTypes.func
+  onChange: React.PropTypes.func,
+  initial: React.PropTypes.number
 };

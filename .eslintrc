@@ -1,0 +1,22 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "plugins": [
+    "react"
+  ],
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jquery": true
+  },
+  "globals": {
+    "React": true
+  },
+  "rules": {
+    "comma-dangle": [2, "never"],
+    "max-len": [2, 120]
+  }
+}

@@ -1,7 +1,5 @@
 class Song extends React.Component {
-  render () {
-    controls = this.props.controls;
-
+  render() {
     if (this.props.tabular) {
       return (
         <tr className="song-list-row">
@@ -10,14 +8,14 @@ class Song extends React.Component {
           <td className="controls">{this.props.controls}</td>
         </tr>
       );
-    } else {
-      return (
-        <div className="song-list-item">
-          <span className="song">{this.props.artist + " — " + this.props.title}</span>
-          <span className="controls">{this.props.controls}</span>
-        </div>
-      );
     }
+
+    return (
+      <div className="song-list-item">
+        <span className="song">{`${this.props.artist} — ${this.props.title}`}</span>
+        <span className="controls">{this.props.controls}</span>
+      </div>
+    );
   }
 }
 
