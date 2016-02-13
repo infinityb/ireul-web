@@ -18,12 +18,13 @@ class SongList extends React.Component {
       }
 
       const songProps = {
-        key: `song-list.${song.artist}.${song.title}`,
-        id: song.id,
         artist: song.artist,
-        title: song.title,
+        controls,
+        id: song.id,
+        key: `song-list.${this.props.key}.${song.id}.${song.artist}.${song.title}.${song.start_time}`,
         tabular: this.props.tabular,
-        controls
+        timeOffset: this.props.timeOffset,
+        title: song.title
       };
 
       return React.createElement(Song, songProps);
@@ -40,11 +41,14 @@ class SongList extends React.Component {
 }
 
 SongList.defaultProps = {
+  key: 'songlist',
   songs: []
 };
 
 SongList.propTypes = {
+  controls: React.PropTypes.bool,
+  key: React.PropTypes.string,
   songs: React.PropTypes.arrayOf(React.PropTypes.object),
   tabular: React.PropTypes.bool,
-  controls: React.PropTypes.bool
+  timeOffset: React.PropTypes.number
 };

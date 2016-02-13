@@ -79,6 +79,7 @@ class SongSearcher extends React.Component {
     } else {
       resultsEl = React.createElement(SongList, {
         controls: true,
+        key: 'search-results',
         songs: this.state.results,
         tabular: true
       });
@@ -104,3 +105,7 @@ class SongSearcher extends React.Component {
     );
   }
 }
+
+SongSearcher.propTypes = {
+  timeOffset: React.PropTypes.number
+};

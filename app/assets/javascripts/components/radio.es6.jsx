@@ -140,7 +140,9 @@ class Radio extends React.Component {
       ),
 
       React.DOM.div({ className: 'song-library-section' },
-        React.createElement(SongLibrary)
+        React.createElement(SongLibrary, {
+          timeOffset: this.props.timeOffset
+        })
       )
     );
   }

@@ -3,9 +3,10 @@ class Queue extends React.Component {
     let songQueue;
 
     if (typeof this.props.songs === 'undefined' || this.props.songs.length === 0) {
-      songQueue = React.DOM.div(null, 'No songs in queue');
+      songQueue = React.DOM.div(null, 'Empty!');
     } else {
       songQueue = React.createElement(SongList, {
+        key: this.props.title,
         songs: this.props.songs,
         tabular: false
       });

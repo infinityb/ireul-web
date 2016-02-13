@@ -13,10 +13,14 @@ class SongLibrary extends React.Component {
 
     switch (this.state.selectedPage) {
       case 'Search':
-        content = React.createElement(SongSearcher);
+        content = React.createElement(SongSearcher, {
+          timeOffset: this.props.timeOffset
+        });
         break;
       case 'Browse':
-        content = React.createElement(SongBrowser);
+        content = React.createElement(SongBrowser, {
+          timeOffset: this.props.timeOffset
+        });
         break;
       default:
         break;
@@ -33,3 +37,7 @@ class SongLibrary extends React.Component {
     );
   }
 }
+
+SongLibrary.propTypes = {
+  timeOffset: React.PropTypes.number
+};

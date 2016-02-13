@@ -8,7 +8,7 @@ class RadioRequestButton extends RadioControlButton {
 
     if (Date.now() < canRequestAt) {
       this.setState({ disabled: true });
-      const checkAgainIn = canRequestAt - Date.now() + 1000;
+      const checkAgainIn = (canRequestAt + this.props.timeOffset) - Date.now() + 1000;
       setTimeout(this.checkIfRequestable.bind(this), checkAgainIn);
     } else {
       this.setState({ disabled: false });
@@ -26,7 +26,7 @@ class RadioRequestButton extends RadioControlButton {
 
   handleResponse(res) {
     if (res.status === 'ok') {
-      const checkAgainIn = Date.parse(res.canRequestAt) - Date.now() + 1000;
+      const checkAgainIn = Date.parse(res.canRequestAt) + this.props.timeOffset - Date.now() + 1000;
       setTimeout(this.checkIfRequestable.bind(this), checkAgainIn);
     }
   }

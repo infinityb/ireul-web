@@ -30,5 +30,6 @@ class RadioControlButton extends React.Component {
 RadioControlButton.propTypes = {
   label: React.PropTypes.string,
   httpMethod: React.PropTypes.string,
-  radioMethod: React.PropTypes.string
+  radioMethod: React.PropTypes.string,
+  timeOffset: React.PropTypes.number
 };

@@ -24,9 +24,10 @@ Song.defaultProps = {
 };
 
 Song.propTypes = {
-  id: React.PropTypes.number,
   artist: React.PropTypes.string,
-  title: React.PropTypes.string,
   controls: React.PropTypes.element,
-  tabular: React.PropTypes.bool
+  id: React.PropTypes.number,
+  tabular: React.PropTypes.bool,
+  timeOffset: React.PropTypes.number,
+  title: React.PropTypes.string
 };
