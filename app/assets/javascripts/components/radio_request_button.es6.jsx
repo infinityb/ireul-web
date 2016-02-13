@@ -4,11 +4,11 @@ class RadioRequestButton extends RadioControlButton {
   }
 
   checkIfRequestable() {
-    const canRequestAt = Date.parse(this.props.canRequestAt);
+    const canRequestAt = Date.parse(this.props.canRequestAt) + this.props.timeOffset;
 
     if (Date.now() < canRequestAt) {
       this.setState({ disabled: true });
-      const checkAgainIn = (canRequestAt + this.props.timeOffset) - Date.now() + 1000;
+      const checkAgainIn = canRequestAt - Date.now() + 1000;
       setTimeout(this.checkIfRequestable.bind(this), checkAgainIn);
     } else {
       this.setState({ disabled: false });
