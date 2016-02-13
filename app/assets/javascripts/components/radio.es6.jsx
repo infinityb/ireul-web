@@ -93,8 +93,13 @@ class Radio extends React.Component {
     xhr.send();
   }
 
+  setTitle(song) {
+    document.title = `${song.title} — ${song.artist}`;
+  }
+
   handleInfoResponse(res) {
     this.setBackground(res.image);
+    this.setTitle(res.current);
 
     this.setState({
       radio: {
