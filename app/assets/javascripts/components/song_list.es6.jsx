@@ -12,7 +12,8 @@ class SongList extends React.Component {
           React.createElement(RadioRequestButton, {
             httpMethod: 'post',
             radioMethod: `/radio/request/${song.id}`, label: 'Request',
-            canRequestAt: song.canRequestAt
+            canRequestAt: song.canRequestAt,
+            timeOffset: this.props.timeOffset
           })
         );
       }
