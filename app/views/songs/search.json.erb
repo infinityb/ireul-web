@@ -3,7 +3,8 @@
     id: s.id,
     artist: s.artist,
     title: s.title,
-    canRequestAt: s.can_request_at.iso8601
+    canRequestAt: s.can_request_at.iso8601,
+    canRequestIn: Time.now.utc - s.can_request_at
   }
 end
 

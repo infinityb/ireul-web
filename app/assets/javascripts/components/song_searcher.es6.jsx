@@ -81,7 +81,8 @@ class SongSearcher extends React.Component {
         controls: true,
         key: 'search-results',
         songs: this.state.results,
-        tabular: true
+        tabular: true,
+        timeOffset: this.props.timeOffset
       });
     }
 
@@ -105,6 +106,10 @@ class SongSearcher extends React.Component {
     );
   }
 }
+
+SongSearcher.defaultProps = {
+  timeOffset: 0
+};
 
 SongSearcher.propTypes = {
   timeOffset: React.PropTypes.number

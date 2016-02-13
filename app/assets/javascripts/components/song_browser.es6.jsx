@@ -47,7 +47,13 @@ class SongBrowser extends React.Component {
   render() {
     return (
       <div className="song-browser">
-        <SongList songs={this.state.songs} key={"song-browser"} controls tabular />
+        <SongList
+          controls
+          key={"song-browser"}
+          songs={this.state.songs}
+          tabular
+          timeOffset={this.props.timeOffset}
+        />
         <div className="paginator">
           <button disabled={this.state.page <= 1} onClick={this.loadPrevPageFn}>
             Back
@@ -65,6 +71,10 @@ class SongBrowser extends React.Component {
     );
   }
 }
+
+SongBrowser.defaultProps = {
+  timeOffset: 0
+};
 
 SongBrowser.propTypes = {
   timeOffset: React.PropTypes.number

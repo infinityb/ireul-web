@@ -26,8 +26,17 @@ class RadioRequestButton extends RadioControlButton {
 
   handleResponse(res) {
     if (res.status === 'ok') {
+      this.setState({ disabled: true });
       const checkAgainIn = Date.parse(res.canRequestAt) + this.props.timeOffset - Date.now() + 1000;
       setTimeout(this.checkIfRequestable.bind(this), checkAgainIn);
     }
   }
 }
+
+RadioRequestButton.defaultProps = {
+  timeOffset: 0
+};
+
+RadioRequestButton.propTypes = {
+  timeOffset: React.PropTypes.number
+};

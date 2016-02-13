@@ -38,6 +38,10 @@ class SongLibrary extends React.Component {
   }
 }
 
+SongLibrary.defaultProps = {
+  timeOffset: 0
+};
+
 SongLibrary.propTypes = {
   timeOffset: React.PropTypes.number
 };
