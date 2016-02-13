@@ -83,7 +83,7 @@ class SongsController < ApplicationController
 
     if !@query.blank?
       # TODO: FIX THIS, THIS IS SUPER INEFFICIENT
-      song_ids = Metadatum.where('value LIKE ?', "%#{@query}%").pluck(:song_id)
+      song_ids = Metadatum.where('LOWER(value) LIKE LOWER(?)', "%#{@query}%").pluck(:song_id)
       matching_songs = Song.find(song_ids)
       paginated = Kaminari.paginate_array(matching_songs)
       @songs = paginated.page(params[:page]).per(15)
