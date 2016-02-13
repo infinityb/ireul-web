@@ -105,7 +105,8 @@ class Radio extends React.Component {
       radio: {
         current: res.current,
         upcoming: res.upcoming,
-        history: res.history
+        history: res.history,
+        timeOffset: Date.now() - Date.parse(res.time)
       }
     });
   }
@@ -125,7 +126,8 @@ class Radio extends React.Component {
 
     const player = React.createElement(Player, {
       nowPlaying: this.state.radio.current || this.fallbackInfo,
-      audioSrc: this.props.audioSrc
+      audioSrc: this.props.audioSrc,
+      timeOffset: this.state.radio.timeOffset
     });
 
     return React.DOM.div({ className: 'radio' },

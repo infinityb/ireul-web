@@ -67,7 +67,8 @@ class RadioController < ApplicationController
       image: image_url || nil,
       current: queue_track_to_json(queue.current),
       upcoming: upcoming.map { |t| queue_track_to_json(t) },
-      history: history.map { |t| queue_track_to_json(t) }
+      history: history.map { |t| queue_track_to_json(t) },
+      time: Time.now.utc.iso8601
     }
   end
 
@@ -86,7 +87,7 @@ class RadioController < ApplicationController
       title: t.title.force_encoding('utf-8'),
       position: t.position,
       duration: t.duration,
-      start_time: t.try(:start_time)
+      start_time: t.try(:start_time) # TODO: Calculate time offset
     }
   end
 end

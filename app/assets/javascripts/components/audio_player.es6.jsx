@@ -21,8 +21,8 @@ class AudioPlayer extends React.Component {
     this.refs.audioObject.volume = adjustedVolume;
   }
 
-  timeFrom(time) {
-    const parsed = Date.parse(time);
+  timeFrom(time, offset) {
+    const parsed = Date.parse(time) + offset;
     return Date.now() - parsed;
   }
 
@@ -44,7 +44,7 @@ class AudioPlayer extends React.Component {
   updateProgressBar() {
     let position;
     if (this.props.nowPlaying && this.props.nowPlaying.start_time) {
-      position = this.timeFrom(this.props.nowPlaying.start_time) / 1000;
+      position = this.timeFrom(this.props.nowPlaying.start_time, this.props.timeOffset) / 1000;
     } else {
       position = 0;
     }
@@ -84,5 +84,6 @@ class AudioPlayer extends React.Component {
 
 AudioPlayer.propTypes = {
   source: React.PropTypes.string,
-  nowPlaying: React.PropTypes.object
+  nowPlaying: React.PropTypes.object,
+  timeOffset: React.PropTypes.number
 };

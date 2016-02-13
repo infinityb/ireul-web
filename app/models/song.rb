@@ -29,11 +29,11 @@ class Song < ActiveRecord::Base
   def can_request?
     min_gap = Rails.configuration.x.ireul['request_time_gap_min']
     last_requested_at.nil? ||
-      (Time.zone.now - last_requested_at) > min_gap.minute
+      (Time.now.utc - last_requested_at) > min_gap.minute
   end
 
   def can_request_at
-    return Time.zone.now if last_requested_at.nil?
+    return Time.now.utc if last_requested_at.nil?
 
     min_gap = Rails.configuration.x.ireul['request_time_gap_min']
     last_requested_at + min_gap.minute
