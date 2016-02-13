@@ -9,7 +9,7 @@ class MetadatumController < ApplicationController
     @song = Song.find(params[:metadatum][:song_id])
 
     if params[:metadatum][:metadata_field_id].blank?
-      @metadata.errors[:metadata_field] << "is missing"
+      @metadata.errors[:metadata_field] << 'is missing'
     else
       field = MetadataField.find(params[:metadatum][:metadata_field_id])
 
@@ -22,12 +22,12 @@ class MetadatumController < ApplicationController
 
       # Update FKs
       if saved
-        if field.name == "ARTIST" && @song.artist_metadata_id == nil
+        if field.name == 'ARTIST' && @song.artist_metadata_id.nil?
           @song.artist_metadata_id = @metadata.id
           @song.save
         end
 
-        if field.name == "TITLE" && @song.title_metadata_id == nil
+        if field.name == 'TITLE' && @song.title_metadata_id.nil?
           @song.title_metadata_id = @metadata.id
           @song.save
         end
@@ -51,12 +51,12 @@ class MetadatumController < ApplicationController
     @song = Song.find(@metadata.song_id)
 
     # Update FKs, poorly
-    if field.name == "ARTIST" && @song.artist_metadata_id == @metadata.id
+    if field.name == 'ARTIST' && @song.artist_metadata_id == @metadata.id
       @song.artist_metadata_id = nil
       @song.save
     end
 
-    if field.name == "TITLE" && @song.title_metadata_id == @metadata.id
+    if field.name == 'TITLE' && @song.title_metadata_id == @metadata.id
       @song.title_metadata_id = nil
       @song.save
     end
@@ -64,7 +64,7 @@ class MetadatumController < ApplicationController
     begin
       @metadata.destroy
       flash[:notice] = "Metadatum #{field.name}, ##{@metadata.id} was deleted."
-    rescue Exception => e
+    rescue StandardError => e
       flash[:notice] = e.message
     end
 

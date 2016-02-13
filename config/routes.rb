@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :songs
   resources :metadatum, except: [:show, :index]
   resources :background_images, only: [:new, :create, :destroy]
-  post 'metadatum/new' => "metadatum#create" # need this line; what is Rails doing?
+  post 'metadatum/new' => 'metadatum#create' # need this line; what is Rails doing?
 
   root 'radio#index'
 

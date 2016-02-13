@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use sqlite3 as the database for Active Record
@@ -24,7 +23,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
-gem "bcrypt"
+gem 'bcrypt'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -40,6 +39,7 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+  gem 'rubocop'
 end
 
 group :test do
@@ -51,11 +51,11 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Windows compatability requirement
-gem "nokogiri", ">= 1.6.7.rc"
+gem 'nokogiri', '>= 1.6.7.rc'
 
 gem 'react-rails', '~> 1.5.0'
-gem "paperclip", "~> 4.3"
-gem "kaminari"
+gem 'paperclip', '~> 4.3'
+gem 'kaminari'
 
 # Replace when gem is published
 # For some reason, when you are trying to use a gem from local source,
@@ -66,4 +66,4 @@ gem "kaminari"
 # Install with bundle install --no-cache
 # http://stackoverflow.com/a/15690307
 gem 'ireul', '0.0.4'
-gem 'ogg', '0.0.5', :git => 'https://github.com/infinityb/ruby-ogg.git'
+gem 'ogg', '0.0.5', git: 'https://github.com/infinityb/ruby-ogg.git'

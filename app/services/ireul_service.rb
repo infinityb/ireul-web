@@ -28,8 +28,8 @@ class IreulService
   end
 
   def connect
-    Rails.logger.info "Connecting to Ireul at #{self.url}:#{self.port}..."
-    @socket = TCPSocket::new(self.url, self.port)
+    Rails.logger.info "Connecting to Ireul at #{url}:#{port}..."
+    @socket = TCPSocket.new(url, port)
     @ireul = Ireul::Core.new(@socket)
     start_queue_watcher
   rescue Errno::ECONNREFUSED => e
@@ -43,8 +43,8 @@ class IreulService
       Thread.new do
         catch :connected do
           begin
-            Rails.logger.info "Trying reconnect to #{self.url}:#{self.port}..."
-            @socket = TCPSocket::new(self.url, self.port)
+            Rails.logger.info "Trying reconnect to #{url}:#{port}..."
+            @socket = TCPSocket.new(url, port)
             @ireul = Ireul::Core.new(@socket)
             start_queue_watcher
             throw :connected
@@ -54,14 +54,14 @@ class IreulService
           end
         end
 
-        Rails.logger.info "Reconnected."
+        Rails.logger.info 'Reconnected.'
         @reconnecting_sema.unlock
       end
     end
   end
 
   def enqueue(song)
-    song_buf = open(song.file.path, 'rb').read()
+    song_buf = open(song.file.path, 'rb').read
     @ireul_sema.synchronize do
       handle = @ireul.enqueue(song_buf)
       IreulWeb::Application.handle_map[handle.value] = song.id
@@ -75,10 +75,10 @@ class IreulService
     @@queue_watcher.kill if @@queue_watcher
 
     IreulWeb::Application.queue_watcher_sema.synchronize do
-      Rails.logger.info("Starting queue watcher...")
+      Rails.logger.info('Starting queue watcher...')
       @@queue_watcher = Thread.new do
         loop do
-          Rails.logger.info("Checking queue...")
+          Rails.logger.info('Checking queue...')
 
           queue = @ireul_sema.synchronize do
             @ireul.queue_status
@@ -103,15 +103,13 @@ class IreulService
     raise IreulConnError
   end
 
-  def method_missing(method, args=nil)
-    if @ireul.nil?
-      raise IreulConnError
+  def method_missing(method, args = nil)
+    raise IreulConnError if @ireul.nil?
+
+    if @ireul.method(method).arity > 0
+      @ireul_sema.synchronize { @ireul.send(method, args) }
     else
-      if @ireul.method(method).arity > 0
-        @ireul_sema.synchronize { @ireul.send(method, args) }
-      else
-        @ireul_sema.synchronize { @ireul.send(method) }
-      end
+      @ireul_sema.synchronize { @ireul.send(method) }
     end
   rescue IreulConnError, Errno::ECONNRESET, Errno::ECONNREFUSED, Errno::ECONNABORTED => e
     handle_conn_error(e)

@@ -1,8 +1,8 @@
 class SongsController < ApplicationController
-  skip_before_filter :authorize, only: [:index, :search]
+  skip_before_action :authorize, only: [:index, :search]
   # authorize2 is an alias for authorize and is used to work around a bug on
   # conditional skipping of filters
-  before_filter :authorize2, only: [:index, :search], :unless => :json_request?
+  before_action :authorize2, only: [:index, :search], unless: :json_request?
 
   # GET /songs
   # GET /songs.json
@@ -83,7 +83,7 @@ class SongsController < ApplicationController
 
     if !@query.blank?
       # TODO: FIX THIS, THIS IS SUPER INEFFICIENT
-      song_ids = Metadatum.where("value LIKE ?", "%#{@query}%").pluck(:song_id)
+      song_ids = Metadatum.where('value LIKE ?', "%#{@query}%").pluck(:song_id)
       matching_songs = Song.find(song_ids)
       paginated = Kaminari.paginate_array(matching_songs)
       @songs = paginated.page(params[:page]).per(15)
@@ -104,32 +104,28 @@ class SongsController < ApplicationController
 
     Song.transaction do
       Metadatum.transaction do
-      BackgroundImage.transaction do
-        @song = Song.create(song_params) # Need to assign @song an ID first
-        metadatum = autofill_vorbis_comments(song_params)[:metadata]
+        BackgroundImage.transaction do
+          @song = Song.create(song_params) # Need to assign @song an ID first
+          metadatum = autofill_vorbis_comments(song_params)[:metadata]
 
-        create_metadatum_records(metadatum)
+          create_metadatum_records(metadatum)
 
-        if params[:background_image]
-          @image = BackgroundImage.create(song: @song, image: image_params[:image])
+          if params[:background_image]
+            @image = BackgroundImage.create(song: @song, image: image_params[:image])
+          end
+
+          saved = @song.save
         end
-
-        saved = @song.save
-      end
       end
     end
 
     saved
   end
 
-  private
-
   def self.comment_flatten(comments)
-    out = Hash::new()
+    out = {}
     comments.each do |k, v|
-      if not v.empty?
-        out[k] = v.first.force_encoding('UTF-8')
-      end
+      out[k] = v.first.force_encoding('UTF-8') unless v.empty?
     end
     out
   end
@@ -146,7 +142,7 @@ class SongsController < ApplicationController
   def autofill_vorbis_comments(params)
     ret = {}
     Ogg::Vorbis::Info.open(params[:file].path) do |f|
-      ret[:metadata] = SongsController::comment_flatten(f.comments)
+      ret[:metadata] = SongsController.comment_flatten(f.comments)
     end
     ret
   end
@@ -168,12 +164,12 @@ class SongsController < ApplicationController
       # Manually assign FKs for special fields
       # TODO: maybe kill these two FKs
       case field.name
-      when "ARTIST"
+      when 'ARTIST'
         @song.artist_metadata_id = metadata.id
-      when "TITLE"
+      when 'TITLE'
         @song.title_metadata_id = metadata.id
-      # TODO: Auto store image for song if it has one in the tags
-      # when "METADATA_BLOCK_PICTURE"
+        # TODO: Auto store image for song if it has one in the tags
+        # when "METADATA_BLOCK_PICTURE"
       end
     end
   end
@@ -182,4 +178,3 @@ class SongsController < ApplicationController
     request.format.symbol == :json
   end
 end
-

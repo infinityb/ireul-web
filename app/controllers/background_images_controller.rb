@@ -26,7 +26,7 @@ class BackgroundImagesController < ApplicationController
     begin
       @image.destroy
       flash[:notice] = "Image ##{@image.id} was deleted."
-    rescue Exception => e
+    rescue StandardError => e
       flash[:notice] = e.message
     end
 

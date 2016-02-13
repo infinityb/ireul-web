@@ -9,25 +9,25 @@ class RadioControllerTest < ActionController::TestCase
         .and_return(true)
     end
 
-    test "should get index" do
+    test 'should get index' do
       get :index
       assert_response :success
     end
 
-    test "should skip song" do
-      skip("unimplemented")
+    test 'should skip song' do
+      skip('unimplemented')
     end
 
-    test "should request song" do
-      skip("unimplemented")
+    test 'should request song' do
+      skip('unimplemented')
     end
 
-    test "should enqueue song" do
-      skip("unimplemented")
+    test 'should enqueue song' do
+      skip('unimplemented')
     end
 
-    test "should return info" do
-      skip("unimplemented")
+    test 'should return info' do
+      skip('unimplemented')
     end
   end
 
@@ -36,20 +36,20 @@ class RadioControllerTest < ActionController::TestCase
       @song = songs(:songs_001)
     end
 
-    test "should not skip song without authorization" do
-      skip("unimplemented")
+    test 'should not skip song without authorization' do
+      skip('unimplemented')
     end
 
-    test "should request song without authorization" do
-      skip("unimplemented")
+    test 'should request song without authorization' do
+      skip('unimplemented')
     end
 
-    test "should not enqueue song without authorization" do
-      skip("unimplemented")
+    test 'should not enqueue song without authorization' do
+      skip('unimplemented')
     end
 
-    test "should not return info without authorization" do
-      skip("unimplemented")
+    test 'should not return info without authorization' do
+      skip('unimplemented')
     end
   end
 end

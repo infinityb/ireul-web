@@ -35,34 +35,31 @@ set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/
 # set :keep_releases, 5
 
 namespace :deploy do
-
-  desc "Reload the database with seed data with sudo"
+  desc 'Reload the database with seed data with sudo'
   task :seed_sudo do
     on roles(:all) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :sudo, "rake db:seed"
+          execute :sudo, 'rake db:seed'
         end
       end
     end
   end
 
-  desc "Reload the database with seed data"
+  desc 'Reload the database with seed data'
   task :seed do
     on roles(:all) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :rake, "db:seed"
+          execute :rake, 'db:seed'
         end
       end
     end
   end
-
 end
 
 namespace :passenger do
-
-  desc "Starts production passenger with sudo"
+  desc 'Starts production passenger with sudo'
   task :start_sudo do
     on roles(:all) do
       within release_path do

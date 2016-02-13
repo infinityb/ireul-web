@@ -34,12 +34,12 @@ module IreulWeb
     self.queue_watcher_sema = Mutex.new
 
     def self.ireul_client
-      if !IreulService.instance.configured
+      unless IreulService.instance.configured
         IreulService.instance.configure do |i|
-          i.url      = config.x.ireul["url"]
-          i.port     = config.x.ireul["port"]
-          i.username = config.x.ireul["username"]
-          i.password = config.x.ireul["password"]
+          i.url      = config.x.ireul['url']
+          i.port     = config.x.ireul['port']
+          i.username = config.x.ireul['username']
+          i.password = config.x.ireul['password']
         end
 
         IreulService.instance.connect
