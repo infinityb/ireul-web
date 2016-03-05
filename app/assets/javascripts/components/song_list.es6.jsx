@@ -4,6 +4,7 @@ class SongList extends React.Component {
   }
 
   render() {
+    let i = 0;
     const contents = this.props.songs.map((song) => {
       let controls;
 
@@ -22,7 +23,7 @@ class SongList extends React.Component {
         artist: song.artist,
         controls,
         id: song.id,
-        key: `song-list.${this.props.key}.${song.id}.${song.artist}.${song.title}.${song.start_time}`,
+        key: `song-list.${this.props.key}.${song.id}.${new Date(song.start_time).getTime() || i++}`,
         tabular: this.props.tabular,
         timestamp: song.start_time,
         timeOffset: this.props.timeOffset,
