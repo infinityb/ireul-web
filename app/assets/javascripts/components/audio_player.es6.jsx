@@ -77,7 +77,7 @@ class AudioPlayer extends React.Component {
           <Slider
             min={0}
             max={100}
-            initial={localStorage.getItem('unadjustedVolume') * 100 || 100}
+            initial={localStorage.getItem('unadjustedVolume') * 100 + 0.00001 || 100}
             onChange={this.setVolumeFn}
           />
           <TimeInfo position={this.state.position} duration={this.props.nowPlaying.duration} />
