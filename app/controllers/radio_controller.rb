@@ -56,7 +56,7 @@ class RadioController < ApplicationController
     history = queue.history || []
 
     unless queue.current.nil?
-      handle = queue.current.instance_variable_get('@track').handle[0]
+      handle = queue.current.instance_variable_get('@track').handle
       song_id = IreulWeb::Application.handle_map[handle]
       song = Song.find_by_id(song_id)
       bg_image = BackgroundImage.where(song_id: song.id).first if song
