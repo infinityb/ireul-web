@@ -55,7 +55,7 @@ class Slider extends React.Component {
     const rect = React.findDOMNode(this.refs.slider).getBoundingClientRect();
     const percentage = (this.state.value - this.props.min) / (this.props.max - this.props.min);
     const offset = React.findDOMNode(this.refs.handle).getBoundingClientRect().width / 2;
-    const position = (percentage * rect.width - offset) / rect.width;
+    const position = (percentage * rect.width - offset) / rect.width + (offset / rect.width);
 
     return position;
   }
@@ -75,7 +75,7 @@ class Slider extends React.Component {
 
     const clampedX = Math.max(rect.left, Math.min(x, rect.right));
     const offset = React.findDOMNode(this.refs.handle).getBoundingClientRect().width / 2;
-    const position = ((clampedX - offset) - rect.left) / rect.width;
+    const position = ((clampedX - offset) - rect.left) / rect.width + (offset / rect.width);
 
     return position;
   }

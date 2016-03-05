@@ -10,7 +10,7 @@ class AudioPlayer extends React.Component {
 
   componentDidMount() {
     setInterval(this.updateProgressBar.bind(this), 1000);
-    this.setVolume(1);
+    this.setVolume(localStorage.getItem('unadjustedVolume') || 1);
   }
 
   setVolume(value) {
@@ -19,6 +19,7 @@ class AudioPlayer extends React.Component {
     adjustedVolume = Math.max(0, Math.min(1, adjustedVolume));
     this.volume = adjustedVolume;
     this.refs.audioObject.volume = adjustedVolume;
+    localStorage.setItem('unadjustedVolume', value);
   }
 
   timeFrom(time, offset) {
@@ -73,7 +74,12 @@ class AudioPlayer extends React.Component {
         <div className="controls">{playButton}</div>
         <StreamProgressBar value={this.state.position} max={this.props.nowPlaying.duration} />
         <div className="below-bar">
-          <Slider min={0} max={100} initial={100} onChange={this.setVolumeFn} />
+          <Slider
+            min={0}
+            max={100}
+            initial={localStorage.getItem('unadjustedVolume') * 100 || 100}
+            onChange={this.setVolumeFn}
+          />
           <TimeInfo position={this.state.position} duration={this.props.nowPlaying.duration} />
         </div>
         {audio}
