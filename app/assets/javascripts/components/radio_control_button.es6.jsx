@@ -1,7 +1,7 @@
 class RadioControlButton extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { disabled: false, noCache: false };
+    this.state = { disabled: false, noCache: false, title: undefined };
   }
 
   handleClick() {
@@ -22,7 +22,11 @@ class RadioControlButton extends React.Component {
 
   render() {
     return (
-      React.DOM.button({ disabled: this.state.disabled, onClick: this.handleClick.bind(this) }, this.props.label)
+      React.DOM.button({
+        disabled: this.state.disabled,
+        onClick: this.handleClick.bind(this),
+        title: this.state.title
+      }, this.props.label)
     );
   }
 }
