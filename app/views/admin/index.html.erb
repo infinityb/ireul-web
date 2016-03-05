@@ -17,5 +17,8 @@
 	<h2>Users</h2>
 	<%= link_to 'User index', users_path %><br>
 	<%= link_to 'New user', new_user_path %>
+
+  <h2>Ops</h2>
+  <%= link_to '⚠ Restart Passenger (wait up to 10 seconds)', 'admin/restart', method: :post %><br>
   </div>
 </div>

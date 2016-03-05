@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   controller :admin do
     get 'admin' => :index
+    post 'admin/restart' => :restart
   end
 
   controller :sessions do
