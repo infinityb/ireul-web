@@ -114,14 +114,16 @@ class Radio extends React.Component {
   render() {
     const queue = React.createElement(Queue, {
       className: 'queue',
-      title: 'queue',
-      songs: this.state.radio.upcoming.slice(0, 5)
+      songs: this.state.radio.upcoming.slice(0, 5),
+      timeOffset: this.state.radio.timeOffset,
+      title: 'queue'
     });
 
     const history = React.createElement(Queue, {
       className: 'history',
-      title: 'history',
-      songs: this.state.radio.history.slice(this.state.radio.history.length - 5).reverse()
+      songs: this.state.radio.history.slice(this.state.radio.history.length - 5).reverse(),
+      timeOffset: this.state.radio.timeOffset,
+      title: 'history'
     });
 
     const player = React.createElement(Player, {

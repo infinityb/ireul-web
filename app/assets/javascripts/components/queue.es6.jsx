@@ -8,7 +8,8 @@ class Queue extends React.Component {
       songQueue = React.createElement(SongList, {
         key: this.props.title,
         songs: this.props.songs,
-        tabular: false
+        tabular: false,
+        timeOffset: this.props.timeOffset
       });
     }
 
@@ -21,8 +22,13 @@ class Queue extends React.Component {
   }
 }
 
+Queue.defaultProps = {
+  timeOffset: 0
+};
+
 Queue.propTypes = {
   className: React.PropTypes.string,
-  title: React.PropTypes.string,
-  songs: React.PropTypes.arrayOf(React.PropTypes.object)
+  songs: React.PropTypes.arrayOf(React.PropTypes.object),
+  timeOffset: React.PropTypes.number,
+  title: React.PropTypes.string
 };

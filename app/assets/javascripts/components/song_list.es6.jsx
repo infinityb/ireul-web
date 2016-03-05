@@ -24,6 +24,7 @@ class SongList extends React.Component {
         id: song.id,
         key: `song-list.${this.props.key}.${song.id}.${song.artist}.${song.title}.${song.start_time}`,
         tabular: this.props.tabular,
+        timestamp: song.start_time,
         timeOffset: this.props.timeOffset,
         title: song.title
       };
