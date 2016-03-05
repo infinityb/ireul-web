@@ -57,13 +57,8 @@ gem 'react-rails', '~> 1.5.0'
 gem 'paperclip', '~> 4.3'
 gem 'kaminari'
 
-# Replace when gem is published
-# For some reason, when you are trying to use a gem from local source,
-# you need to specify exactly which version of the gem you are using, e.g.
-# http://stackoverflow.com/a/12895891
-#
-# Place gem in vendor/cache
-# Install with bundle install --no-cache
-# http://stackoverflow.com/a/15690307
-gem 'ireul', '0.0.4'
 gem 'ogg', '0.0.5', git: 'https://github.com/infinityb/ruby-ogg.git'
+
+# Own fork of ireul ruby client, at least until it's its own repo/published
+# Bundler had a problem with finding the correct path for the gemspec
+gem 'ireul', '0.0.4', git: 'https://github.com/gyng/ireul.git', branch: 'gemspec'
