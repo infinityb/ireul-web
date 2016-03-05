@@ -87,8 +87,7 @@ class SongSearcher extends React.Component {
     }
 
     if (this.state.hasMore) {
-      hasMoreButton = React.DOM.a({
-        href: '#',
+      hasMoreButton = React.DOM.button({
         onClick: this.searchMore.bind(this)
       }, 'More…');
     }
