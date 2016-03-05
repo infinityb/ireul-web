@@ -31,10 +31,11 @@ class CopyLink extends React.Component {
     };
 
     return (
-      <div
+      <a
         className="copy-link"
-        style={{ cursor: 'pointer' }}
+        href={this.props.href}
         onClick={this.copyStreamLinkFn}
+        style={{ color: 'inherit', cursor: 'pointer' }}
         title="Copy direct stream link…"
       >
         {this.props.text}
@@ -44,7 +45,7 @@ class CopyLink extends React.Component {
           defaultValue={this.props.href}
         >
         </textarea>
-      </div>
+      </a>
     );
   }
 }
