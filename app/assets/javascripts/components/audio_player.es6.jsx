@@ -74,6 +74,7 @@ class AudioPlayer extends React.Component {
         <div className="controls">{playButton}</div>
         <StreamProgressBar value={this.state.position} max={this.props.nowPlaying.duration} />
         <div className="below-bar">
+          <CopyLink href={this.props.source} text="🔗" />
           <Slider
             min={0}
             max={100}
