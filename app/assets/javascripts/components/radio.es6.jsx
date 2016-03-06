@@ -121,7 +121,7 @@ class Radio extends React.Component {
 
     const history = React.createElement(Queue, {
       className: 'history',
-      songs: this.state.radio.history.slice(this.state.radio.history.length - 5).reverse(),
+      songs: this.state.radio.history.slice(-5).reverse(),
       timeOffset: this.state.radio.timeOffset,
       title: 'history'
     });
