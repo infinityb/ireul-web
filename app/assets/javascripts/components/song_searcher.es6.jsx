@@ -28,39 +28,57 @@ class SongSearcher extends React.Component {
     this.search(this.state.query, this.state.page + 1);
   }
 
+  isJsonString(str) {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
   search(queryArg, pageArg) {
-    const xhr = new XMLHttpRequest();
+    if (typeof this.xhr !== 'undefined') {
+      this.xhr.abort();
+    }
+
+    this.xhr = new XMLHttpRequest();
     const page = pageArg || 1;
     const query = queryArg.trim();
 
     if (query.length > 0) {
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && this.state.query.length > 0) {
-          const res = JSON.parse(xhr.responseText);
-          let results;
+      this.xhr.onreadystatechange = () => {
+        if (this.xhr.readyState === 4 && this.state.query.length > 0) {
+          try {
+            const res = JSON.parse(this.xhr.responseText);
 
-          if (this.state.hasMore) {
-            // 1. Some (not first) page, has extra pages (hasMore = true)
-            // 2. Last page -- this.state.hasMore has not been set to false yet
-            //    render() will not render a more button, but we still add to existing results
-            results = this.state.results.concat(res.results);
-          } else {
-            // 3. First page, no extra pages
-            results = res.results;
+            let results;
+
+            if (this.state.hasMore) {
+              // 1. Some (not first) page, has extra pages (hasMore = true)
+              // 2. Last page -- this.state.hasMore has not been set to false yet
+              //    render() will not render a more button, but we still add to existing results
+              results = this.state.results.concat(res.results);
+            } else {
+              // 3. First page, no extra pages
+              results = res.results;
+            }
+
+            this.setState({
+              hasMore: res.has_more,
+              page: parseInt(res.page, 10),
+              results,
+              searching: false
+            });
+          } catch (e) {
+            // console.error(e);
           }
-
-          this.setState({
-            hasMore: res.has_more,
-            page: parseInt(res.page, 10),
-            results,
-            searching: false
-          });
         }
       };
 
-      xhr.open('post', `songs/search.json?query=${encodeURI(query)}&page=${page}`, true);
-      xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
-      xhr.send();
+      this.xhr.open('post', `songs/search.json?query=${encodeURI(query)}&page=${page}`, true);
+      this.xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
+      this.xhr.send();
       this.setState({ searching: true });
     } else if (this.state.results.length > 0) {
       // Emptied query (backspace, delete)
@@ -75,7 +93,7 @@ class SongSearcher extends React.Component {
     if (this.state.query.length === 0) {
       // noop
     } else if (!this.state.searching && this.state.results.length === 0) {
-      resultsEl = React.DOM.p(null, `No results found for "${this.state.query}".`);
+      resultsEl = React.DOM.p(null, `No results found for “${this.state.query}”.`);
     } else {
       resultsEl = React.createElement(SongList, {
         controls: true,
