@@ -2,11 +2,19 @@ require 'test_helper'
 
 class RadioControllerTest < ActionController::TestCase
   class WithAuthorization < RadioControllerTest
+    include IreulHelper
+
     setup do
       @song = songs(:songs_001)
       allow_any_instance_of(ApplicationController)
         .to receive(:authorize)
         .and_return(true)
+      allow_any_instance_of(Song)
+        .to receive(:find)
+        .and_return(@song)
+      allow(IreulWeb::Application)
+        .to receive(:ireul_client)
+        .and_return(MockIreul.new)
     end
 
     test 'should get index' do
@@ -15,41 +23,54 @@ class RadioControllerTest < ActionController::TestCase
     end
 
     test 'should skip song' do
-      skip('unimplemented')
+      post :skip
+      assert_response :success
     end
 
     test 'should request song' do
-      skip('unimplemented')
+      post :request_song, id: 1
+      assert_response :success
     end
 
     test 'should enqueue song' do
-      skip('unimplemented')
+      post :enqueue, id: 1
+      assert_response :success
     end
 
     test 'should return info' do
-      skip('unimplemented')
+      get :info
+      assert_response :success
     end
   end
 
   class WithoutAuthorization < RadioControllerTest
+    include IreulHelper
+
     setup do
       @song = songs(:songs_001)
+      allow(IreulWeb::Application)
+        .to receive(:ireul_client)
+        .and_return(MockIreul.new)
     end
 
     test 'should not skip song without authorization' do
-      skip('unimplemented')
+      post :skip
+      assert_response :redirect
     end
 
     test 'should request song without authorization' do
-      skip('unimplemented')
+      post :request_song, id: 1
+      assert_response :success
     end
 
     test 'should not enqueue song without authorization' do
-      skip('unimplemented')
+      post :enqueue, id: 1
+      assert_response :redirect
     end
 
-    test 'should not return info without authorization' do
-      skip('unimplemented')
+    test 'should return info without authorization' do
+      get :info
+      assert_response :success
     end
   end
 end

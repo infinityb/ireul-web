@@ -33,6 +33,18 @@ module ActiveSupport
         fixture_file_upload("audio/#{filename}", 'audio/ogg')
       end
     end
+
+    module IreulHelper
+      class Mock
+        def method_missing(_); end
+      end
+
+      class MockIreul
+        def enqueue(_); end
+        def fast_forward(_); end
+        def queue_status; Mock.new; end
+      end
+    end
   end
 end
 

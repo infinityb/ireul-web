@@ -16,8 +16,8 @@ class RadioController < ApplicationController
   end
 
   def enqueue
-    song ||= @song || Song.find(params[:id])
-    IreulWeb::Application.ireul_client.enqueue(song)
+    @song = Song.find(params[:id])
+    IreulWeb::Application.ireul_client.enqueue(@song)
 
     render json: {
       status: :ok,
