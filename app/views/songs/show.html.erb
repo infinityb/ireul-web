@@ -10,6 +10,11 @@
     <% end %>
   </div>
 
+  <h2>Actions</h2>
+  <div class="actions">
+    <%= react_component('RadioEnqueueButton', httpMethod: 'post', radioMethod: "/radio/enqueue/#{@song.id}", label: 'Enqueue') %>
+  </div>
+
   <%= render "metadata_section" %>
 
   <h2>Record</h2>
