@@ -94,7 +94,13 @@ class Radio extends React.Component {
   }
 
   setTitle(song) {
-    document.title = `${song.title} — ${song.artist}`;
+    if (song.title && song.artist) {
+      document.title = `${song.title} — ${song.artist}`;
+    } else if (song.title || song.artist) {
+      document.title = song.title || song.artist;
+    } else {
+      document.title = '♫♪♫';
+    }
   }
 
   handleInfoResponse(res) {

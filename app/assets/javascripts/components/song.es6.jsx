@@ -22,11 +22,21 @@ class Song extends React.Component {
     return (
       <div className="song-list-item">
         <span className="song" title={humanTime}>
-          {`${this.props.artist} — ${this.props.title}`}
+          {this.title(this.props.artist, this.props.title)}
         </span>
         <span className="controls">{this.props.controls}</span>
       </div>
     );
+  }
+
+  title(title, artist) {
+    if (title && artist) {
+      return `${title} — ${artist}`;
+    } else if (title || artist) {
+      return title || artist;
+    }
+
+    return '♫♪♫';
   }
 }
 
