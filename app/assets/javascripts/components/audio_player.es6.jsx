@@ -77,7 +77,7 @@ class AudioPlayer extends React.Component {
           <CopyLink href={this.props.source} text="🔗" />
 
           <div className="listener-count" title="Current listeners">
-            👤 {this.props.streamInfo.listeners}
+            {this.props.streamInfo ? `👤 ${this.props.streamInfo.listeners}` : ''}
           </div>
 
           <Slider
