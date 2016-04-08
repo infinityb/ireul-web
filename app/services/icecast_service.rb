@@ -10,7 +10,7 @@ class IcecastService
   attr_accessor :icecast_web_addr
   attr_accessor :mountpoint_selector
 
-  POLL_INTERVAL = 10
+  POLL_INTERVAL = 60
   RETRY_INTERVAL = 60
 
   def configure
