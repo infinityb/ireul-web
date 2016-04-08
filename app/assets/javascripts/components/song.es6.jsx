@@ -19,10 +19,12 @@ class Song extends React.Component {
       humanTime = undefined;
     }
 
+    const title = this.title(this.props.artist, this.props.title);
+
     return (
       <div className="song-list-item">
-        <span className="song" title={humanTime}>
-          {this.title(this.props.artist, this.props.title)}
+        <span className="song" title={`${humanTime}\n${title}`}>
+          {title}
         </span>
         <span className="controls">{this.props.controls}</span>
       </div>
