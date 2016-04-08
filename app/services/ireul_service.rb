@@ -28,12 +28,12 @@ class IreulService
   end
 
   def connect
-    Rails.logger.info "Connecting to Ireul at #{url}:#{port}..."
+    Rails.logger.info "[service.ireul] Connecting to Ireul at #{url}:#{port}..."
     @socket = TCPSocket.new(url, port)
     @ireul = Ireul::Core.new(@socket)
     start_queue_watcher
   rescue Errno::ECONNREFUSED => e
-    Rails.logger.warn "Failed to connect to Ireul: starting reconnect...\n#{e.inspect}"
+    Rails.logger.warn "[service.ireul] Failed to connect to Ireul: starting reconnect...\n#{e.inspect}"
     reconnect
     raise IreulConnError
   end
@@ -43,7 +43,7 @@ class IreulService
       Thread.new do
         catch :connected do
           begin
-            Rails.logger.info "Trying reconnect to #{url}:#{port}..."
+            Rails.logger.info "[service.ireul] Trying reconnect to #{url}:#{port}..."
             @socket = TCPSocket.new(url, port)
             @ireul = Ireul::Core.new(@socket)
             start_queue_watcher
@@ -54,7 +54,7 @@ class IreulService
           end
         end
 
-        Rails.logger.info 'Reconnected.'
+        Rails.logger.info '[service.ireul] Reconnected.'
         @reconnecting_sema.unlock
       end
     end
@@ -75,7 +75,7 @@ class IreulService
     @@queue_watcher.kill if @@queue_watcher
 
     IreulWeb::Application.queue_watcher_sema.synchronize do
-      Rails.logger.info('Starting queue watcher...')
+      Rails.logger.info '[service.ireul] Starting queue watcher...'
       @@queue_watcher = Thread.new do
         loop do
           Rails.logger.info('Checking queue...')
@@ -87,7 +87,7 @@ class IreulService
           if queue.upcoming.nil? || queue.upcoming.empty?
             # Optimise getting random song
             song = Song.offset(rand(Song.count)).first
-            Rails.logger.info("Queue empty, queuing song #{song.id}...")
+            Rails.logger.info "[service.ireul] Queue empty, queuing song #{song.id}..."
             enqueue(song)
           end
           sleep 30
@@ -97,8 +97,8 @@ class IreulService
   end
 
   def handle_conn_error(e)
-    Rails.logger.warn "Failed to connect to Ireul: reconnecting...\n#{e.inspect}"
-    Rails.logger.warn e.backtrace.join("\n")
+    Rails.logger.warn "[service.ireul] Failed to connect to Ireul: reconnecting...\n#{e.inspect}"
+    Rails.logger.warn "[service.ireul] #{e.backtrace.join("\n")}"
     reconnect
     raise IreulConnError
   end
