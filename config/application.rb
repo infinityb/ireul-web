@@ -43,10 +43,23 @@ module IreulWeb
         end
 
         IreulService.instance.connect
-        IreulService.instance
       end
 
       IreulService.instance
+    end
+
+    # Pretty bad design here, this shouldn't be a Singleton
+    def self.icecast_service
+      unless IcecastService.instance.configured
+        IcecastService.instance.configure do |i|
+          i.icecast_web_addr = config.x.ireul['icecast']['web_addr']
+          i.mountpoint_selector = config.x.ireul['icecast']['selector']
+        end
+
+        IcecastService.instance.start_polling
+      end
+
+      IcecastService.instance
     end
 
     Paperclip.options[:content_type_mappings] = { ogg: ['application/ogg', 'audio/x-vorbis+ogg'] }

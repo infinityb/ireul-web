@@ -6,6 +6,9 @@ development:
   port: 3001
   request_time_gap_min: 1
   stream_link: 127.0.0.1/icecast.ogg
+  icecast:
+    web_addr: http://127.0.0.1:8000
+    selector: /mountpoint
 test:
   environment: test
   username: testuser
@@ -14,6 +17,9 @@ test:
   port: 3001
   request_time_gap_min: 0.05
   stream_link: 127.0.0.1/icecast.ogg
+  icecast:
+    web_addr: http://127.0.0.1:8000
+    selector: /mountpoint
 production:
   environment: production
   username: produser
@@ -22,3 +28,6 @@ production:
   port: 3001
   request_time_gap_min: 60
   stream_link: 127.0.0.1/icecast.ogg
+  icecast:
+    web_addr: http://127.0.0.1:8000
+    selector: /mountpoint

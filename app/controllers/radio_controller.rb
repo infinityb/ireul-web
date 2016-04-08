@@ -68,6 +68,7 @@ class RadioController < ApplicationController
       current: queue_track_to_json(queue.current),
       upcoming: upcoming.map { |t| queue_track_to_json(t) },
       history: history.map { |t| queue_track_to_json(t) },
+      icecast: IreulWeb::Application.icecast_service.info,
       time: Time.now.utc.iso8601
     }
   end
