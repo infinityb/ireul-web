@@ -111,7 +111,7 @@ class IreulService
     else
       @ireul_sema.synchronize { @ireul.send(method) }
     end
-  rescue IreulConnError, Errno::ECONNRESET, Errno::ECONNREFUSED, Errno::ECONNABORTED => e
+  rescue IreulConnError, Errno::ECONNRESET, Errno::ECONNREFUSED, Errno::ECONNABORTED, Errno::EPIPE => e
     handle_conn_error(e)
   end
 end
