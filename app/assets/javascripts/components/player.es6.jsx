@@ -9,9 +9,10 @@ class Player extends React.Component {
     };
 
     const audioPlayer = React.createElement(AudioPlayer, {
-      source: `${this.props.audioSrc}?${Date.now()}`,
       crossOrigin: 'anonymous',
       nowPlaying: this.props.nowPlaying,
+      source: `${this.props.audioSrc}?${Date.now()}`,
+      streamInfo: this.props.streamInfo,
       timeOffset: this.props.timeOffset
     });
 
@@ -31,5 +32,6 @@ class Player extends React.Component {
 Player.propTypes = {
   audioSrc: React.PropTypes.string,
   nowPlaying: React.PropTypes.object,
+  streamInfo: React.PropTypes.object,
   timeOffset: React.PropTypes.number
 };

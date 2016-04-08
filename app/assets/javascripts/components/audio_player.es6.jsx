@@ -75,6 +75,11 @@ class AudioPlayer extends React.Component {
         <StreamProgressBar value={this.state.position} max={this.props.nowPlaying.duration} />
         <div className="below-bar">
           <CopyLink href={this.props.source} text="🔗" />
+
+          <div className="listener-count" title="Current listeners">
+            👤 {this.props.streamInfo.listeners}
+          </div>
+
           <Slider
             min={0}
             max={100}
@@ -89,8 +94,13 @@ class AudioPlayer extends React.Component {
   }
 }
 
+AudioPlayer.defaultProps = {
+  streamInfo: { listeners: '' }
+};
+
 AudioPlayer.propTypes = {
-  source: React.PropTypes.string,
   nowPlaying: React.PropTypes.object,
+  source: React.PropTypes.string,
+  streamInfo: React.PropTypes.object,
   timeOffset: React.PropTypes.number
 };
