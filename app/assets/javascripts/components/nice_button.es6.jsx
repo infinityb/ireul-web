@@ -38,7 +38,7 @@ class NiceButton extends React.Component {
   render() {
     return (
       <div className="nice-button" onMouseDown={this.niceFn} title="Nice!">
-        <span className="nice-symbol">❤</span>{this.niceness()}
+        <span className="nice-symbol">♥</span>{this.niceness()}
       </div>
     );
   }
