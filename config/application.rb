@@ -39,11 +39,12 @@ module IreulWeb
     self.nice_map = {}
     self.nice_voted_ips = {}
 
-    attr_accessor :nice_logger
-    nice_log_path = Rails.root.join('log', "#{Rails.env}.nice.log")
-    FileUtils.touch(nice_log_path)
-    self.nice_logger = Logger.new(nice_log_path)
-    self.nice_logger.info '[radio.nice] Nice log started.'
+    if !Rails.env.test?
+      attr_accessor :nice_logger
+      nice_log_path = Rails.root.join('log', "#{Rails.env}.nice.log")
+      self.nice_logger = Logger.new(nice_log_path)
+      self.nice_logger.info '[radio.nice] Nice log started.'
+    end
 
     def self.ireul_client
       unless IreulService.instance.configured
