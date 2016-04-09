@@ -63,6 +63,10 @@ class RadioController < ApplicationController
       nice_map[handle] += 1
       nice_voted_ips[request.remote_ip][handle] = true
 
+      log_entry = "[radio.nice] #{nice_map[handle]}\t#{track.artist}\t#{track.title}\t#{request.remote_ip}"
+      Rails.logger.info log_entry
+      IreulWeb::Application.nice_logger.info log_entry
+
       render json: {
         status: :ok,
         status_message: 'いいね～',

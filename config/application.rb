@@ -39,6 +39,10 @@ module IreulWeb
     self.nice_map = {}
     self.nice_voted_ips = {}
 
+    attr_accessor :nice_logger
+    self.nice_logger = Logger.new("#{Rails.root}/log/#{Rails.env}.nice.log")
+    self.nice_logger.info '[radio.nice] Nice log started.'
+
     def self.ireul_client
       unless IreulService.instance.configured
         IreulService.instance.configure do |i|
