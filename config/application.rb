@@ -40,7 +40,9 @@ module IreulWeb
     self.nice_voted_ips = {}
 
     attr_accessor :nice_logger
-    self.nice_logger = Logger.new(Rails.root.join('log', "#{Rails.env}.nice.log"))
+    nice_log_path = Rails.root.join('log', "#{Rails.env}.nice.log")
+    FileUtils.touch(nice_log_path)
+    self.nice_logger = Logger.new(nice_log_path)
     self.nice_logger.info '[radio.nice] Nice log started.'
 
     def self.ireul_client
