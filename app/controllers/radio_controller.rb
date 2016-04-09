@@ -63,7 +63,8 @@ class RadioController < ApplicationController
       nice_map[handle] += 1
       nice_voted_ips[request.remote_ip][handle] = true
 
-      log_entry = "[radio.nice] #{nice_map[handle]}\t#{track.artist}\t#{track.title}\t#{request.remote_ip}".force_encoding('UTF-8')
+      listeners = IreulWeb::Application.icecast_service.info[:listeners] || 0
+      log_entry = "[radio.nice] #{nice_map[handle]}\t#{listeners}\t#{track.artist}\t#{track.title}\t#{request.remote_ip}".force_encoding('UTF-8')
       Rails.logger.info log_entry
       IreulWeb::Application.nice_logger.info log_entry if !Rails.env.test?
 
