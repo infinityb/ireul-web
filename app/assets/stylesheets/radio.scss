@@ -181,7 +181,7 @@ div[data-react-class="Radio"] {
 	}
 
 	&:active {
-		transform-origin: 25% 50%;
+		transform-origin: 0.5rem 50%;
 		transform: scale(2.5);
 		transition: transform 0.4s cubic-bezier(0.680, -0.550, 0.265, 1.550);
 	}
