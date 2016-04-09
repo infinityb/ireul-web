@@ -38,20 +38,20 @@ class Radio extends React.Component {
 
         display: block;
         z-index: -1;
-        width: 25%;
-        height: 25%;
+        width: 20%;
+        height: 20%;
 
         background-repeat: no-repeat;
         background-position: center;
         background-origin: center;
         background-size: cover;
 
-        filter: blur(0.625rem) saturate(60%);
-        -webkit-filter: blur(0.625rem) saturate(60%);
+        filter: blur(0.5rem) saturate(60%);
+        -webkit-filter: blur(0.5rem) saturate(60%);
 
         will-change: background-image;
         transform-origin: top left;
-        transform: translateZ(0) scale(4);
+        transform: translateZ(0) scale(5);
         max-height: 100%;
       }
     `;
