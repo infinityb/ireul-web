@@ -87,7 +87,7 @@ class AudioPlayer extends React.Component {
           <CopyLink href={this.props.source} text="🔗" />
 
           <div className="listener-count" title="Current listeners">
-            {this.listenerCount(this.props)}
+            {`👤 ${this.props.streamInfo.icecast.listeners || '0'}`}
           </div>
 
           <NiceButton niceness={this.props.streamInfo.niceness} />
