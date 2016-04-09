@@ -111,7 +111,10 @@ class Radio extends React.Component {
       radio: {
         current: res.current,
         history: res.history,
-        icecast: res.icecast,
+        meta: {
+          icecast: res.icecast,
+          niceness: res.niceness
+        },
         timeOffset: Date.now() - Date.parse(res.time),
         upcoming: res.upcoming
       }
@@ -136,7 +139,7 @@ class Radio extends React.Component {
     const player = React.createElement(Player, {
       audioSrc: this.props.audioSrc,
       nowPlaying: this.state.radio.current || this.fallbackInfo,
-      streamInfo: this.state.radio.icecast,
+      streamInfo: this.state.radio.meta,
       timeOffset: this.state.radio.timeOffset
     });
 

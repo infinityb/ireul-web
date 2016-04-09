@@ -33,6 +33,12 @@ module IreulWeb
     self.handle_map = {}
     self.queue_watcher_sema = Mutex.new
 
+    # Nice counts are transient for now
+    attr_accessor :nice_map
+    attr_accessor :nice_voted_ips
+    self.nice_map = {}
+    self.nice_voted_ips = {}
+
     def self.ireul_client
       unless IreulService.instance.configured
         IreulService.instance.configure do |i|

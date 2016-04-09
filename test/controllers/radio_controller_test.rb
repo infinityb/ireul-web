@@ -41,6 +41,20 @@ class RadioControllerTest < ActionController::TestCase
       get :info
       assert_response :success
     end
+
+    test 'should nice' do
+      allow(NilClass).to receive(:handle)
+      post :nice
+      assert_response :success
+    end
+
+    test 'should increase niceness value' do
+      skip 'unimplemented'
+    end
+
+    test 'should increase niceness value only once for an IP per song' do
+      skip 'unimplemented'
+    end
   end
 
   class WithoutAuthorization < RadioControllerTest
@@ -70,6 +84,12 @@ class RadioControllerTest < ActionController::TestCase
 
     test 'should return info without authorization' do
       get :info
+      assert_response :success
+    end
+
+    test 'should nice without authorization' do
+      allow(NilClass).to receive(:handle)
+      post :nice
       assert_response :success
     end
   end

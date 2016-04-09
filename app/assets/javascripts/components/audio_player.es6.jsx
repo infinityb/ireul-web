@@ -53,6 +53,16 @@ class AudioPlayer extends React.Component {
     this.setState({ position });
   }
 
+  listenerCount(props) {
+    if (props.streamInfo
+      && props.streamInfo.icecast
+      && props.streamInfo.icecast.listeners) {
+      return `👤 ${props.streamInfo.icecast.listeners}`;
+    }
+
+    return '';
+  }
+
   render() {
     const audio = React.DOM.div({ className: 'audio-player-element' },
       React.DOM.audio({ ref: 'audioObject', preload: 'none' },
@@ -77,8 +87,10 @@ class AudioPlayer extends React.Component {
           <CopyLink href={this.props.source} text="🔗" />
 
           <div className="listener-count" title="Current listeners">
-            {this.props.streamInfo ? `👤 ${this.props.streamInfo.listeners}` : ''}
+            {this.listenerCount(this.props)}
           </div>
+
+          <NiceButton niceness={this.props.streamInfo.niceness} />
 
           <Slider
             min={0}
@@ -95,7 +107,7 @@ class AudioPlayer extends React.Component {
 }
 
 AudioPlayer.defaultProps = {
-  streamInfo: { listeners: '' }
+  streamInfo: { icecast: { listeners: '' }}
 };
 
 AudioPlayer.propTypes = {

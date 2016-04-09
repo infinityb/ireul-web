@@ -157,6 +157,36 @@ div[data-react-class="Radio"] {
 	}
 }
 
+.copy-link {
+	color: $color-gray;
+	// cursor: copy !important;
+}
+
+.listener-count {
+	color: $color-gray;
+	cursor: help;
+	margin-left: 1rem;
+}
+
+.nice-button {
+	@include no-select;
+
+	color: $color-gray;
+	cursor: pointer;
+	margin-left: 1rem;
+	transform: scale(1);
+
+	&:hover {
+		color: $color-flair;
+	}
+
+	&:active {
+		transform-origin: 25% 50%;
+		transform: scale(2.5);
+		transition: transform 0.4s cubic-bezier(0.680, -0.550, 0.265, 1.550);
+	}
+}
+
 .audio-player {
 	width: 100%;
 	display: flex;
@@ -187,17 +217,6 @@ div[data-react-class="Radio"] {
 
 		.time-info {
 			min-width: 5rem;
-		}
-
-		.copy-link {
-			color: $color-gray;
-			// cursor: copy !important;
-		}
-
-		.listener-count {
-			margin-left: 1rem;
-			color: $color-gray;
-			cursor: help;
 		}
 
 		.slider {

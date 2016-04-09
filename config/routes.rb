@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     post 'radio/enqueue/:id' => :enqueue
     post 'radio/request/:id' => :request_song
     post 'radio/skip' => :skip
+    post 'radio/nice' => :nice
   end
 
   controller :songs do
