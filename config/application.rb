@@ -43,7 +43,6 @@ module IreulWeb
       attr_accessor :nice_logger
       nice_log_path = Rails.root.join('log', "#{Rails.env}.nice.log")
       self.nice_logger = Logger.new(nice_log_path)
-      self.nice_logger.info '[radio.nice.system] Nice log started.'
     end
 
     def self.ireul_client
