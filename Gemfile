@@ -64,4 +64,4 @@ gem 'ogg', '0.0.5', git: 'https://github.com/infinityb/ruby-ogg.git'
 
 # Own fork of ireul ruby client, at least until it's its own repo/published
 # Bundler had a problem with finding the correct path for the gemspec
-gem 'ireul', '0.0.4', git: 'https://github.com/gyng/ireul.git', branch: 'gemspec'
+gem 'ireul', '0.0.5', git: 'https://github.com/gyng/ireul.git', branch: 'gemspec'

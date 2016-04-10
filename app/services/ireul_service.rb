@@ -62,8 +62,14 @@ class IreulService
 
   def enqueue(song)
     song_buf = open(song.file.path, 'rb').read
+
+    metadata = Ireul::Metadata::new
+    metadata << ['TITLE', song.title] if song.title
+    metadata << ['ARTIST', song.artist] if song.artist
+    metadata << ['X-IREUL-ID', song.id.to_s]
+
     @ireul_sema.synchronize do
-      handle = @ireul.enqueue(song_buf)
+      handle = @ireul.enqueue(song_buf, metadata)
       IreulWeb::Application.handle_map[handle.value] = song.id
     end
     # TODO: clean handle_map
