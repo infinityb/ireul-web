@@ -88,7 +88,12 @@ class IreulService
             # Optimise getting random song
             song = Song.offset(rand(Song.count)).first
             Rails.logger.info "[service.ireul] Queue empty, queuing song #{song.id}..."
-            enqueue(song)
+            begin
+              enqueue(song)
+            rescue Exception => e
+              Rails.logger.error "[service.ireul] Failed to queue song #{song.id}: #{e.inspect}"
+              Rails.logger.error "[service.ireul] #{e.backtrace}"
+            end
           end
           sleep 30
         end
@@ -97,8 +102,8 @@ class IreulService
   end
 
   def handle_conn_error(e)
-    Rails.logger.warn "[service.ireul] Failed to connect to Ireul: reconnecting...\n#{e.inspect}"
-    Rails.logger.warn "[service.ireul] #{e.backtrace.join("\n")}"
+    Rails.logger.warn "[service.ireul] Failed to connect to Ireul: reconnecting... #{e.inspect}"
+    Rails.logger.warn "[service.ireul] #{e.backtrace}"
     reconnect
     raise IreulConnError
   end
